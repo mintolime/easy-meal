@@ -69,15 +69,49 @@ function App() {
 
   const [recipe, setRecipe] = useState(initialRecipe.meals[0]);
 
-  const getRandomRecipe = () => {
-    fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-      .then((data) => data.json())
-      .then((randRecipe) => setRecipe(randRecipe.meals[0]));
-  };
+  // const getRandomRecipe = () => {
+  //   fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+  //     .then((data) => data.json())
+  //     .then((randRecipe) => {
+  //       const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
+  //       setRecipe(newRecipe);
+  //     });
+  // };
 
   // useEffect(() => {
   //   getRandomRecipe();
   // }, []);
+
+  const modifyRecipeObject = (value) => {
+    let ingredients = {};
+
+    for (let i = 1; i <= 50; i++) {
+      let ingredient = value[`strIngredient${i}`];
+      let measure = value[`strMeasure${i}`];
+      if (ingredient !== '') {
+        ingredients[ingredient] = measure;
+      } else {
+        break;
+      }
+    }
+
+    const newRecipe = {
+      mealName: value.strMeal,
+      mealId: value.idMeal,
+      youtubeLink: value.strYoutube,
+      imageLink: value.strMealThumb,
+      instructions: value.strInstructions,
+      ingredients
+    };
+
+    return newRecipe;
+  };
+
+  useEffect(() => {
+    setRecipe(modifyRecipeObject(recipe));
+  }, []);
+
+  console.log(recipe);
 
   return (
     <div>

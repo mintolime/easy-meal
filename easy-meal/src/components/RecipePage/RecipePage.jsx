@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 
 const RecipePage = ({ recipe }) => {
-  console.log(recipe.strMeal);
+  console.log(recipe.mealName);
   return (
     <div>
-      <h2>{recipe.strMeal}</h2>
+      <h2>{recipe.mealName}</h2>
     </div>
   );
 };
