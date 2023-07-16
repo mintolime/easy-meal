@@ -3,7 +3,7 @@
   width: 100%;
   display: grid;
   align-items: center;
-  font-family: "Martel Sans", sans-serif;
+  font-family: Martel Sans, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
