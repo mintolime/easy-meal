@@ -3,11 +3,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 38px;
+  padding: 12px 10px;
   box-sizing: border-box;
   border-bottom: #d4d7e5 1px solid;
 }
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   .header {
     padding: 12px 58px;
   }

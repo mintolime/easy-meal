@@ -2,9 +2,10 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  justify-items: center;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 34px 58px 21px;
+  padding: 20px;
   border-top: 1px solid #d4d7e5;
   box-sizing: border-box;
 }
@@ -25,6 +26,19 @@
   margin: 0;
 }
 
-.footer__link{
-    text-decoration: none;
+.footer__link {
+  text-decoration: none;
+}
+
+@media screen and (min-width: 320px) {
+  .footer {
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .footer {
+    padding: 30px 58px;
+    justify-content: space-between;
+  }
 }

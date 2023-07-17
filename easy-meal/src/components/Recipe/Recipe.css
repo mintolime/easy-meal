@@ -1,0 +1,111 @@
+.recipe {
+  padding: 30px 18px;
+  max-width: 440px;
+  display: grid;
+}
+
+.recipe__info {
+  min-height: 170px;
+  padding: 30px 12px 30px;
+  border-radius: 12px;
+  box-shadow: 0px 2px 8px 0px rgba(99, 99, 99, 0.2);
+  margin-bottom: 35px;
+}
+
+.recipe__image {
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  justify-self: center;
+  margin-bottom: 40px;
+}
+
+.recipe__ingredients {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.recipe__ingredients-quantity {
+  font-size: 16px;
+  color: #7c8491;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.recipe__ingreditent-container {
+  /* border: 1px solid blue; */
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.recipe__ingreditent-container:last-child {
+  border-bottom: none;
+}
+
+.recipe__buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe__ingreditent-name {
+  font-size: 20px;
+  margin: 0;
+}
+
+.recipe__ingreditent-measure {
+  font-size: 16px;
+  color: #7c8491;
+  margin: 0;
+}
+
+.recipe__icon-addtocart {
+  width: 25px;
+  height: 25px;
+}
+
+.recipe__icon-dice {
+  width: 28px;
+  height: 28px;
+  opacity: 0.7;
+}
+
+.recipe__icon-heart {
+  width: 30px;
+  height: 30px;
+  opacity: 0.8;
+}
+
+.recipe__meal-name {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.2;
+  text-align: center;
+  margin: 0;
+}
+
+.recipe__button-yt {
+  background-color: rgb(228, 119, 152);
+  padding: 6px;
+  border-radius: 7px;
+  width: 130px;
+  height: 36px;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .recipe {
+    padding: 30px 58px;
+    justify-content: space-between;
+  }
+}

@@ -2,7 +2,10 @@
   /* max-width: 1440px; */
   width: 100%;
   display: grid;
-  align-items: center;
+  /* align-items: center; */
+  /* Это, чтобы футер был внизу */
+  grid-template-rows: min-content auto min-content;
+  height: 100vh;
   font-family: Martel Sans, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

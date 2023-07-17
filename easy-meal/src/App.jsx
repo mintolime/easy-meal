@@ -32,7 +32,8 @@ function App() {
         strArea: 'British',
         strInstructions:
           'Heat oven to 190C/170C fan/gas 5. Tip the flour and sugar into a large bowl. Add the butter, then rub into the flour using your fingertips to make a light breadcrumb texture. Do not overwork it or the crumble will become heavy. Sprinkle the mixture evenly over a baking sheet and bake for 15 mins or until lightly coloured.\r\nMeanwhile, for the compote, peel, core and cut the apples into 2cm dice. Put the butter and sugar in a medium saucepan and melt together over a medium heat. Cook for 3 mins until the mixture turns to a light caramel. Stir in the apples and cook for 3 mins. Add the blackberries and cinnamon, and cook for 3 mins more. Cover, remove from the heat, then leave for 2-3 mins to continue cooking in the warmth of the pan.\r\nTo serve, spoon the warm fruit into an ovenproof gratin dish, top with the crumble mix, then reheat in the oven for 5-10 mins. Serve with vanilla ice cream.',
-        strMealThumb: 'https://www.themealdb.com/images/media/meals/xvsurr1511719182.jpg',
+        strMealThumb:
+          'https://www.themealdb.com/images/media/meals/xvsurr1511719182.jpg',
         strTags: 'Pudding',
         strYoutube: 'https://www.youtube.com/watch?v=4vhcOwVBDO4',
         strIngredient1: 'Plain Flour',
@@ -75,12 +76,13 @@ function App() {
         strMeasure18: '',
         strMeasure19: '',
         strMeasure20: '',
-        strSource: 'https://www.bbcgoodfood.com/recipes/778642/apple-and-blackberry-crumble',
+        strSource:
+          'https://www.bbcgoodfood.com/recipes/778642/apple-and-blackberry-crumble',
         strImageSource: null,
         strCreativeCommonsConfirmed: null,
-        dateModified: null,
-      },
-    ],
+        dateModified: null
+      }
+    ]
   };
 
   const [recipe, setRecipe] = useState(initialRecipe.meals[0]);
@@ -91,7 +93,10 @@ function App() {
       .then((randRecipe) => {
         const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
         setRecipe(newRecipe);
-        navigate('/recipe');
+
+        if (location.pathname !== '/recipe') {
+          navigate('/recipe');
+        }
       });
   };
 
@@ -100,14 +105,14 @@ function App() {
   // }, []);
 
   const modifyRecipeObject = (value) => {
-    let ingredients = {};
+    let ingredients = [];
 
     for (let i = 1; i <= 50; i++) {
       let ingredient = value[`strIngredient${i}`];
       let measure = value[`strMeasure${i}`];
 
       if (ingredient !== '') {
-        ingredients[ingredient] = measure;
+        ingredients.push({ ingredient, measure });
       } else {
         break;
       }
@@ -119,7 +124,7 @@ function App() {
       youtubeLink: value.strYoutube,
       imageLink: value.strMealThumb,
       instructions: value.strInstructions,
-      ingredients,
+      ingredients
     };
 
     return newRecipe;
@@ -141,11 +146,14 @@ function App() {
         <Route path="/" element={<Main getRecipe={getRecipeTemp} />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
-        <Route path="/recipe" element={<Recipe recipe={recipe} />} />
+        <Route
+          path="/recipe"
+          element={<Recipe recipe={recipe} getRandomRecipe={getRandomRecipe} />}
+        />
         <Route path="/saved-recipes" element={<SavedRecipes />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-     {footerView && <Footer />}
+      {footerView && <Footer />}
     </>
   );
 }

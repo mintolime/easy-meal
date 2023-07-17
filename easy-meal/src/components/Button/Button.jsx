@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import '../Button/Button.css';
 
 function Button({ btnClass, btnType, btnText, onClick }) {

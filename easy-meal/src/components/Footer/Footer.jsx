@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-import "./Footer.css";
+import { Link } from 'react-router-dom';
+import './Footer.css';
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer__creator">
         <p className="footer__creator_text">&#169;{new Date().getFullYear()}</p>
-        <p className="footer__creator_text">Made by Alveek &#38; mintolime</p>
+        <p className="footer__creator_text">Made by mintolime &#38; alveek</p>
       </div>
       <div className="footer__creator">
         <Link className="footer__link">
