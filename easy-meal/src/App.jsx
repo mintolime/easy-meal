@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import './App.css';
-import RecipePage from './components/RecipePage/RecipePage';
 
 function App() {
   const initialRecipe = {
@@ -69,14 +68,14 @@ function App() {
 
   const [recipe, setRecipe] = useState(initialRecipe.meals[0]);
 
-  // const getRandomRecipe = () => {
-  //   fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-  //     .then((data) => data.json())
-  //     .then((randRecipe) => {
-  //       const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
-  //       setRecipe(newRecipe);
-  //     });
-  // };
+  const getRandomRecipe = () => {
+    fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+      .then((data) => data.json())
+      .then((randRecipe) => {
+        const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
+        setRecipe(newRecipe);
+      });
+  };
 
   // useEffect(() => {
   //   getRandomRecipe();
@@ -111,14 +110,7 @@ function App() {
     setRecipe(modifyRecipeObject(recipe));
   }, []);
 
-  console.log(recipe);
-
-  return (
-    <div>
-      <h1>Main Page</h1>
-      <RecipePage recipe={recipe} />
-    </div>
-  );
+  return <></>;
 }
 
 export default App;
