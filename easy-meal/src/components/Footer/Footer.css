@@ -1,0 +1,30 @@
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 34px 58px 21px;
+  border-top: 1px solid #d4d7e5;
+  box-sizing: border-box;
+}
+
+.footer__creator {
+  display: flex;
+  gap: 10px;
+}
+
+.footer__creator_text {
+  font-family: Martel Sans, sans-serif;
+  color: #9093a6;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+}
+
+.footer__link{
+    text-decoration: none;
+}

@@ -1,6 +1,11 @@
+
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
-import './App.css';
+import "./App.css";
+import Footer from "./components/Footer/Footer";
+
+import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
 import RecipePage from './components/RecipePage/RecipePage';
 
 function App() {
@@ -113,11 +118,17 @@ function App() {
 
   console.log(recipe);
 
+  console.log("im update");
   return (
-    <div>
+    <>
+     <div>
       <h1>Main Page</h1>
       <RecipePage recipe={recipe} />
     </div>
+      <Header />
+      <Main />
+      <Footer />
+    </>
   );
 }
 
