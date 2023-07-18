@@ -6,7 +6,7 @@
 .page_404 {
   padding: 40px 0;
   background: #fff;
-  font-family: 'Arvo', serif;
+  font-family: "Inter", sans-serif;
   text-align: center;
 }
 
@@ -52,4 +52,4 @@
   text-decoration: none;
 }
 
-.page_404__contant_box_404 {}
+/* .page_404__contant_box_404 {} */

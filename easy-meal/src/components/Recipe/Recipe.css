@@ -124,8 +124,8 @@
   .recipe {
     max-width: 100%;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 270px 30px repeat(2, 1fr);
-    grid-column-gap: 30px;
+    grid-template-rows: 270px 30px 270px 1fr;
+    grid-column-gap: 70px;
   }
 
   .recipe__info {
