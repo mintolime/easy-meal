@@ -107,11 +107,11 @@ function App() {
   const modifyRecipeObject = (value) => {
     let ingredients = [];
 
-    for (let i = 1; i <= 50; i++) {
+    for (let i = 1; i <= 30; i++) {
       let ingredient = value[`strIngredient${i}`];
       let measure = value[`strMeasure${i}`];
 
-      if (ingredient !== '') {
+      if (ingredient !== '' && measure !== '') {
         ingredients.push({ ingredient, measure });
       } else {
         break;

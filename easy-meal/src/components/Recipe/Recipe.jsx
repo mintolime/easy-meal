@@ -31,7 +31,7 @@ const Recipe = ({ recipe, getRandomRecipe }) => {
           }
         />
       </div>
-      {/* Сделать попап для картинки? При клике, чтоб полностью изображение показывалось */}
+
       <img
         className="recipe__image"
         src={recipe.imageLink}
@@ -69,7 +69,7 @@ const Recipe = ({ recipe, getRandomRecipe }) => {
       </div>
 
       {showInstructions ? (
-        <p>{recipe.instructions}</p>
+        <p className="recipe__instructions">{recipe.instructions}</p>
       ) : (
         <ul className="recipe__ingredients">
           {recipe.ingredients?.map((item, index) => {
