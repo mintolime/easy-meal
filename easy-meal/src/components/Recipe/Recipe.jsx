@@ -37,7 +37,7 @@ const Recipe = ({ recipe, getRandomRecipe }) => {
         src={recipe.imageLink}
         alt={recipe.mealName}
       />
-      <div className="recipe__info">
+      <div className="recipe__info recipe__box-shabow">
         <h1 className="recipe__meal-name">{recipe.mealName}</h1>
         <p className="recipe__ingredients-quantity">
           {recipe.ingredients?.length} ингредиентов
@@ -69,12 +69,12 @@ const Recipe = ({ recipe, getRandomRecipe }) => {
       </div>
 
       {showInstructions ? (
-        <p className="recipe__instructions">{recipe.instructions}</p>
+        <p className="recipe__instructions recipe__box-shabow">{recipe.instructions}</p>
       ) : (
-        <ul className="recipe__ingredients">
+        <ul className="recipe__ingredients ">
           {recipe.ingredients?.map((item, index) => {
             return (
-              <li className="recipe__ingreditent-container" key={index}>
+              <li className="recipe__ingreditent-container recipe__box-shabow" key={index}>
                 <div className="recipe__ingreditent">
                   <p className="recipe__ingreditent-name">{item.ingredient}</p>
                   <p className="recipe__ingreditent-measure">{item.measure}</p>
