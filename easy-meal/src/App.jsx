@@ -11,12 +11,14 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import SavedRecipes from './components/SavedRecipes/SavedRecipes';
 import NotFound from './components/NotFound/NotFound';
+import ShoppingList from './components/ShoppingList/ShoppingList';
 import { footerRoutes, headerRoutes } from './utils/config';
 import { checkPath } from './utils/functions';
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // проверка для отображения
   const headerView = checkPath(headerRoutes, location);
@@ -87,6 +89,11 @@ function App() {
 
   const [recipe, setRecipe] = useState(initialRecipe.meals[0]);
 
+  // Временный тоггл стейта isLoggedIn
+  const toggleLoggedIn = () => {
+    setIsLoggedIn(!isLoggedIn);
+  };
+
   const getRandomRecipe = () => {
     fetch('https://www.themealdb.com/api/json/v1/1/random.php')
       .then((data) => data.json())
@@ -140,7 +147,7 @@ function App() {
 
   return (
     <>
-      {headerView && <Header />}
+      {headerView && <Header isLoggedIn={isLoggedIn} />}
 
       <Routes>
         <Route path="/" element={<Main getRecipe={getRecipeTemp} />} />
@@ -151,9 +158,15 @@ function App() {
           element={<Recipe recipe={recipe} getRandomRecipe={getRandomRecipe} />}
         />
         <Route path="/saved-recipes" element={<SavedRecipes />} />
+        <Route path="/shopping-list" element={<ShoppingList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {footerView && <Footer />}
+
+      <div className="temp-login">
+        <label htmlFor="login">isLoggedIn</label>
+        <input id="login" type="checkbox" onClick={toggleLoggedIn} />
+      </div>
     </>
   );
 }

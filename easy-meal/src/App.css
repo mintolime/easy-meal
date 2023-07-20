@@ -9,7 +9,7 @@
   /* Это, чтобы футер был внизу */
   grid-template-rows: min-content auto min-content;
   height: 100vh;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,4 +22,19 @@
   /* margin: 0 auto; */
   /* padding: 2rem; */
   /* text-align: center; */
+}
+
+.temp-login {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  gap: 10px;
+  background: crimson;
+  padding: 2px 4px;
+  opacity: 0.5;
+  color: #fff;
+  font-size: 10px;
+  z-index: 1000000;
 }

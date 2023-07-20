@@ -16,7 +16,7 @@
 }
 
 .footer__creator_text {
-  font-family: Martel Sans, sans-serif;
+  /* font-family: Martel Sans, sans-serif; */
   color: #9093a6;
   font-family: Inter;
   font-size: 12px;
@@ -28,6 +28,7 @@
 
 .footer__link {
   text-decoration: none;
+  color: #9093a6;
 }
 
 @media screen and (min-width: 320px) {

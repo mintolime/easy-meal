@@ -7,6 +7,49 @@
   box-sizing: border-box;
   border-bottom: #d4d7e5 1px solid;
 }
+
+.header__nav_tablet {
+  display: none;
+}
+
+/* это класс из Drawer */
+.ant-drawer-body {
+  text-align: center;
+  position: relative;
+}
+
+.header__link {
+  text-decoration: none;
+  margin-right: 14px;
+  color: #444;
+}
+
+.header__link:hover {
+  opacity: 0.8;
+}
+
+.header__link:last-child {
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .header__nav_desktop {
+    display: none;
+  }
+
+  .header__nav_tablet {
+    display: block;
+  }
+
+  .header__nav {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 18px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .header {
     padding: 12px 58px;
