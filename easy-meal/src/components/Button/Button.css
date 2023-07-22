@@ -50,6 +50,20 @@
   margin-left: 14px;
 }
 
+.button_type_login {
+  background-color: #9093A6;
+  display: inline-flex;
+  height: 50px;
+  padding: 16px 24px;
+  border-radius: 4px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 125%;
+  letter-spacing: 0.5px;
+}
+
 .button_type-addtocart {
   width: 20px;
   height: 20px;
