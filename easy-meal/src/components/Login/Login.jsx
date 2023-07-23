@@ -25,9 +25,9 @@ const Login = () => (
     autoComplete="off"
   >
     <h3 className="form__title">Вход</h3>
-
-    <Form.Item
-      className="form__inner"
+<fieldset className="form__box">
+<Form.Item
+      className="form__box_inner"
       name="email"
       label="E-mail"
       rules={[
@@ -45,13 +45,15 @@ const Login = () => (
     </Form.Item>
 
     <Form.Item
-      className="form__inner"
+      className="form__box_inner"
       label="Password"
       name="password"
       rules={[{ required: true, message: "Введите ваш пароль!" }]}
     >
       <Input.Password className="form__input" />
     </Form.Item>
+</fieldset>
+    
 
     <Button
       btnClass={"button_type_login"}
