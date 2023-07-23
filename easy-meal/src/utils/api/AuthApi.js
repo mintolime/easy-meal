@@ -1,4 +1,4 @@
-import { handleResponce } from "../functions";
+import { handleResponce } from '../functions';
 
 export class Auth {
   constructor({ url, headers }) {
@@ -6,29 +6,27 @@ export class Auth {
     this.headers = headers;
   }
 
-  register({email, password}) {
+  register({ email, password }) {
     return fetch(`${this.url}/signup`, {
-      method: "POST",
+      method: 'POST',
       headers: this.headers,
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password })
     }).then((res) => handleResponce(res));
   }
 
-  authorize({email, password}) {
+  authorize({ email, password }) {
     return fetch(`${this.url}/signin`, {
-      method: "POST",
+      method: 'POST',
       headers: this.headers,
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password })
     }).then((res) => handleResponce(res));
   }
 
   checkToken(token) {
-    return fetch(`${this.url}/me`, {
-      method: "GET",
-      headers: {
-        ...this.headers,
-        Authorization: `Bearer ${token}`,
-      },
+    console.log(`Bearer ${token}`);
+    return fetch(`${this.url}/users/me`, {
+      method: 'GET',
+      headers: this.headers
     }).then((res) => handleResponce(res));
   }
 }
