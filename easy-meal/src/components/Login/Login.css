@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 25px;
+  gap: 15px;
   padding: 40px;
   box-sizing: border-box;
 }
@@ -13,8 +13,14 @@
 .form__title {
   font-weight: 500;
   font-size: 25px;
+  margin: 0;
+  padding: 0 0 20px;
 }
 
-.form__imput {
+.form__input {
+  width: 30vh;
   margin: 0;
+}
+.form__inner{
+  height: 35px;
 }
