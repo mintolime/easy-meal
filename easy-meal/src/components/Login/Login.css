@@ -9,10 +9,9 @@
   padding: 40px;
   box-sizing: border-box;
 }
-.form__box{
- 
+.form__box {
   border: 0;
-  width: 60%;
+  width: 50%;
   padding: 0;
   margin: 0;
 }
@@ -22,12 +21,4 @@
   font-size: 25px;
   margin: 0;
   padding: 0 0 20px;
-}
-
-.form__input {
-  width: 30vh;
-  margin: 0;
-}
-.form__inner{
-  height: 35px;
 }

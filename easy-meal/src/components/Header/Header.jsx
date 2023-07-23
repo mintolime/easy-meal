@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import { Drawer } from 'antd';
 import { Link } from 'react-router-dom';
 
-function Header({ isLoggedIn }) {
+function Header({ isLoggedIn,onLogout }) {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -42,7 +42,7 @@ function Header({ isLoggedIn }) {
             <Link className="header__link" to="/shopping-list">
               Список покупок
             </Link>
-            <Button btnClass={'button_type_signout'} btnText={'Выйти'} />
+            <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
           </nav>
         )}
       </div>
@@ -70,7 +70,7 @@ function Header({ isLoggedIn }) {
               <Link className="header__link" to="/shopping-list">
                 Список покупок
               </Link>
-              <Button btnClass={'button_type_signout'} btnText={'Выйти'} />
+              <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
             </nav>
           )}
         </Drawer>

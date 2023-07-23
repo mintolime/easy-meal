@@ -2,15 +2,19 @@ import { Form, Input } from "antd";
 import "./Register.css";
 import Button from "../Button/Button";
 
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
 
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
+const Register = ({onRegister}) =>{
 
-const Register = () => (
+  const onFinish = (values) => {
+    onRegister(values)
+    console.log("Success:", values);
+  };
+  
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+  
+return (
   <Form
     className="form"
     name="basic"
@@ -25,14 +29,14 @@ const Register = () => (
     <h3 className="form__title">Регистрация</h3>
 
     <fieldset className="form__box">
-      <Form.Item
+      {/* <Form.Item
         className="form__box_inner"
         label="Username"
         name="username"
         rules={[{ required: true, message: "Введите ваше имя!" }]}
       >
         <Input className="form__input" />
-      </Form.Item>
+      </Form.Item> */}
 
       <Form.Item
         className="form__box_inner"
@@ -70,6 +74,6 @@ const Register = () => (
     />
     <Button />
   </Form>
-);
+)};
 
 export default Register;
