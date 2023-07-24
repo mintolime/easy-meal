@@ -38,3 +38,8 @@
   font-size: 10px;
   z-index: 1000000;
 }
+
+.page__flexbox-column{
+  display: flex;
+  flex-direction: column;
+}

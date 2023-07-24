@@ -132,11 +132,11 @@
   margin: 0;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 590px) {
   .recipe {
     max-width: 100%;
     /* grid-template-columns: 1fr 1fr; */
-    grid-template-columns: repeat(auto-fit, minmax(284px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(284px, 400px));
     grid-template-rows: 270px 30px 270px 1fr;
     grid-column-gap: 70px;
   }

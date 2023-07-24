@@ -16,7 +16,7 @@ const Login = ({ onLogin }) => {
   };
   return (
     <Form
-      className="form"
+      className="form page__flexbox-column"
       name="basic"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
@@ -27,7 +27,7 @@ const Login = ({ onLogin }) => {
       autoComplete="off"
     >
       <h3 className="form__title">Вход</h3>
-      <fieldset className="form__box">
+      <fieldset className="form__box page__flexbox-column">
         <Form.Item
           className="form__box_inner"
           name="email"

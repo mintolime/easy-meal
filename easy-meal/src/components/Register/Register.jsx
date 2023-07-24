@@ -16,7 +16,7 @@ const Register = ({onRegister}) =>{
   
 return (
   <Form
-    className="form"
+    className="form page__flexbox-column"
     name="basic"
     labelCol={{ span: 8 }}
     wrapperCol={{ span: 16 }}
