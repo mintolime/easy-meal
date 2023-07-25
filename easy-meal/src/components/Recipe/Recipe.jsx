@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react';
 
 import './Recipe.css';
 import Button from '../Button/Button';
-import heart from '../../images/heart_icon.svg';
+import heart from '../../images/icon__heart.svg';
+import heartLiked from '../../images/icon__heart_liked.svg';
 import dice from '../../images/dice_icon.svg';
 import AddToCart from '../../images/cart.svg';
 
-const Recipe = ({ recipe, getRandomRecipe }) => {
+const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
   const [showInstructions, setShowInstructions] = useState(false);
+  const isLiked = likedRecipes.some((r) => r.mealId === recipe.mealId);
+  const likedRecipe = likedRecipes.find((r) => r.mealId === recipe.mealId);
 
   // Почему-то при переходе с главной страницы на рецепты попадаешь в конец,
   // поэтому добавил принудильный скролл наверх
@@ -27,7 +30,14 @@ const Recipe = ({ recipe, getRandomRecipe }) => {
         />
         <Button
           btnText={
-            <img className="recipe__icon-heart" src={heart} alt="heart icon" />
+            <img
+              className="recipe__icon-heart"
+              src={isLiked ? heartLiked : heart}
+              alt="heart icon"
+              onClick={() => {
+                saveRecipe(recipe, likedRecipe?._id, isLiked);
+              }}
+            />
           }
         />
       </div>
@@ -69,12 +79,17 @@ const Recipe = ({ recipe, getRandomRecipe }) => {
       </div>
 
       {showInstructions ? (
-        <p className="recipe__instructions recipe__box-shabow">{recipe.instructions}</p>
+        <p className="recipe__instructions recipe__box-shabow">
+          {recipe.instructions}
+        </p>
       ) : (
         <ul className="recipe__ingredients ">
           {recipe.ingredients?.map((item, index) => {
             return (
-              <li className="recipe__ingreditent-container recipe__box-shabow" key={index}>
+              <li
+                className="recipe__ingreditent-container recipe__box-shabow"
+                key={index}
+              >
                 <div className="recipe__ingreditent">
                   <p className="recipe__ingreditent-name">{item.ingredient}</p>
                   <p className="recipe__ingreditent-measure">{item.measure}</p>

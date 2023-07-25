@@ -1,0 +1,9 @@
+.saved-recipes {
+  padding: 12px 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .saved-recipes {
+    padding: 12px 58px;
+  }
+}

@@ -22,8 +22,7 @@ export class Auth {
     }).then((res) => handleResponce(res));
   }
 
-  checkToken(token) {
-    console.log(`Bearer ${token}`);
+  checkToken() {
     return fetch(`${this.url}/users/me`, {
       method: 'GET',
       headers: this.headers

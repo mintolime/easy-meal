@@ -15,40 +15,56 @@ import ShoppingList from './components/ShoppingList/ShoppingList';
 import { API_BACKEND, footerRoutes, headerRoutes } from './utils/config';
 import { checkPath } from './utils/functions';
 import { Auth } from './utils/api/AuthApi';
-import { initialRecipe } from './utils/constants';
+import { MainApi } from './utils/api/MainApi';
+import { initialRecipes } from './utils/constants';
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log('state login', isLoggedIn);
+  // console.log('state login', isLoggedIn);
+
   // проверка для отображения
   const headerView = checkPath(headerRoutes, location);
   const footerView = checkPath(footerRoutes, location);
 
-  const [recipe, setRecipe] = useState(initialRecipe.meals[0]);
+  const [recipe, setRecipe] = useState([]);
+  const [likedRecipes, setLikedRecipes] = useState([]);
 
   // Временный тоггл стейта isLoggedIn
   const toggleLoggedIn = () => {
     setIsLoggedIn(!isLoggedIn);
   };
 
+  // const getRandomRecipe = () => {
+  //   fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+  //     .then((data) => data.json())
+  //     .then((randRecipe) => {
+  //       console.log(randRecipe);
+  //       const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
+  //       setRecipe(newRecipe);
+
+  //       if (location.pathname !== '/recipe') {
+  //         navigate('/recipe');
+  //       }
+  //     });
+  // };
+
+  // Временно только 10 рецептов передаются из initialRecipes
   const getRandomRecipe = () => {
-    fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-      .then((data) => data.json())
-      .then((randRecipe) => {
-        const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
-        setRecipe(newRecipe);
+    const index = Math.floor(Math.random() * (initialRecipes.meals.length - 1));
+    const randomRecipe = initialRecipes.meals[index];
+    const modifiedRecipe = modifyRecipeObject(randomRecipe);
+    if (modifiedRecipe.mealId == recipe.mealId) {
+      getRandomRecipe();
+    } else {
+      setRecipe(modifiedRecipe);
 
-        if (location.pathname !== '/recipe') {
-          navigate('/recipe');
-        }
-      });
+      if (location.pathname !== '/recipe') {
+        navigate('/recipe');
+      }
+    }
   };
-
-  // useEffect(() => {
-  //   getRandomRecipe();
-  // }, []);
 
   const modifyRecipeObject = (value) => {
     let ingredients = [];
@@ -77,10 +93,10 @@ function App() {
   };
 
   useEffect(() => {
-    setRecipe(modifyRecipeObject(recipe));
+    getRandomRecipe();
   }, []);
 
-  const getRecipeTemp = () => {
+  const getRecipe = () => {
     navigate('/recipe');
   };
 
@@ -93,6 +109,21 @@ function App() {
     }
   });
 
+  const mainApi = new MainApi({
+    url: API_BACKEND,
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('jwt')}`
+    }
+  });
+
+  useEffect(() => {
+    isLoggedIn &&
+      mainApi.getSavedRecipes().then((recipes) => {
+        setLikedRecipes(recipes);
+      });
+  }, [isLoggedIn]);
+
   React.useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
@@ -101,7 +132,7 @@ function App() {
         .checkToken(jwt)
         .then(() => {
           setIsLoggedIn(true);
-          navigate('/', { replace: true });
+          navigate(location.pathname, { replace: true });
         })
         .catch((err) => {
           console.log(
@@ -154,12 +185,28 @@ function App() {
     setIsLoggedIn(false);
   };
 
+  console.log(likedRecipes);
+
+  // --- Recipes API methods ---
+  const handleSaveRecipe = (recipe, id, isLiked) => {
+    if (!isLiked) {
+      mainApi.saveRecipe(recipe);
+      setLikedRecipes([...likedRecipes, recipe]);
+    } else {
+      mainApi.deleteRecipe(id);
+      const updatedLikedRecipes = likedRecipes.filter(
+        (r) => r.mealId !== recipe.mealId
+      );
+      setLikedRecipes(updatedLikedRecipes);
+    }
+  };
+
   return (
     <>
       {headerView && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
 
       <Routes>
-        <Route path="/" element={<Main getRecipe={getRecipeTemp} />} />
+        <Route path="/" element={<Main getRecipe={getRecipe} />} />
         <Route
           path="/signup"
           element={<Register onRegister={handleRegistration} />}
@@ -170,9 +217,19 @@ function App() {
         />
         <Route
           path="/recipe"
-          element={<Recipe recipe={recipe} getRandomRecipe={getRandomRecipe} />}
+          element={
+            <Recipe
+              recipe={recipe}
+              likedRecipes={likedRecipes}
+              getRandomRecipe={getRandomRecipe}
+              saveRecipe={handleSaveRecipe}
+            />
+          }
         />
-        <Route path="/saved-recipes" element={<SavedRecipes />} />
+        <Route
+          path="/saved-recipes"
+          element={<SavedRecipes likedRecipes={likedRecipes} />}
+        />
         <Route path="/shopping-list" element={<ShoppingList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
