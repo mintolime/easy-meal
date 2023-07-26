@@ -185,20 +185,24 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  console.log(likedRecipes);
-
   // --- Recipes API methods ---
   const handleSaveRecipe = (recipe, id, isLiked) => {
     if (!isLiked) {
-      mainApi.saveRecipe(recipe);
-      setLikedRecipes([...likedRecipes, recipe]);
+      mainApi.saveRecipe(recipe).then((newRecipe) => {
+        setLikedRecipes([...likedRecipes, newRecipe]);
+      });
     } else {
-      mainApi.deleteRecipe(id);
+      handleDeleteRecipe(id);
+    }
+  };
+
+  const handleDeleteRecipe = (id) => {
+    mainApi.deleteRecipe(id).then((res) => {
       const updatedLikedRecipes = likedRecipes.filter(
-        (r) => r.mealId !== recipe.mealId
+        (r) => r.mealId !== res.mealId
       );
       setLikedRecipes(updatedLikedRecipes);
-    }
+    });
   };
 
   return (
@@ -228,7 +232,12 @@ function App() {
         />
         <Route
           path="/saved-recipes"
-          element={<SavedRecipes likedRecipes={likedRecipes} />}
+          element={
+            <SavedRecipes
+              likedRecipes={likedRecipes}
+              deleteRecipe={handleDeleteRecipe}
+            />
+          }
         />
         <Route path="/shopping-list" element={<ShoppingList />} />
         <Route path="*" element={<NotFound />} />
