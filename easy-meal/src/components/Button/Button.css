@@ -51,7 +51,7 @@
 }
 
 .button_type_login {
-  background-color: #9093A6;
+  background-color: #9093a6;
   display: inline-flex;
   height: 50px;
   padding: 16px 24px;
@@ -94,5 +94,6 @@
     bottom: 30px;
     transform: translateX(50%);
     width: calc(100% - 70px);
+    padding: 14px 0;
   }
 }

@@ -31,11 +31,6 @@ function App() {
   const [recipe, setRecipe] = useState([]);
   const [likedRecipes, setLikedRecipes] = useState([]);
 
-  // Временный тоггл стейта isLoggedIn
-  const toggleLoggedIn = () => {
-    setIsLoggedIn(!isLoggedIn);
-  };
-
   // const getRandomRecipe = () => {
   //   fetch('https://www.themealdb.com/api/json/v1/1/random.php')
   //     .then((data) => data.json())
@@ -49,6 +44,11 @@ function App() {
   //       }
   //     });
   // };
+
+  const handleSetRecipe = (newRecipe) => {
+    setRecipe(newRecipe);
+    navigate('/recipe');
+  };
 
   // Временно только 10 рецептов передаются из initialRecipes
   const getRandomRecipe = () => {
@@ -83,6 +83,7 @@ function App() {
     const newRecipe = {
       mealName: value.strMeal,
       mealId: value.idMeal,
+      mealCategory: value.strCategory,
       youtubeLink: value.strYoutube,
       imageLink: value.strMealThumb,
       instructions: value.strInstructions,
@@ -235,7 +236,8 @@ function App() {
           element={
             <SavedRecipes
               likedRecipes={likedRecipes}
-              deleteRecipe={handleDeleteRecipe}
+              onDeleteRecipe={handleDeleteRecipe}
+              onSetRecipe={handleSetRecipe}
             />
           }
         />
@@ -243,11 +245,6 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       {footerView && <Footer />}
-
-      <div className="temp-login">
-        <label htmlFor="login">isLoggedIn</label>
-        <input id="login" type="checkbox" onClick={toggleLoggedIn} />
-      </div>
     </>
   );
 }

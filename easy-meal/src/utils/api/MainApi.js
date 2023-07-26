@@ -18,6 +18,7 @@ export class MainApi {
       body: JSON.stringify({
         mealId: recipe.mealId,
         mealName: recipe.mealName,
+        mealCategory: recipe.mealCategory,
         instructions: recipe.instructions,
         imageLink: recipe.imageLink,
         youtubeLink: recipe.youtubeLink,

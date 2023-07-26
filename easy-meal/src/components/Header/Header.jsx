@@ -57,10 +57,18 @@ function Header({ isLoggedIn, onLogout }) {
         <Drawer title="Меню" placement="right" onClose={onClose} open={open}>
           {!isLoggedIn && (
             <nav className="header__nav header__nav-unauthorized">
-              <Link onClick={onClose} className="header__link" to="/signup">
+              <Link
+                onClick={onClose}
+                className="header__link header__link-drawer"
+                to="/signup"
+              >
                 Регистрация
               </Link>
-              <Link onClick={onClose} className="header__link" to="/signin">
+              <Link
+                onClick={onClose}
+                className="header__link header__link-drawer"
+                to="/signin"
+              >
                 Войти
               </Link>
             </nav>
@@ -70,14 +78,14 @@ function Header({ isLoggedIn, onLogout }) {
             <nav className="header__nav header__nav-authorized">
               <Link
                 onClick={onClose}
-                className="header__link"
+                className="header__link header__link-drawer"
                 to="/saved-recipes"
               >
                 Избранное
               </Link>
               <Link
                 onClick={onClose}
-                className="header__link"
+                className="header__link header__link-drawer"
                 to="/shopping-list"
               >
                 Список покупок

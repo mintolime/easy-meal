@@ -1,9 +1,57 @@
 .saved-recipes {
-  padding: 12px 10px;
+  padding: 0 10px;
+}
+
+.saved-recipes__container {
+  position: relative;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 500px;
+  list-style: none;
+}
+
+.saved-recipes__card {
+  display: grid;
+  grid-template-columns: max-content auto max-content;
+  grid-template-rows: 30px;
+  grid-template-areas:
+    'image title     trash'
+    'image category  trash';
+  margin-top: 20px;
+}
+
+.saved-recipes__card-title {
+  grid-area: title;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.saved-recipes__card-image {
+  grid-area: image;
+  width: 70px;
+  border-radius: 5px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.saved-recipes__card-trash {
+  grid-area: trash;
+  align-self: end;
+}
+
+.saved-recipes__card-category {
+  grid-area: category;
+  margin: 0;
 }
 
 @media screen and (min-width: 768px) {
   .saved-recipes {
-    padding: 12px 58px;
+    padding: 0 58px;
   }
 }
