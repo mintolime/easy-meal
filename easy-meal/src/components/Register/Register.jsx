@@ -28,7 +28,7 @@ return (
   >
     <h3 className="form__title">Регистрация</h3>
 
-    <fieldset className="form__box">
+    <fieldset className="form__box page__flexbox-column">
       {/* <Form.Item
         className="form__box_inner"
         label="Username"
