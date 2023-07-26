@@ -59,10 +59,6 @@ function App() {
       getRandomRecipe();
     } else {
       setRecipe(modifiedRecipe);
-
-      if (location.pathname !== '/recipe') {
-        navigate('/recipe');
-      }
     }
   };
 
