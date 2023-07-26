@@ -13,6 +13,11 @@ const recipeSchema = new mongoose.Schema(
       required: true,
     },
 
+    mealCategory: {
+      type: String,
+      required: true,
+    },
+
     instructions: {
       type: String,
       required: true,

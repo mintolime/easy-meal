@@ -43,11 +43,11 @@ const createRecipe = (req, res, next) => {
 };
 
 const deleteRecipe = (req, res, next) => {
-  const recipId = req.params._id;
+  const recipeId = req.params._id;
   const ownerId = req.user._id;
 
   Recipe.findByIdAndUpdate(
-    recipId,
+    recipeId,
     { $pull: { owner: ownerId } },
     { new: true, runValidators: true }
   )
