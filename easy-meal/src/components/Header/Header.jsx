@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import { Drawer } from 'antd';
 import { Link } from 'react-router-dom';
 
-function Header({ isLoggedIn,onLogout }) {
+function Header({ isLoggedIn, onLogout }) {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -42,7 +42,11 @@ function Header({ isLoggedIn,onLogout }) {
             <Link className="header__link" to="/shopping-list">
               Список покупок
             </Link>
-            <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
+            <Button
+              btnClass={'button_type_signout'}
+              btnText={'Выйти'}
+              onClick={onLogout}
+            />
           </nav>
         )}
       </div>
@@ -53,10 +57,18 @@ function Header({ isLoggedIn,onLogout }) {
         <Drawer title="Меню" placement="right" onClose={onClose} open={open}>
           {!isLoggedIn && (
             <nav className="header__nav header__nav-unauthorized">
-              <Link className="header__link" to="/signup">
+              <Link
+                onClick={onClose}
+                className="header__link header__link-drawer"
+                to="/signup"
+              >
                 Регистрация
               </Link>
-              <Link className="header__link" to="/signin">
+              <Link
+                onClick={onClose}
+                className="header__link header__link-drawer"
+                to="/signin"
+              >
                 Войти
               </Link>
             </nav>
@@ -64,13 +76,28 @@ function Header({ isLoggedIn,onLogout }) {
 
           {isLoggedIn && (
             <nav className="header__nav header__nav-authorized">
-              <Link className="header__link" to="/saved-recipes">
+              <Link
+                onClick={onClose}
+                className="header__link header__link-drawer"
+                to="/saved-recipes"
+              >
                 Избранное
               </Link>
-              <Link className="header__link" to="/shopping-list">
+              <Link
+                onClick={onClose}
+                className="header__link header__link-drawer"
+                to="/shopping-list"
+              >
                 Список покупок
               </Link>
-              <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
+              <Button
+                btnClass={'button_type_signout'}
+                btnText={'Выйти'}
+                onClick={() => {
+                  onLogout();
+                  onClose();
+                }}
+              />
             </nav>
           )}
         </Drawer>

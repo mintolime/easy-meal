@@ -1,22 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import "./App.css";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import Recipe from "./components/Recipe/Recipe";
-import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
-import SavedRecipes from "./components/SavedRecipes/SavedRecipes";
-import NotFound from "./components/NotFound/NotFound";
-import ShoppingList from "./components/ShoppingList/ShoppingList";
-import { API_BACKEND, footerRoutes, headerRoutes } from "./utils/config";
-import { checkPath } from "./utils/functions";
-import { Auth } from "./utils/api/AuthApi";
-import { initialRecipe } from "./utils/constants";
-import Loader from "./components/Loader/Loader";
+import './App.css';
+import Loader from './components/Loader/Loader';
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
+import Main from './components/Main/Main';
+import Recipe from './components/Recipe/Recipe';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
+import SavedRecipes from './components/SavedRecipes/SavedRecipes';
+import NotFound from './components/NotFound/NotFound';
+import ShoppingList from './components/ShoppingList/ShoppingList';
+import { API_BACKEND, footerRoutes, headerRoutes } from './utils/config';
+import { checkPath } from './utils/functions';
+import { Auth } from './utils/api/AuthApi';
+import { MainApi } from './utils/api/MainApi';
+import { initialRecipes } from './utils/constants';
 
 function App() {
   const location = useLocation();
@@ -27,29 +28,39 @@ function App() {
   const headerView = checkPath(headerRoutes, location);
   const footerView = checkPath(footerRoutes, location);
 
-  const [recipe, setRecipe] = useState(initialRecipe.meals[0]);
+  const [recipe, setRecipe] = useState([]);
+  const [likedRecipes, setLikedRecipes] = useState([]);
 
-  // Временный тоггл стейта isLoggedIn
-  const toggleLoggedIn = () => {
-    setIsLoggedIn(!isLoggedIn);
+  // const getRandomRecipe = () => {
+  //   fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+  //     .then((data) => data.json())
+  //     .then((randRecipe) => {
+  //       console.log(randRecipe);
+  //       const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
+  //       setRecipe(newRecipe);
+
+  //       if (location.pathname !== '/recipe') {
+  //         navigate('/recipe');
+  //       }
+  //     });
+  // };
+
+  const handleSetRecipe = (newRecipe) => {
+    setRecipe(newRecipe);
+    navigate('/recipe');
   };
 
+  // Временно только 10 рецептов передаются из initialRecipes
   const getRandomRecipe = () => {
-    fetch("https://www.themealdb.com/api/json/v1/1/random.php")
-      .then((data) => data.json())
-      .then((randRecipe) => {
-        const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
-        setRecipe(newRecipe);
-
-        if (location.pathname !== "/recipe") {
-          navigate("/recipe");
-        }
-      });
+    const index = Math.floor(Math.random() * (initialRecipes.meals.length - 1));
+    const randomRecipe = initialRecipes.meals[index];
+    const modifiedRecipe = modifyRecipeObject(randomRecipe);
+    if (modifiedRecipe.mealId == recipe.mealId) {
+      getRandomRecipe();
+    } else {
+      setRecipe(modifiedRecipe);
+    }
   };
-
-  // useEffect(() => {
-  //   getRandomRecipe();
-  // }, []);
 
   const modifyRecipeObject = (value) => {
     let ingredients = [];
@@ -58,7 +69,7 @@ function App() {
       let ingredient = value[`strIngredient${i}`];
       let measure = value[`strMeasure${i}`];
 
-      if (ingredient !== "" && measure !== "") {
+      if (ingredient !== '' && measure !== '') {
         ingredients.push({ ingredient, measure });
       } else {
         break;
@@ -68,48 +79,63 @@ function App() {
     const newRecipe = {
       mealName: value.strMeal,
       mealId: value.idMeal,
+      mealCategory: value.strCategory,
       youtubeLink: value.strYoutube,
       imageLink: value.strMealThumb,
       instructions: value.strInstructions,
-      ingredients,
+      ingredients
     };
 
     return newRecipe;
   };
 
   useEffect(() => {
-    setRecipe(modifyRecipeObject(recipe));
+    getRandomRecipe();
   }, []);
 
-  const getRecipeTemp = () => {
-    navigate("/recipe");
+  const getRecipe = () => {
+    navigate('/recipe');
   };
 
   // API //
   const apiAuth = new Auth({
     url: API_BACKEND,
     headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    },
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('jwt')}`
+    }
   });
-  // проверка токена
+
+  const mainApi = new MainApi({
+    url: API_BACKEND,
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('jwt')}`
+    }
+  });
+
+  useEffect(() => {
+    isLoggedIn &&
+      mainApi.getSavedRecipes().then((recipes) => {
+        setLikedRecipes(recipes);
+      });
+  }, [isLoggedIn]);
+
   React.useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem('jwt');
     //обертка функция
     const delayedCheckToken = () => {
       apiAuth
         .checkToken(jwt)
         .then(() => {
           setIsLoggedIn(true);
-          setIsLoading(false);
-          navigate("/", { replace: true });
+          navigate(location.pathname, { replace: true });
         })
         .catch((err) => {
           if (err.status === 401) {
             setIsLoading(false);
-            localStorage.removeItem("jwt");
-            navigate("/signin", { replace: true });
+            localStorage.removeItem('jwt');
+            navigate('/signin', { replace: true });
           }
           console.log(
             `Что-то пошло не так: ошибка запроса статус ${err.status}, 
@@ -130,7 +156,7 @@ function App() {
     return apiAuth
       .register(data)
       .then((res) => {
-        navigate("/signin", { replace: true });
+        navigate('/signin', { replace: true });
       })
       .catch((err) => {
         console.log(
@@ -144,8 +170,8 @@ function App() {
       .authorize(data)
       .then((data) => {
         setIsLoggedIn(true);
-        localStorage.setItem("jwt", data.token);
-        navigate("/", { replace: true });
+        localStorage.setItem('jwt', data.token);
+        navigate('/', { replace: true });
       })
       .catch((err) => {
         console.log(
@@ -158,19 +184,40 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("jwt");
-    navigate("/signin", { replace: true });
+    localStorage.removeItem('jwt');
+    navigate('/signin', { replace: true });
     setIsLoggedIn(false);
+  };
+
+  // --- Recipes API methods ---
+  const handleSaveRecipe = (recipe, id, isLiked) => {
+    if (!isLiked) {
+      mainApi.saveRecipe(recipe).then((newRecipe) => {
+        setLikedRecipes([...likedRecipes, newRecipe]);
+      });
+    } else {
+      handleDeleteRecipe(id);
+    }
+  };
+
+  const handleDeleteRecipe = (id) => {
+    mainApi.deleteRecipe(id).then((res) => {
+      const updatedLikedRecipes = likedRecipes.filter(
+        (r) => r.mealId !== res.mealId
+      );
+      setLikedRecipes(updatedLikedRecipes);
+    });
   };
 
   return (
     <>
       {headerView && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
+
       {isLoading ? (
         <Loader />
       ) : (
         <Routes>
-          <Route path="/" element={<Main getRecipe={getRecipeTemp} />} />
+          <Route path="/" element={<Main getRecipe={getRecipe} />} />
           <Route
             path="/signup"
             element={<Register onRegister={handleRegistration} />}
@@ -182,19 +229,29 @@ function App() {
           <Route
             path="/recipe"
             element={
-              <Recipe recipe={recipe} getRandomRecipe={getRandomRecipe} />
+              <Recipe
+                recipe={recipe}
+                likedRecipes={likedRecipes}
+                getRandomRecipe={getRandomRecipe}
+                saveRecipe={handleSaveRecipe}
+              />
             }
           />
-          <Route path="/saved-recipes" element={<SavedRecipes />} />
+          <Route
+            path="/saved-recipes"
+            element={
+              <SavedRecipes
+                likedRecipes={likedRecipes}
+                onDeleteRecipe={handleDeleteRecipe}
+                onSetRecipe={handleSetRecipe}
+              />
+            }
+          />
           <Route path="/shopping-list" element={<ShoppingList />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}
       {footerView && <Footer />}
-      <div className="temp-login">
-        <label htmlFor="login">isLoggedIn</label>
-        <input id="login" type="checkbox" onClick={toggleLoggedIn} />
-      </div>
     </>
   );
 }

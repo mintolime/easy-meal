@@ -12,6 +12,10 @@
   display: none;
 }
 
+.header__link-drawer {
+  font-size: 25px;
+}
+
 /* это класс из Drawer */
 .ant-drawer-body {
   text-align: center;

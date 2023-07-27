@@ -8,12 +8,11 @@
   /* padding: 30px 58px; */
   margin: 0 auto;
 }
-/* замиксовала стили, чтобы добавлять к разным блокам */
+/* замиксовала стили, чтобы добавлять к разным блокам <3 */
 .recipe__box-shabow {
-  padding: 30px 12px 30px;
+  padding: 20px 14px;
   border-radius: 12px;
   box-shadow: 0px 2px 8px 0px rgba(99, 99, 99, 0.2);
-  box-sizing: border-box;
 }
 
 .recipe__info {
