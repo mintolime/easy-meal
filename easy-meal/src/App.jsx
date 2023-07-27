@@ -129,6 +129,7 @@ function App() {
         .checkToken(jwt)
         .then(() => {
           setIsLoggedIn(true);
+          setIsLoading(false);
           navigate(location.pathname, { replace: true });
         })
         .catch((err) => {
