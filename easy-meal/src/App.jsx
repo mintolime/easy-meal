@@ -24,7 +24,7 @@ function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isEmailUser, setIsEmailUser] = useState({ email: '' });
+  const [isEmailUser, setIsEmailUser] = useState('');
   // проверка для отображения
   const headerView = checkPath(headerRoutes, location);
   const footerView = checkPath(footerRoutes, location);
@@ -128,9 +128,10 @@ function App() {
     const delayedCheckToken = () => {
       apiAuth
         .checkToken(jwt)
-        .then(() => {
+        .then((res) => {
           setIsLoggedIn(true);
           setIsLoading(false);
+           setIsEmailUser(res.email);
           navigate(location.pathname, { replace: true });
         })
         .catch((err) => {
@@ -172,7 +173,10 @@ function App() {
       .authorize(data)
       .then((data) => {
         setIsLoggedIn(true);
-        console.log(data);
+        apiAuth.checkToken(data.token).then((res) => {
+          setIsEmailUser(data.email);
+        });
+
         localStorage.setItem('jwt', data.token);
         navigate('/', { replace: true });
       })
@@ -212,7 +216,9 @@ function App() {
 
   return (
     <>
-      {headerView && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
+      {headerView && (
+        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} isEmailUser={isEmailUser} />
+      )}
 
       {isLoading ? (
         <Loader />
