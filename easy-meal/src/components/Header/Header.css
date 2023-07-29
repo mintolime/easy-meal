@@ -16,6 +16,13 @@
   font-size: 25px;
 }
 
+.header__profile {
+  display: inline;
+  margin-right: 14px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
 /* это класс из Drawer */
 .ant-drawer-body {
   text-align: center;
@@ -26,6 +33,10 @@
   text-decoration: none;
   margin-right: 14px;
   color: #444;
+}
+
+.header__link:hover {
+  color: rgb(233, 169, 86);
 }
 
 .header__link:hover {
@@ -51,6 +62,10 @@
     flex-direction: column;
     gap: 14px;
     font-size: 18px;
+  }
+
+  .header__profile {
+    font-size: 20px;
   }
 }
 
