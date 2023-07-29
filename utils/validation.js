@@ -37,7 +37,7 @@ const createRecipeValidation = {
         'any.required': 'Поле не должно быть пустым',
       })
       .required(),
-      mealCategory: Joi.string()
+    mealCategory: Joi.string()
       .messages({
         'any.required': 'Поле не должно быть пустым',
       })

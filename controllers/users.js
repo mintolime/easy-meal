@@ -66,7 +66,7 @@ const login = (req, res, next) => {
         const token = jwt.sign({ _id: user._id }, config.jwtSecret, {
           expiresIn: '7d',
         });
-        return res.send({ token });
+        return res.send({ token, email });
       });
     })
     .catch(next);
