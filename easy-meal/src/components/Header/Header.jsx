@@ -35,19 +35,19 @@ function Header({ isLoggedIn, onLogout }) {
         )}
 
         {isLoggedIn && (
-          <nav className="header__nav header__nav-authorized">
-            <Link className="header__link" to="/saved-recipes">
-              Избранное
-            </Link>
-            <Link className="header__link" to="/shopping-list">
-              Список покупок
-            </Link>
-            <Button
-              btnClass={'button_type_signout'}
-              btnText={'Выйти'}
-              onClick={onLogout}
-            />
-          </nav>
+          <>
+
+            <nav className="header__nav header__nav-authorized">
+            <p className="header__profile">Email</p>
+              <Link className="header__link" to="/saved-recipes">
+                Избранное
+              </Link>
+              <Link className="header__link" to="/shopping-list">
+                Список покупок
+              </Link>
+              <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
+            </nav>
+          </>
         )}
       </div>
 
@@ -57,18 +57,10 @@ function Header({ isLoggedIn, onLogout }) {
         <Drawer title="Меню" placement="right" onClose={onClose} open={open}>
           {!isLoggedIn && (
             <nav className="header__nav header__nav-unauthorized">
-              <Link
-                onClick={onClose}
-                className="header__link header__link-drawer"
-                to="/signup"
-              >
+              <Link onClick={onClose} className="header__link header__link-drawer" to="/signup">
                 Регистрация
               </Link>
-              <Link
-                onClick={onClose}
-                className="header__link header__link-drawer"
-                to="/signin"
-              >
+              <Link onClick={onClose} className="header__link header__link-drawer" to="/signin">
                 Войти
               </Link>
             </nav>
@@ -76,18 +68,17 @@ function Header({ isLoggedIn, onLogout }) {
 
           {isLoggedIn && (
             <nav className="header__nav header__nav-authorized">
+            <p className="header__profile">Email</p>
               <Link
                 onClick={onClose}
                 className="header__link header__link-drawer"
-                to="/saved-recipes"
-              >
+                to="/saved-recipes">
                 Избранное
               </Link>
               <Link
                 onClick={onClose}
                 className="header__link header__link-drawer"
-                to="/shopping-list"
-              >
+                to="/shopping-list">
                 Список покупок
               </Link>
               <Button
