@@ -1,26 +1,33 @@
 /* eslint-disable react/prop-types */
 import Button from '../Button/Button';
-import { message, Popconfirm } from 'antd';
+import { message, Popconfirm, Button as AntButton } from 'antd';
 import { DeleteTwoTone } from '@ant-design/icons';
 import './SavedRecipes.css';
+import { useNavigate } from 'react-router-dom';
 
 const SavedRecipes = ({ likedRecipes, onDeleteRecipe, onSetRecipe }) => {
   // console.log(likedRecipes);
+  const navigate = useNavigate();
 
   const confirm = (id) => {
     onDeleteRecipe(id);
     message.success('На одну вкусняшку стало меньше');
   };
 
-  // const cancel = (e) => {
-  //   console.log(e);
-  //   message.error('Click on No');
-  // };
-
   return (
     <div className="saved-recipes">
       {likedRecipes.length === 0 ? (
-        <p>Здесь будут храниться все понравившиеся вам рецепты </p>
+        <div className="saved-recipes__start-container">
+          <p>Здесь будут храниться все понравившиеся вам рецепты </p>
+
+          <AntButton
+            style={{ maxWidth: '146px', margin: '0 auto' }}
+            size="large"
+            onClick={() => navigate('/recipe')}
+          >
+            За вкусняшкой!
+          </AntButton>
+        </div>
       ) : (
         ''
       )}

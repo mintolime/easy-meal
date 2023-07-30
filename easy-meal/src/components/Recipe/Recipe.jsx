@@ -24,12 +24,6 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
       <div className="recipe__buttons-container">
         <Button
           btnText={
-            <img className="recipe__icon-dice" src={dice} alt="dice icon" />
-          }
-          onClick={getRandomRecipe}
-        />
-        <Button
-          btnText={
             <img
               className="recipe__icon-heart"
               src={isLiked ? heartLiked : heart}
@@ -39,6 +33,13 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
               }}
             />
           }
+        />
+
+        <Button
+          btnText={
+            <img className="recipe__icon-dice" src={dice} alt="dice icon" />
+          }
+          onClick={getRandomRecipe}
         />
       </div>
 

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 import './App.css';
 import Loader from './components/Loader/Loader';
@@ -30,6 +31,14 @@ function App() {
 
   const [recipe, setRecipe] = useState([]);
   const [likedRecipes, setLikedRecipes] = useState([]);
+
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const notifyToRegister = () => {
+    messageApi.warning(
+      'Зарегистрируйтесь, чтобы добавлять рецепты в избранное'
+    );
+  };
 
   // const getRandomRecipe = () => {
   //   fetch('https://www.themealdb.com/api/json/v1/1/random.php')
@@ -192,12 +201,16 @@ function App() {
 
   // --- Recipes API methods ---
   const handleSaveRecipe = (recipe, id, isLiked) => {
-    if (!isLiked) {
-      mainApi.saveRecipe(recipe).then((newRecipe) => {
-        setLikedRecipes([...likedRecipes, newRecipe]);
-      });
+    if (isLoggedIn) {
+      if (!isLiked) {
+        mainApi.saveRecipe(recipe).then((newRecipe) => {
+          setLikedRecipes([...likedRecipes, newRecipe]);
+        });
+      } else {
+        handleDeleteRecipe(id);
+      }
     } else {
-      handleDeleteRecipe(id);
+      notifyToRegister();
     }
   };
 
@@ -213,6 +226,7 @@ function App() {
   return (
     <>
       {headerView && <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />}
+      {contextHolder}
 
       {isLoading ? (
         <Loader />
