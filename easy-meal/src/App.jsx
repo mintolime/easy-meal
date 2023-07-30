@@ -37,7 +37,7 @@ function App() {
 
   const notifyToRegister = () => {
     messageApi.warning(
-      'Зарегистрируйтесь, чтобы добавлять рецепты в избранное'
+      'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное'
     );
   };
 
@@ -93,7 +93,7 @@ function App() {
       youtubeLink: value.strYoutube,
       imageLink: value.strMealThumb,
       instructions: value.strInstructions,
-      ingredients,
+      ingredients
     };
 
     return newRecipe;
@@ -112,16 +112,16 @@ function App() {
     url: API_BACKEND,
     headers: {
       'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    },
+      authorization: `Bearer ${localStorage.getItem('jwt')}`
+    }
   });
 
   const mainApi = new MainApi({
     url: API_BACKEND,
     headers: {
       'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    },
+      authorization: `Bearer ${localStorage.getItem('jwt')}`
+    }
   });
 
   useEffect(() => {
@@ -150,7 +150,7 @@ function App() {
           }
           console.log(
             `Что-то пошло не так: ошибка запроса статус ${err.status},
-            сообщение ${err.errorText} 😔`,
+            сообщение ${err.errorText} 😔`
           );
         });
     };
@@ -171,7 +171,7 @@ function App() {
       })
       .catch((err) => {
         console.log(
-          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`,
+          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
       });
   };
@@ -187,7 +187,7 @@ function App() {
       })
       .catch((err) => {
         console.log(
-          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`,
+          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
         setIsLoggedIn(false);
         // setIsRegistration(false);
@@ -218,7 +218,9 @@ function App() {
 
   const handleDeleteRecipe = (id) => {
     mainApi.deleteRecipe(id).then((res) => {
-      const updatedLikedRecipes = likedRecipes.filter((r) => r.mealId !== res.mealId);
+      const updatedLikedRecipes = likedRecipes.filter(
+        (r) => r.mealId !== res.mealId
+      );
       setLikedRecipes(updatedLikedRecipes);
     });
   };
@@ -233,8 +235,14 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<Main getRecipe={getRecipe} />} />
-          <Route path="/signup" element={<Register onRegister={handleRegistration} />} />
-          <Route path="/signin" element={<Login onLogin={handleAuthorization} />} />
+          <Route
+            path="/signup"
+            element={<Register onRegister={handleRegistration} />}
+          />
+          <Route
+            path="/signin"
+            element={<Login onLogin={handleAuthorization} />}
+          />
           <Route
             path="/recipe"
             element={
