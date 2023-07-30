@@ -173,9 +173,9 @@ function App() {
       .authorize(data)
       .then((data) => {
         setIsLoggedIn(true);
-        apiAuth.checkToken(data.token).then((res) => {
+        // apiAuth.checkToken(data.token).then((res) => {
           setIsEmailUser(data.email);
-        });
+        // });
 
         localStorage.setItem('jwt', data.token);
         navigate('/', { replace: true });
