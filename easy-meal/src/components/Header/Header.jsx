@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import { Drawer } from 'antd';
 import { Link } from 'react-router-dom';
 
-function Header({ isLoggedIn, onLogout }) {
+function Header({ isLoggedIn, onLogout, isEmailUser }) {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -36,15 +36,14 @@ function Header({ isLoggedIn, onLogout }) {
 
         {isLoggedIn && (
           <>
-
             <nav className="header__nav header__nav-authorized">
-            <p className="header__profile">Email</p>
               <Link className="header__link" to="/saved-recipes">
                 Избранное
               </Link>
               <Link className="header__link" to="/shopping-list">
                 Список покупок
               </Link>
+               <p className="header__profile">{isEmailUser}</p>
               <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
             </nav>
           </>
@@ -68,7 +67,7 @@ function Header({ isLoggedIn, onLogout }) {
 
           {isLoggedIn && (
             <nav className="header__nav header__nav-authorized">
-            <p className="header__profile">Email</p>
+              <p className="header__profile">{isEmailUser}</p>
               <Link
                 onClick={onClose}
                 className="header__link header__link-drawer"
