@@ -31,6 +31,11 @@
   color: #9093a6;
 }
 
+.footer__hover:hover {
+  font-weight: 500;
+  color: #4c4c4c;
+}
+
 @media screen and (min-width: 320px) {
   .footer {
     justify-content: center;

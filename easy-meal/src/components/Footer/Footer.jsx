@@ -9,7 +9,7 @@ function Footer() {
         <p className="footer__creator_text">
           Made by{' '}
           <a
-            className="footer__link"
+            className="footer__link footer__hover"
             href="https://github.com/mintolime"
             target="_blank"
             rel="noreferrer"
@@ -18,7 +18,7 @@ function Footer() {
           </a>
           &#38;
           <a
-            className="footer__link"
+            className="footer__link footer__hover"
             href="https://github.com/Alveek"
             target="_blank"
             rel="noreferrer"
@@ -29,11 +29,11 @@ function Footer() {
         </p>
       </div>
       <div className="footer__creator">
-        <Link className="footer__link">
-          <p className="footer__creator_text">TheMealDB</p>
+        <Link className="footer__link ">
+          <p className="footer__creator_text footer__hover">TheMealDB</p>
         </Link>
-        <Link className="footer__link">
-          <p className="footer__creator_text">GitHub</p>
+        <Link className="footer__link ">
+          <p className="footer__creator_text footer__hover">GitHub</p>
         </Link>
       </div>
     </footer>

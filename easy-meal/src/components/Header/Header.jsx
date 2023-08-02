@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import { Drawer } from 'antd';
 import { Link } from 'react-router-dom';
 
-function Header({ isLoggedIn, onLogout, isEmailUser }) {
+function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -21,9 +21,9 @@ function Header({ isLoggedIn, onLogout, isEmailUser }) {
       <Link to={'/'}>
         <img className="header__logo" src={logo} alt="логотип шапки сайта" />
       </Link>
-
+      {/* скрываю блок, чтобы при загрузке не показывал блок */}
       <div className="header__nav_desktop">
-        {!isLoggedIn && (
+        {!isLoggedIn && !isLoading ? (
           <nav className="header__nav header__nav-unauthorized">
             <Link className="header__link" to="/signup">
               Регистрация
@@ -32,7 +32,7 @@ function Header({ isLoggedIn, onLogout, isEmailUser }) {
               Войти
             </Link>
           </nav>
-        )}
+        ) : null}
 
         {isLoggedIn && (
           <>
@@ -43,7 +43,7 @@ function Header({ isLoggedIn, onLogout, isEmailUser }) {
               <Link className="header__link" to="/shopping-list">
                 Список покупок
               </Link>
-               <p className="header__profile">{isEmailUser}</p>
+              <p className="header__profile">{isEmailUser}</p>
               <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
             </nav>
           </>

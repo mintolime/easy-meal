@@ -241,7 +241,7 @@ function App() {
   return (
     <>
    {headerView && (
-        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} isEmailUser={isEmailUser} />
+        <Header isLoggedIn={isLoggedIn} isLoading={isLoading} onLogout={handleLogout} isEmailUser={isEmailUser} />
       )}
       {contextHolder}
 
