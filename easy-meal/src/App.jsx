@@ -35,9 +35,15 @@ function App() {
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const notifyToRegister = () => {
-    messageApi.warning(
-      'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное'
+  // const notifyToRegister = () => {
+  //   messageApi.warning(
+  //     'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное'
+  //   );
+  // };
+ 
+  const showNotificationAnt = (type,message) => {
+    messageApi[type](
+      `${message}`
     );
   };
 
@@ -167,9 +173,11 @@ function App() {
     return apiAuth
       .register(data)
       .then((res) => {
+        showNotificationAnt('success','Успешно!')
         navigate('/signin', { replace: true });
       })
       .catch((err) => {
+        showNotificationAnt('error',err.errorText)
         console.log(
           `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
@@ -181,11 +189,13 @@ function App() {
       .authorize(data)
       .then((data) => {
         setIsLoggedIn(true);
-        console.log(data);
+        
+        showNotificationAnt('success','Успешно!')
         localStorage.setItem('jwt', data.token);
         navigate('/', { replace: true });
       })
       .catch((err) => {
+        showNotificationAnt('error',err.errorText)
         console.log(
           `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
@@ -212,7 +222,7 @@ function App() {
         handleDeleteRecipe(id);
       }
     } else {
-      notifyToRegister();
+      showNotificationAnt('warning','Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное')
     }
   };
 
