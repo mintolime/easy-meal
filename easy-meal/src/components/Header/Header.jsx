@@ -40,9 +40,9 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
               <Link className="header__link" to="/saved-recipes">
                 Избранное
               </Link>
-              <Link className="header__link" to="/shopping-list">
+              {/* <Link className="header__link" to="/shopping-list">
                 Список покупок
-              </Link>
+              </Link> */}
               <p className="header__profile">{isEmailUser}</p>
               <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
             </nav>
@@ -74,12 +74,12 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
                 to="/saved-recipes">
                 Избранное
               </Link>
-              <Link
+              {/* <Link
                 onClick={onClose}
                 className="header__link header__link-drawer"
                 to="/shopping-list">
                 Список покупок
-              </Link>
+              </Link> */}
               <Button
                 btnClass={'button_type_signout'}
                 btnText={'Выйти'}

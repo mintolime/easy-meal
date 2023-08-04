@@ -13,23 +13,32 @@
   /* Title/banners_or_infographic */
   font-size: 28px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   white-space: pre-line;
   line-height: 110.345%;
   letter-spacing: 2.9px;
   margin: 0;
 }
 
+.main__subtitle {
+  font-size: 14px;
+  white-space: pre-line;
+  margin: 0;
+  padding: 0;
+  line-height: 140%;
+}
 .main__content {
   max-width: 540px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: 45px 0;
-  padding-top: 55px;
+  padding-top: 10%;
 }
 
 .main__photo-plate {
+  max-width: 500px;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -45,16 +54,17 @@
   }
 
   .main__content {
-    padding-top: 120px;
+    padding-top: 70px;
     row-gap: 55px;
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1124px) {
   .main {
     flex-direction: row;
     padding: 12px 45px 60px;
     align-items: start;
+    justify-content: space-between;
     padding: 12px 95px 105px;
   }
 
@@ -64,6 +74,7 @@
 
   .main__content {
     align-items: start;
-    row-gap: 85px;
+    row-gap: 55px;
+    text-align: start;
   }
 }

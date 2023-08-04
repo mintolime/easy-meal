@@ -1,31 +1,32 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { message } from 'antd';
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { message } from "antd";
 
-import './App.css';
-import Loader from './components/Loader/Loader';
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
-import Main from './components/Main/Main';
-import Recipe from './components/Recipe/Recipe';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import SavedRecipes from './components/SavedRecipes/SavedRecipes';
-import NotFound from './components/NotFound/NotFound';
-import ShoppingList from './components/ShoppingList/ShoppingList';
-import { API_BACKEND, footerRoutes, headerRoutes } from './utils/config';
-import { checkPath } from './utils/functions';
-import { Auth } from './utils/api/AuthApi';
-import { MainApi } from './utils/api/MainApi';
-import { initialRecipes } from './utils/constants';
+import "./App.css";
+import Loader from "./components/Loader/Loader";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
+import Recipe from "./components/Recipe/Recipe";
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
+import SavedRecipes from "./components/SavedRecipes/SavedRecipes";
+import NotFound from "./components/NotFound/NotFound";
+import ShoppingList from "./components/ShoppingList/ShoppingList";
+import { API_BACKEND, footerRoutes, headerRoutes } from "./utils/config";
+import { checkPath } from "./utils/functions";
+import { Auth } from "./utils/api/AuthApi";
+import { MainApi } from "./utils/api/MainApi";
+import { initialRecipes } from "./utils/constants";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isEmailUser, setIsEmailUser] = useState('');
+  const [isEmailUser, setIsEmailUser] = useState("");
   // проверка для отображения
   const headerView = checkPath(headerRoutes, location);
   const footerView = checkPath(footerRoutes, location);
@@ -35,16 +36,8 @@ function App() {
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  // const notifyToRegister = () => {
-  //   messageApi.warning(
-  //     'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное'
-  //   );
-  // };
-
-  const showNotificationAnt = (type,message) => {
-    messageApi[type](
-      `${message}`
-    );
+  const showNotificationAnt = (type, message) => {
+    messageApi[type](`${message}`);
   };
 
   // const getRandomRecipe = () => {
@@ -63,7 +56,7 @@ function App() {
 
   const handleSetRecipe = (newRecipe) => {
     setRecipe(newRecipe);
-    navigate('/recipe');
+    navigate("/recipe");
   };
 
   // Временно только 10 рецептов передаются из initialRecipes
@@ -85,7 +78,7 @@ function App() {
       let ingredient = value[`strIngredient${i}`];
       let measure = value[`strMeasure${i}`];
 
-      if (ingredient !== '' && measure !== '') {
+      if (ingredient !== "" && measure !== "") {
         ingredients.push({ ingredient, measure });
       } else {
         break;
@@ -99,7 +92,7 @@ function App() {
       youtubeLink: value.strYoutube,
       imageLink: value.strMealThumb,
       instructions: value.strInstructions,
-      ingredients
+      ingredients,
     };
 
     return newRecipe;
@@ -110,24 +103,24 @@ function App() {
   }, []);
 
   const getRecipe = () => {
-    navigate('/recipe');
+    navigate("/recipe");
   };
 
   // API //
   const apiAuth = new Auth({
     url: API_BACKEND,
     headers: {
-      'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt')}`
-    }
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
   });
 
   const mainApi = new MainApi({
     url: API_BACKEND,
     headers: {
-      'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt')}`
-    }
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
   });
 
   useEffect(() => {
@@ -138,7 +131,7 @@ function App() {
   }, [isLoggedIn]);
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem("jwt");
     //обертка функция
     const delayedCheckToken = () => {
       apiAuth
@@ -146,14 +139,14 @@ function App() {
         .then((res) => {
           setIsLoggedIn(true);
           setIsLoading(false);
-           setIsEmailUser(res.email);
+          setIsEmailUser(res.email);
           navigate(location.pathname, { replace: true });
         })
         .catch((err) => {
           if (err.status === 401) {
             setIsLoading(false);
-            localStorage.removeItem('jwt');
-            navigate('/signin', { replace: true });
+            localStorage.removeItem("jwt");
+            navigate("/signin", { replace: true });
           }
           console.log(
             `Что-то пошло не так: ошибка запроса статус ${err.status},
@@ -174,11 +167,11 @@ function App() {
     return apiAuth
       .register(data)
       .then((res) => {
-        showNotificationAnt('success','Успешно!')
-        navigate('/signin', { replace: true });
+        showNotificationAnt("success", "Успешно!");
+        navigate("/signin", { replace: true });
       })
       .catch((err) => {
-        showNotificationAnt('error',err.errorText)
+        showNotificationAnt("error", err.errorText);
         console.log(
           `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
@@ -190,15 +183,15 @@ function App() {
       .authorize(data)
       .then((data) => {
         setIsLoggedIn(true);
-        showNotificationAnt('success','Успешно!')
+        showNotificationAnt("success", "Рады Вас видеть снова!");
         // apiAuth.checkToken(data.token).then((res) => {
-          setIsEmailUser(data.email);
+        setIsEmailUser(data.email);
         // });
-        localStorage.setItem('jwt', data.token);
-        navigate('/', { replace: true });
+        localStorage.setItem("jwt", data.token);
+        navigate("/", { replace: true });
       })
       .catch((err) => {
-        showNotificationAnt('error',err.errorText)
+        showNotificationAnt("error", err.errorText);
         console.log(
           `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
@@ -209,8 +202,8 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    navigate('/signin', { replace: true });
+    localStorage.removeItem("jwt");
+    navigate("/signin", { replace: true });
     setIsLoggedIn(false);
   };
 
@@ -225,7 +218,10 @@ function App() {
         handleDeleteRecipe(id);
       }
     } else {
-      showNotificationAnt('warning','Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное')
+      showNotificationAnt(
+        "warning",
+        "Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное"
+      );
     }
   };
 
@@ -240,8 +236,13 @@ function App() {
 
   return (
     <>
-   {headerView && (
-        <Header isLoggedIn={isLoggedIn} isLoading={isLoading} onLogout={handleLogout} isEmailUser={isEmailUser} />
+      {headerView && (
+        <Header
+          isLoggedIn={isLoggedIn}
+          isLoading={isLoading}
+          onLogout={handleLogout}
+          isEmailUser={isEmailUser}
+        />
       )}
       {contextHolder}
 
@@ -272,15 +273,17 @@ function App() {
           <Route
             path="/saved-recipes"
             element={
-              <SavedRecipes
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                component={SavedRecipes}
                 likedRecipes={likedRecipes}
                 onDeleteRecipe={handleDeleteRecipe}
                 onSetRecipe={handleSetRecipe}
               />
             }
           />
-          <Route path="/shopping-list" element={<ShoppingList />} />
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="/shopping-list" element={<ShoppingList />} /> */}
+          <Route path="*" element={<NotFound isLoggedIn={isLoggedIn} />} />
         </Routes>
       )}
       {footerView && <Footer />}
