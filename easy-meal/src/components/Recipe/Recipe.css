@@ -18,7 +18,7 @@
 .recipe__info {
   display: grid;
   gap: 15px;
-  grid-template-rows: 1fr 24px 1fr;
+  grid-template-rows: 82px 18px 82px;
   /* min-height: 170px; */
   /* margin-bottom: 35px; */
 }
@@ -107,7 +107,7 @@
   line-height: 1.2;
   text-align: center;
   margin: 0;
-  margin-top: 35px;
+  margin-top: 20px;
 }
 
 .recipe__button-yt {
@@ -144,7 +144,7 @@
   }
 
   .recipe__info {
-    grid-template-rows: 2fr 2fr 1fr;
+    grid-template-rows: 1.1fr 2fr 1fr;
     grid-area: 3 / 1 / 4 / 2;
     grid-gap: 0;
   }
