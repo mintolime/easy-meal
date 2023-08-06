@@ -1,8 +1,6 @@
-/* eslint-disable react/prop-types */
-
-import Button from "../Button/Button";
-import plate from "../../images/plate.png";
-import "./Main.css";
+import Button from '../Button/Button';
+import plate from '../../images/plate.png';
+import './Main.css';
 
 function Main({ getRecipe }) {
   return (
@@ -17,7 +15,7 @@ function Main({ getRecipe }) {
           результатами!
         </p>
         <Button
-          btnClass={"button_type_start"}
+          btnClass={'button_type_start'}
           btnText="Начать"
           onClick={getRecipe}
         />

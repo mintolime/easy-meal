@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 
 import './Recipe.css';
@@ -96,7 +95,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
                   <p className="recipe__ingreditent-measure">{item.measure}</p>
                 </div>
 
-                <Button
+                {/* <Button
                   btnClass="button_type-addtocart"
                   btnText={
                     <img
@@ -105,7 +104,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
                       alt="add to cart icon"
                     />
                   }
-                />
+                /> */}
               </li>
             );
           })}

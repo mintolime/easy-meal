@@ -10,7 +10,7 @@
 }
 /* замиксовала стили, чтобы добавлять к разным блокам <3 */
 .recipe__box-shabow {
-  padding: 20px 14px;
+  padding: 14px 14px;
   border-radius: 12px;
   box-shadow: 0px 2px 8px 0px rgba(99, 99, 99, 0.2);
 }
@@ -18,7 +18,7 @@
 .recipe__info {
   display: grid;
   gap: 15px;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 24px 1fr;
   /* min-height: 170px; */
   /* margin-bottom: 35px; */
 }
@@ -74,12 +74,12 @@
 }
 
 .recipe__ingreditent-name {
-  font-size: 20px;
+  font-size: 18px;
   margin: 0;
 }
 
 .recipe__ingreditent-measure {
-  font-size: 16px;
+  font-size: 14px;
   color: #7c8491;
   margin: 0;
 }
@@ -107,6 +107,7 @@
   line-height: 1.2;
   text-align: center;
   margin: 0;
+  margin-top: 35px;
 }
 
 .recipe__button-yt {
@@ -143,6 +144,7 @@
   }
 
   .recipe__info {
+    grid-template-rows: 2fr 2fr 1fr;
     grid-area: 3 / 1 / 4 / 2;
     grid-gap: 0;
   }

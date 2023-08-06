@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import Button from '../Button/Button';
 import { message, Popconfirm, Button as AntButton } from 'antd';
 import { DeleteTwoTone } from '@ant-design/icons';
