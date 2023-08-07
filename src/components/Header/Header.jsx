@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import './Header.css';
 import logo from '../../images/header-logo.svg';
@@ -44,7 +43,11 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
                 Список покупок
               </Link> */}
               <p className="header__profile">{isEmailUser}</p>
-              <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
+              <Button
+                btnClass={'button_type_signout'}
+                btnText={'Выйти'}
+                onClick={onLogout}
+              />
             </nav>
           </>
         )}
@@ -53,13 +56,26 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
       <div className="header__nav_tablet">
         <Button btnClass={'button_type_menu-open'} onClick={showDrawer} />
 
-        <Drawer title="Меню" placement="right" onClose={onClose} open={open}>
+        <Drawer
+          title="Easy Meal"
+          placement="right"
+          onClose={onClose}
+          open={open}
+        >
           {!isLoggedIn && (
             <nav className="header__nav header__nav-unauthorized">
-              <Link onClick={onClose} className="header__link header__link-drawer" to="/signup">
+              <Link
+                onClick={onClose}
+                className="header__link header__link-drawer"
+                to="/signup"
+              >
                 Регистрация
               </Link>
-              <Link onClick={onClose} className="header__link header__link-drawer" to="/signin">
+              <Link
+                onClick={onClose}
+                className="header__link header__link-drawer"
+                to="/signin"
+              >
                 Войти
               </Link>
             </nav>
@@ -71,7 +87,8 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
               <Link
                 onClick={onClose}
                 className="header__link header__link-drawer"
-                to="/saved-recipes">
+                to="/saved-recipes"
+              >
                 Избранное
               </Link>
               {/* <Link
