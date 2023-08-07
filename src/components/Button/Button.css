@@ -52,10 +52,12 @@
 
 .button_type_login {
   background-color: #9093a6;
-  display: inline-flex;
-  height: 50px;
-  padding: 16px 24px;
-  margin-top: 20px;
+  /* display: inline-flex; */
+  height: 40px;
+  min-width: 140px;
+  padding: 10px 24px;
+  margin-top: 15px;
+  margin-bottom: 60px;
   border-radius: 4px;
   text-align: center;
   color: #fff;
@@ -63,6 +65,7 @@
   font-weight: 300;
   line-height: 125%;
   letter-spacing: 0.5px;
+  align-self: center;
 }
 
 .button_type-addtocart {

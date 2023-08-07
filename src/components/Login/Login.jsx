@@ -1,25 +1,25 @@
 // import React from 'react';
 
-import "./Login.css";
-import { Form, Input } from "antd";
-import Button from "../Button/Button";
+import './Login.css';
+import { Form, Input } from 'antd';
+import Button from '../Button/Button';
 
 const Login = ({ onLogin }) => {
-  
   const onFinish = (values) => {
     onLogin(values);
-    console.log("Success:", values);
+    console.log('Success:', values);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
   };
   return (
     <Form
       className="form page__flexbox-column"
+      layout="vertical"
       name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
+      // labelCol={{ span: 8 }}
+      // wrapperCol={{ span: 16 }}
       // style={{ maxWidth: 600 }}
       // initialValues={{ remember: true }}
       onFinish={onFinish}
@@ -31,16 +31,16 @@ const Login = ({ onLogin }) => {
         <Form.Item
           className="form__box_inner"
           name="email"
-          label="E-mail"
+          label="Почта"
           rules={[
             {
-              type: "email",
-              message: "В почте содержатся ошибки, попробуйте снова!",
+              type: 'email',
+              message: 'Неверный формат почты!'
             },
             {
               required: true,
-              message: "Введите вашу почту!",
-            },
+              message: 'Введите вашу почту!'
+            }
           ]}
         >
           <Input className="form__input" />
@@ -48,20 +48,20 @@ const Login = ({ onLogin }) => {
 
         <Form.Item
           className="form__box_inner"
-          label="Password"
+          label="Пароль"
           name="password"
-          rules={[{ required: true, message: "Введите ваш пароль!" }]}
+          rules={[{ required: true, message: 'Введите ваш пароль!' }]}
         >
           <Input.Password className="form__input" />
         </Form.Item>
-      </fieldset>
 
-      <Button
-        btnClass={"button_type_login"}
-        btnText="Войти"
-        btnType="submit"
-        // onClick={}
-      />
+        <Button
+          btnClass={'button_type_login'}
+          btnText="Войти"
+          btnType="submit"
+          // onClick={}
+        />
+      </fieldset>
     </Form>
   );
 };

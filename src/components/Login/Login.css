@@ -1,24 +1,24 @@
 .form {
-  width: 100%;
+  /* width: 100%; */
   align-items: center;
-  justify-content: center;
-  text-align: start;
-  gap: 15px;
-  padding: 40px;
-  box-sizing: border-box;
+  /* justify-content: center; */
+  /* text-align: center; */
+  margin-top: 50px;
+  gap: 10px;
+  padding: 10px;
 }
 
 .form__box {
-  gap: 55px;
+  gap: 10px;
   border: 0;
-  width: 50%;
+  min-width: 280px;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .form__title {
   font-weight: 500;
-  font-size: 25px;
+  font-size: 30px;
   margin: 0;
   padding: 0 0 20px;
 }
@@ -28,7 +28,7 @@
   margin: 0;
 }
 /* ограничила макс. ширину импута, чтобы не растягивался по всему контейнеру */
-.form__input{
+.form__input {
   max-width: 350px;
 }
 
