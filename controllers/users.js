@@ -19,12 +19,12 @@ const createUser = (req, res, next) => {
       User.create({
         email: req.body.email,
         password: hash,
-        name: req.body.name,
+        isAdmin: req.body.isAdmin,
       })
         .then((newUser) => {
           res.status(201).send({
             email: newUser.email,
-            name: newUser.name,
+            isAdmin: newUser.isAdmin,
           });
         })
         .catch((error) => {
@@ -66,7 +66,7 @@ const login = (req, res, next) => {
         const token = jwt.sign({ _id: user._id }, config.jwtSecret, {
           expiresIn: '7d',
         });
-        return res.send({ token, email });
+        return res.send({ token });
       });
     })
     .catch(next);
@@ -74,6 +74,7 @@ const login = (req, res, next) => {
 
 const getMe = (req, res, next) => {
   User.findById(req.user._id)
+  .populate(['likes'])
     .then((user) => res.send(user))
     .catch((error) => {
       if (error.name === 'ValidationError') {
@@ -88,8 +89,38 @@ const getMe = (req, res, next) => {
     });
 };
 
+const likeRecipe = (req, res, next) => {
+  const { _id } = req.user;
+  const recipeId = req.params.recipeId;
+
+  User.findByIdAndUpdate(
+    _id,
+    { $addToSet: { likes: recipeId } },
+    { new: true, runValidators: true }
+  ).populate(['likes'])
+    .then((user) => res.send(user.likes))
+    .catch(next);
+};
+
+const dislikeRecipe = (req, res, next) => {
+  const { _id } = req.user;
+  const recipeId = req.params.recipeId;
+
+  User.findByIdAndUpdate(
+    _id,
+    { $pull: { likes: recipeId } },
+    { new: true, runValidators: true }
+  )
+    .then((user) => {
+      res.send(user.likes);
+    })
+    .catch(next);
+};
+
 module.exports = {
   login,
   createUser,
   getMe,
+  likeRecipe,
+  dislikeRecipe
 };

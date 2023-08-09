@@ -2,7 +2,7 @@ const Recipe = require('../models/recipe');
 const customError = require('../errors');
 
 const getRecipes = (req, res, next) => {
-  Recipe.find({ owner: req.user._id })
+  Recipe.find({})
     .then((recipes) => {
       res.send(recipes);
     })
@@ -10,49 +10,29 @@ const getRecipes = (req, res, next) => {
 };
 
 const createRecipe = (req, res, next) => {
-  const { _id } = req.user;
-
-  Recipe.find({ mealId: req.body.mealId })
-    .then((recipes) => {
-      if (recipes.length > 0) {
-        const recipeId = recipes[0]._id;
-
-        Recipe.findByIdAndUpdate(
-          recipeId,
-          { $addToSet: { owner: _id } },
-          { new: true, runValidators: true }
-        )
-          .then((recipe) => res.send(recipe))
-          .catch(next);
-      } else {
-        Recipe.create({ ...req.body, owner: _id })
-          .then((newRecipe) => {
-            res.send(newRecipe);
-          })
-          .catch((error) => {
-            if (error.name === 'ValidationError') {
-              console.log(error);
-              next(new customError.BadRequest('Переданы некорректные данные.'));
-            } else {
-              next(error);
-            }
-          });
-      }
+  Recipe.create({ ...req.body })
+    .then((newRecipe) => {
+      res.send(newRecipe);
     })
-    .catch(next);
+    .catch((error) => {
+      if (error.name === 'ValidationError') {
+        console.log(error);
+        next(new customError.BadRequest('Переданы некорректные данные.'));
+      } else {
+        next(error);
+      }
+    });
 };
 
 const deleteRecipe = (req, res, next) => {
-  const recipeId = req.params._id;
-  const ownerId = req.user._id;
+  const recipeId = req.params.recipeId;
 
-  Recipe.findByIdAndUpdate(
-    recipeId,
-    { $pull: { owner: ownerId } },
-    { new: true, runValidators: true }
-  )
+  Recipe.deleteOne({ _id: recipeId })
     .then((recipe) => {
-      res.send(recipe);
+      if (recipe.deletedCount === 0) {
+        throw new customError.NotFound('Рецепт с указанным id не найден.');
+      }
+      return res.send({ message: 'Рецепт удален :(' });
     })
     .catch(next);
 };

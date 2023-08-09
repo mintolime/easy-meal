@@ -3,9 +3,9 @@ const { urlRegEx } = require('../utils/constants');
 
 const recipeSchema = new mongoose.Schema(
   {
-    mealId: {
+    mealAuthor: {
       type: String,
-      required: true,
+      required: false,
     },
 
     mealName: {
@@ -15,7 +15,7 @@ const recipeSchema = new mongoose.Schema(
 
     mealCategory: {
       type: String,
-      required: true,
+      required: false,
     },
 
     instructions: {
@@ -23,7 +23,16 @@ const recipeSchema = new mongoose.Schema(
       required: true,
     },
 
-    imageLink: {
+    mealSourceUrl: {
+      type: String,
+      required: false,
+      validate: {
+        validator: (v) => urlRegEx.test(v),
+        message: 'Невалидная ссылка',
+      },
+    },
+
+    imageUrl: {
       type: String,
       required: true,
       validate: {
@@ -32,22 +41,14 @@ const recipeSchema = new mongoose.Schema(
       },
     },
 
-    youtubeLink: {
+    youtubeUrl: {
       type: String,
-      required: true,
+      required: false,
       validate: {
         validator: (v) => urlRegEx.test(v),
         message: 'Невалидная ссылка',
       },
     },
-
-    owner: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-        required: true,
-      },
-    ],
 
     ingredients: [],
   },

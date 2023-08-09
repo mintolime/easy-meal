@@ -1,6 +1,5 @@
-const moviesRouter = require('express').Router();
+const recipesRouter = require('express').Router();
 const { celebrate } = require('celebrate');
-// const authDeleteRecipe = require('../middlewares/authDeleteRecipe');
 
 const {
   createRecipeValidation,
@@ -13,14 +12,13 @@ const {
   deleteRecipe,
 } = require('../controllers/recipes');
 
-moviesRouter.get('/', getRecipes);
-moviesRouter.post('/', celebrate(createRecipeValidation), createRecipe);
+recipesRouter.get('/', getRecipes);
+recipesRouter.post('/', celebrate(createRecipeValidation), createRecipe);
 
-moviesRouter.delete(
-  '/:_id',
+recipesRouter.delete(
+  '/:recipeId',
   celebrate(deleteRecipeValidation),
-  // authDeleteRecipe,
   deleteRecipe
 );
 
-module.exports = moviesRouter;
+module.exports = recipesRouter;
