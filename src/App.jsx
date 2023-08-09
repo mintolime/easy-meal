@@ -31,6 +31,7 @@ function App() {
   const headerView = checkPath(headerRoutes, location);
   const footerView = checkPath(footerRoutes, location);
 
+  const [allRecipes, setAllRecipes] = useState([]);
   const [recipe, setRecipe] = useState([]);
   const [likedRecipes, setLikedRecipes] = useState([]);
 
@@ -40,20 +41,6 @@ function App() {
     messageApi[type](`${message}`);
   };
 
-  // const getRandomRecipe = () => {
-  //   fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-  //     .then((data) => data.json())
-  //     .then((randRecipe) => {
-  //       console.log(randRecipe);
-  //       const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
-  //       setRecipe(newRecipe);
-
-  //       if (location.pathname !== '/recipe') {
-  //         navigate('/recipe');
-  //       }
-  //     });
-  // };
-
   const handleSetRecipe = (newRecipe) => {
     setRecipe(newRecipe);
     navigate("/recipe");
@@ -61,46 +48,16 @@ function App() {
 
   // Временно только 10 рецептов передаются из initialRecipes
   const getRandomRecipe = () => {
-    const index = Math.floor(Math.random() * (initialRecipes.meals.length - 1));
-    const randomRecipe = initialRecipes.meals[index];
-    const modifiedRecipe = modifyRecipeObject(randomRecipe);
-    if (modifiedRecipe.mealId == recipe.mealId) {
-      getRandomRecipe();
-    } else {
-      setRecipe(modifiedRecipe);
-    }
-  };
+    const index = Math.floor(Math.random() * (allRecipes.length - 1));
+    const randomRecipe = allRecipes[index];
+    // const modifiedRecipe = modifyRecipeObject(randomRecipe);
 
-  const modifyRecipeObject = (value) => {
-    let ingredients = [];
-
-    for (let i = 1; i <= 30; i++) {
-      let ingredient = value[`strIngredient${i}`];
-      let measure = value[`strMeasure${i}`];
-
-      if (ingredient !== "" && measure !== "") {
-        ingredients.push({ ingredient, measure });
-      } else {
-        break;
-      }
-    }
-
-    const newRecipe = {
-      mealName: value.strMeal,
-      mealId: value.idMeal,
-      mealCategory: value.strCategory,
-      youtubeLink: value.strYoutube,
-      imageLink: value.strMealThumb,
-      instructions: value.strInstructions,
-      ingredients,
-    };
-
-    return newRecipe;
+    setRecipe(randomRecipe);
   };
 
   useEffect(() => {
     getRandomRecipe();
-  }, []);
+  }, [allRecipes]);
 
   const getRecipe = () => {
     navigate("/recipe");
@@ -125,9 +82,16 @@ function App() {
 
   useEffect(() => {
     isLoggedIn &&
-      mainApi.getSavedRecipes().then((recipes) => {
-        setLikedRecipes(recipes);
+      mainApi.getSavedRecipes().then((user) => {
+        setLikedRecipes(user.likes);
       });
+
+    mainApi
+      .getRecipes()
+      .then((recipes) => {
+        setAllRecipes(recipes);
+      })
+      .catch((err) => console.log(err));
   }, [isLoggedIn]);
 
   React.useEffect(() => {
@@ -157,7 +121,7 @@ function App() {
 
     //тут проверяем, если токен корректный то вызываем запрос с задержкой 2 секунды
     if (jwt) {
-      setTimeout(delayedCheckToken, 2000);
+      setTimeout(delayedCheckToken, 200);
     } else {
       setIsLoading(false);
     }
@@ -208,14 +172,24 @@ function App() {
   };
 
   // --- Recipes API methods ---
-  const handleSaveRecipe = (recipe, id, isLiked) => {
+  const handleCreateRecipe = (recipe) => {
+    if (isLoggedIn) {
+      mainApi.createRecipe(recipe).then((newRecipe) => {
+        // setLikedRecipes([...likedRecipes, newRecipe]);
+        console.log(newRecipe);
+      });
+    }
+  };
+
+  const handleLikeRecipe = (recipe, id, isLiked) => {
+    // console.log(recipe);
     if (isLoggedIn) {
       if (!isLiked) {
-        mainApi.saveRecipe(recipe).then((newRecipe) => {
-          setLikedRecipes([...likedRecipes, newRecipe]);
+        mainApi.likeRecipe(recipe._id).then((newRecipe) => {
+          setLikedRecipes([...likedRecipes, recipe]);
         });
       } else {
-        handleDeleteRecipe(id);
+        handleDislikeRecipe(recipe);
       }
     } else {
       showNotificationAnt(
@@ -225,10 +199,10 @@ function App() {
     }
   };
 
-  const handleDeleteRecipe = (id) => {
-    mainApi.deleteRecipe(id).then((res) => {
+  const handleDislikeRecipe = (recipe) => {
+    mainApi.dislikeRecipe(recipe._id).then((res) => {
       const updatedLikedRecipes = likedRecipes.filter(
-        (r) => r.mealId !== res.mealId
+        (r) => r._id !== recipe._id
       );
       setLikedRecipes(updatedLikedRecipes);
     });
@@ -266,7 +240,7 @@ function App() {
                 recipe={recipe}
                 likedRecipes={likedRecipes}
                 getRandomRecipe={getRandomRecipe}
-                saveRecipe={handleSaveRecipe}
+                onLikeRecipe={handleLikeRecipe}
               />
             }
           />
@@ -277,7 +251,7 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 component={SavedRecipes}
                 likedRecipes={likedRecipes}
-                onDeleteRecipe={handleDeleteRecipe}
+                onDislikeRecipe={handleDislikeRecipe}
                 onSetRecipe={handleSetRecipe}
               />
             }

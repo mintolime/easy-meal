@@ -1,4 +1,4 @@
-import { handleResponce } from '../functions';
+import { handleResponce } from "../functions";
 
 export class MainApi {
   constructor({ url, headers }) {
@@ -7,31 +7,45 @@ export class MainApi {
   }
 
   getSavedRecipes() {
-    return fetch(`${this._url}/recipes`, {
-      headers: this._headers
+    return fetch(`${this._url}/users/me`, {
+      headers: this._headers,
     }).then((res) => handleResponce(res));
   }
 
-  saveRecipe(recipe) {
+  getRecipes() {
     return fetch(`${this._url}/recipes`, {
-      method: 'POST',
+      headers: this._headers,
+    }).then((res) => handleResponce(res));
+  }
+
+  createRecipe(recipe) {
+    return fetch(`${this._url}/recipes`, {
+      method: "POST",
       body: JSON.stringify({
-        mealId: recipe.mealId,
         mealName: recipe.mealName,
+        mealAuthor: recipe.mealAuthor,
         mealCategory: recipe.mealCategory,
         instructions: recipe.instructions,
-        imageLink: recipe.imageLink,
-        youtubeLink: recipe.youtubeLink,
-        ingredients: recipe.ingredients
+        mealSourceUrl: recipe.mealSourceUrl,
+        imageUrl: recipe.imageUrl,
+        youtubeUrl: recipe.youtubeUrl,
+        ingredients: recipe.ingredients,
       }),
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => handleResponce(res));
   }
 
-  deleteRecipe(id) {
-    return fetch(`${this._url}/recipes/${id}`, {
-      method: 'DELETE',
-      headers: this._headers
+  likeRecipe(id) {
+    return fetch(`${this._url}/users/like/${id}`, {
+      method: "POST",
+      headers: this._headers,
+    }).then((res) => handleResponce(res));
+  }
+
+  dislikeRecipe(id) {
+    return fetch(`${this._url}/users/dislike/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
     }).then((res) => handleResponce(res));
   }
 }

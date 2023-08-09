@@ -7,10 +7,10 @@ import heartLiked from "../../images/icon__heart_liked.svg";
 import dice from "../../images/dice_icon.svg";
 import AddToCart from "../../images/cart.svg";
 
-const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
+const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   const [showInstructions, setShowInstructions] = useState(false);
-  const isLiked = likedRecipes.some((r) => r.mealId === recipe.mealId);
-  const likedRecipe = likedRecipes.find((r) => r.mealId === recipe.mealId);
+  const isLiked = likedRecipes.some((r) => r._id === recipe._id);
+  const likedRecipe = likedRecipes.find((r) => r._id === recipe._id);
 
   // Почему-то при переходе с главной страницы на рецепты попадаешь в конец,
   // поэтому добавил принудильный скролл наверх
@@ -28,7 +28,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
               src={isLiked ? heartLiked : heart}
               alt="heart icon"
               onClick={() => {
-                saveRecipe(recipe, likedRecipe?._id, isLiked);
+                onLikeRecipe(recipe, likedRecipe?._id, isLiked);
               }}
             />
           }
@@ -44,7 +44,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
 
       <img
         className="recipe__image"
-        src={recipe.imageLink}
+        src={recipe.imageLink || recipe.imageUrl}
         alt={recipe.mealName}
       />
       <div className="recipe__info recipe__box-shabow">

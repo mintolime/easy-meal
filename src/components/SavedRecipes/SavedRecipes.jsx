@@ -1,16 +1,16 @@
-import Button from '../Button/Button';
-import { message, Popconfirm, Button as AntButton } from 'antd';
-import { DeleteTwoTone } from '@ant-design/icons';
-import './SavedRecipes.css';
-import { useNavigate } from 'react-router-dom';
+import Button from "../Button/Button";
+import { message, Popconfirm, Button as AntButton } from "antd";
+import { DeleteTwoTone } from "@ant-design/icons";
+import "./SavedRecipes.css";
+import { useNavigate } from "react-router-dom";
 
-const SavedRecipes = ({ likedRecipes, onDeleteRecipe, onSetRecipe }) => {
+const SavedRecipes = ({ likedRecipes, onDislikeRecipe, onSetRecipe }) => {
   // console.log(likedRecipes);
   const navigate = useNavigate();
 
   const confirm = (id) => {
-    onDeleteRecipe(id);
-    message.success('На одну вкусняшку стало меньше');
+    onDislikeRecipe(id);
+    message.success("На одну вкусняшку стало меньше");
   };
 
   return (
@@ -20,15 +20,15 @@ const SavedRecipes = ({ likedRecipes, onDeleteRecipe, onSetRecipe }) => {
           <p>Здесь будут храниться все понравившиеся вам рецепты </p>
 
           <AntButton
-            style={{ maxWidth: '146px', margin: '0 auto' }}
+            style={{ maxWidth: "146px", margin: "0 auto" }}
             size="large"
-            onClick={() => navigate('/recipe')}
+            onClick={() => navigate("/recipe")}
           >
             За вкусняшкой!
           </AntButton>
         </div>
       ) : (
-        ''
+        ""
       )}
       <ul className="saved-recipes__container">
         {likedRecipes.map((recipe) => {
@@ -40,7 +40,7 @@ const SavedRecipes = ({ likedRecipes, onDeleteRecipe, onSetRecipe }) => {
               <img
                 className="saved-recipes__card-image"
                 onClick={() => onSetRecipe(recipe)}
-                src={recipe.imageLink}
+                src={recipe.imageLink || recipe.imageUrl}
                 alt={recipe.mealName}
               />
               <h2
@@ -58,7 +58,7 @@ const SavedRecipes = ({ likedRecipes, onDeleteRecipe, onSetRecipe }) => {
                   // title="Delete the task"
                   placement="left"
                   description="Удалить рецепт?"
-                  onConfirm={() => confirm(recipe._id)}
+                  onConfirm={() => confirm(recipe)}
                   // onCancel={cancel}
                   okText="Да"
                   cancelText="Нет"
@@ -67,7 +67,7 @@ const SavedRecipes = ({ likedRecipes, onDeleteRecipe, onSetRecipe }) => {
                     btnText={
                       <DeleteTwoTone
                         twoToneColor="crimson"
-                        style={{ fontSize: '20px' }}
+                        style={{ fontSize: "20px" }}
                       />
                     }
                   />
