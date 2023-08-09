@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import './Recipe.css';
-import Button from '../Button/Button';
-import heart from '../../images/icon__heart.svg';
-import heartLiked from '../../images/icon__heart_liked.svg';
-import dice from '../../images/dice_icon.svg';
-import AddToCart from '../../images/cart.svg';
+import "./Recipe.css";
+import Button from "../Button/Button";
+import heart from "../../images/icon__heart.svg";
+import heartLiked from "../../images/icon__heart_liked.svg";
+import dice from "../../images/dice_icon.svg";
+import AddToCart from "../../images/cart.svg";
 
 const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
   const [showInstructions, setShowInstructions] = useState(false);
@@ -49,32 +49,44 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
       />
       <div className="recipe__info recipe__box-shabow">
         <h1 className="recipe__meal-name">{recipe.mealName}</h1>
-        <p className="recipe__ingredients-quantity">
+        {/* <p className="recipe__ingredients-quantity">
           {recipe.ingredients?.length} ингредиентов
-        </p>
+        </p> */}
 
-        <div className="recipe__buttons-container">
+        <div className="recipe__buttons-container recipe__buttons-container_flex-column">
           {showInstructions ? (
             <Button
-              btnClass={'recipe__button'}
-              btnText={'Ингредиенты'}
+              btnClass={"recipe__button"}
+              btnText={"Ингредиенты"}
               onClick={() => setShowInstructions((prev) => !prev)}
             />
           ) : (
             <Button
-              btnClass={'recipe__button'}
-              btnText={'Как готовить'}
+              btnClass={"recipe__button"}
+              btnText={"Как готовить"}
               onClick={() => setShowInstructions((prev) => !prev)}
             />
           )}
+
           <a
-            className="recipe__button-yt"
+            className="recipe__button recipe__button-yt"
             href={recipe.youtubeLink}
             target="_blank"
             rel="noreferrer"
           >
             Видео
           </a>
+          <div className="recipe__buttons-container recipe__buttons-container_flex-column ">
+            <p className="recipe__author">Алексей Кудрявцев</p>
+            <a
+              className="recipe__author-link"
+              href="#"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Полный рецепт &#10132;
+            </a>
+          </div>
         </div>
       </div>
 
