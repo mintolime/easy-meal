@@ -3,7 +3,7 @@
   max-width: 440px;
   display: grid;
   grid-template-columns: 300px;
-  grid-template-rows: 30px 300px 250px 1fr;
+  grid-template-rows: 30px repeat(2, 300px) 1fr;
   grid-row-gap: 40px;
   /* padding: 30px 58px; */
   margin: 0 auto;
@@ -18,7 +18,7 @@
 .recipe__info {
   display: grid;
   gap: 15px;
-  grid-template-rows: 82px 18px 82px;
+  /* grid-template-rows: 82px 18px 82px; */
   /* min-height: 170px; */
   /* margin-bottom: 35px; */
 }
@@ -32,7 +32,7 @@
 .recipe__image {
   /* width: 284px; */
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 10px;
   justify-self: center;
   /* выравнивание картинки */
@@ -48,10 +48,11 @@
 }
 
 .recipe__ingredients-quantity {
-  font-size: 16px;
+  font-size: 13px;
   color: #7c8491;
   margin: 0;
   text-align: center;
+  letter-spacing: 1.5px;
 }
 
 .recipe__ingreditent-container {
@@ -71,6 +72,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.recipe__buttons-container_flex-column {
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 20px;
 }
 
 .recipe__ingreditent-name {
@@ -107,7 +117,7 @@
   line-height: 1.2;
   text-align: center;
   margin: 0;
-  margin-top: 20px;
+  padding: 20px;
 }
 
 .recipe__button-yt {
@@ -115,7 +125,7 @@
   padding: 10px;
   border-radius: 7px;
   /* убрала немного ширину, так как сплющивало кнопки */
-  width: 120px;
+  /* width: 120px; */
   height: 36px;
   font-size: 14px;
   color: white;
@@ -125,12 +135,35 @@
 }
 
 .recipe__instructions {
-  max-width: 350px;
+  max-width: 650px;
   text-align: start;
   line-height: 1.4;
   font-size: 16px;
   min-height: min-content;
   margin: 0;
+}
+
+.recipe__author {
+  color: #7c8491;
+  line-height: 1.4;
+  font-size: 15px;
+  margin: 0;
+  letter-spacing: 1.5px;
+  max-width: 200px;
+  white-space: nowrap; /* предотвращает перенос строк */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recipe__author-link {
+  text-decoration: none;
+  font-size: 15px;
+  color: #7c8491;
+  letter-spacing: 0.5px;
+}
+.recipe__author-link:hover {
+  color: rgb(233, 169, 86);
+  transform: scale(1.1);
 }
 
 @media screen and (min-width: 590px) {
@@ -139,7 +172,7 @@
     /* grid-template-columns: 1fr 1fr; */
     /* grid-template-columns: repeat(auto-fit, minmax(284px, 400px)); */
     grid-template-columns: 300px 400px;
-    grid-template-rows: 300px 30px 270px 1fr;
+    grid-template-rows: 300px 30px 300px 1fr;
     grid-column-gap: 70px;
   }
 
