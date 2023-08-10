@@ -12,7 +12,7 @@ const getRecipes = (req, res, next) => {
 const getRandomRecipe = (req, res, next) => {
   Recipe.find({})
     .then((recipes) => {
-      const index = Math.floor(Math.random() * (recipes.length - 1));
+      const index = Math.floor(Math.random() * recipes.length);
       const randomRecipe = recipes[index];
       res.send(randomRecipe);
     })
