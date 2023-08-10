@@ -26,10 +26,10 @@ const recipeSchema = new mongoose.Schema(
     mealSourceUrl: {
       type: String,
       required: false,
-      validate: {
-        validator: (v) => urlRegEx.test(v),
-        message: 'Невалидная ссылка',
-      },
+      // validate: {
+      //   validator: (v) => urlRegEx.test(v),
+      //   message: 'Невалидная ссылка',
+      // },
     },
 
     imageUrl: {
@@ -44,10 +44,10 @@ const recipeSchema = new mongoose.Schema(
     youtubeUrl: {
       type: String,
       required: false,
-      validate: {
-        validator: (v) => urlRegEx.test(v),
-        message: 'Невалидная ссылка',
-      },
+      // validate: {
+      //   validator: (v) => urlRegEx.test(v),
+      //   message: 'Невалидная ссылка',
+      // },
     },
 
     ingredients: [],

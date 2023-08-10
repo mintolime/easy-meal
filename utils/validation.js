@@ -34,18 +34,15 @@ const createRecipeValidation = {
         'any.required': 'Поле не должно быть пустым',
       })
       .required(),
-    mealAuthor: Joi.string(),
-
-    mealCategory: Joi.string(),
-
+    mealAuthor: Joi.string().allow('', null),
+    mealCategory: Joi.string().allow('', null),
     instructions: Joi.string()
       .messages({
         'any.required': 'Поле не должно быть пустым',
       })
       .required(),
 
-    mealSourceUrl: Joi.string().regex(urlRegEx),
-
+    mealSourceUrl: Joi.string().allow('', null).regex(urlRegEx),
     imageUrl: Joi.string()
       .regex(urlRegEx)
       .messages({
@@ -54,8 +51,7 @@ const createRecipeValidation = {
       })
       .required(),
 
-    youtubeUrl: Joi.string().regex(urlRegEx),
-
+    youtubeUrl: Joi.string().allow('', null).regex(urlRegEx),
     ingredients: Joi.array()
       .messages({
         'any.required': 'Поле не должно быть пустым',
