@@ -11,10 +11,16 @@ const {
   getRecipes,
   deleteRecipe,
   getRandomRecipe,
+  updateRecipe,
 } = require('../controllers/recipes');
 
 recipesRouter.get('/', getRecipes);
 recipesRouter.get('/random', getRandomRecipe);
+recipesRouter.patch(
+  '/:recipeId',
+  celebrate(createRecipeValidation),
+  updateRecipe
+);
 recipesRouter.post('/', celebrate(createRecipeValidation), createRecipe);
 
 recipesRouter.delete(

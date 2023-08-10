@@ -93,7 +93,7 @@ const getMe = (req, res, next) => {
 
 const likeRecipe = (req, res, next) => {
   const { _id } = req.user;
-  const recipeId = req.params.recipeId;
+  const { recipeId } = req.params;
 
   User.findByIdAndUpdate(
     _id,
@@ -101,7 +101,7 @@ const likeRecipe = (req, res, next) => {
     { new: true, runValidators: true }
   )
     .populate(['likes'])
-    .then((user) => {
+    .then(() => {
       Recipe.findById(recipeId)
         .then((recipe) => {
           res.send(recipe);
@@ -113,14 +113,14 @@ const likeRecipe = (req, res, next) => {
 
 const dislikeRecipe = (req, res, next) => {
   const { _id } = req.user;
-  const recipeId = req.params.recipeId;
+  const { recipeId } = req.params;
 
   User.findByIdAndUpdate(
     _id,
     { $pull: { likes: recipeId } },
     { new: true, runValidators: true }
   )
-    .then((user) => {
+    .then(() => {
       Recipe.findById(recipeId)
         .then((recipe) => {
           res.send(recipe);

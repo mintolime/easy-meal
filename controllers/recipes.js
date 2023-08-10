@@ -34,8 +34,29 @@ const createRecipe = (req, res, next) => {
     });
 };
 
+const updateRecipe = (req, res, next) => {
+  const { recipeId } = req.params;
+
+  Recipe.findByIdAndUpdate(
+    recipeId,
+    { ...req.body },
+    { new: true, runValidators: true }
+  )
+    .then((updatedRecipe) => {
+      res.send(updatedRecipe);
+    })
+    .catch((error) => {
+      if (error.name === 'ValidationError') {
+        console.log(error);
+        next(new customError.BadRequest('Переданы некорректные данные.'));
+      } else {
+        next(error);
+      }
+    });
+};
+
 const deleteRecipe = (req, res, next) => {
-  const recipeId = req.params.recipeId;
+  const { recipeId } = req.params;
 
   Recipe.deleteOne({ _id: recipeId })
     .then((recipe) => {
@@ -52,4 +73,5 @@ module.exports = {
   createRecipe,
   deleteRecipe,
   getRandomRecipe,
+  updateRecipe,
 };
