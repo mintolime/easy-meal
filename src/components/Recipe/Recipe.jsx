@@ -11,7 +11,6 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   const [showInstructions, setShowInstructions] = useState(false);
   const isLiked = likedRecipes.some((r) => r._id === recipe._id);
   // const likedRecipe = likedRecipes.find((r) => r._id === recipe._id);
-  console.log(recipe);
 
   // Почему-то при переходе с главной страницы на рецепты попадаешь в конец,
   // поэтому добавил принудильный скролл наверх
