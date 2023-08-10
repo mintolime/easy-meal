@@ -9,12 +9,12 @@ const getRecipes = (req, res, next) => {
     .catch(next);
 };
 
-const getRecipeById = (req, res, next) => {
-  const recipeId = req.params.recipeId;
-
-  Recipe.findById(recipeId)
-    .then((recipe) => {
-      res.send(recipe);
+const getRandomRecipe = (req, res, next) => {
+  Recipe.find({})
+    .then((recipes) => {
+      const index = Math.floor(Math.random() * (recipes.length - 1));
+      const randomRecipe = recipes[index];
+      res.send(randomRecipe);
     })
     .catch(next);
 };
@@ -51,4 +51,5 @@ module.exports = {
   getRecipes,
   createRecipe,
   deleteRecipe,
+  getRandomRecipe,
 };
