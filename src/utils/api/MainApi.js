@@ -18,6 +18,12 @@ export class MainApi {
     }).then((res) => handleResponce(res));
   }
 
+  getRandomRecipe() {
+    return fetch(`${this._url}/recipes/random`, {
+      headers: this._headers,
+    }).then((res) => handleResponce(res));
+  }
+
   createRecipe(recipe) {
     return fetch(`${this._url}/recipes`, {
       method: "POST",

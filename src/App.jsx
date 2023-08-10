@@ -46,18 +46,18 @@ function App() {
     navigate("/recipe");
   };
 
-  // Временно только 10 рецептов передаются из initialRecipes
   const getRandomRecipe = () => {
-    const index = Math.floor(Math.random() * (allRecipes.length - 1));
-    const randomRecipe = allRecipes[index];
-    // const modifiedRecipe = modifyRecipeObject(randomRecipe);
-
-    setRecipe(randomRecipe);
+    mainApi
+      .getRandomRecipe()
+      .then((randomRecipe) => {
+        setRecipe(randomRecipe);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     getRandomRecipe();
-  }, [allRecipes]);
+  }, []);
 
   const getRecipe = () => {
     navigate("/recipe");
@@ -181,12 +181,12 @@ function App() {
     }
   };
 
-  const handleLikeRecipe = (recipe, id, isLiked) => {
+  const handleLikeRecipe = (recipe, isLiked) => {
     // console.log(recipe);
     if (isLoggedIn) {
       if (!isLiked) {
         mainApi.likeRecipe(recipe._id).then((newRecipe) => {
-          setLikedRecipes([...likedRecipes, recipe]);
+          setLikedRecipes([...likedRecipes, newRecipe]);
         });
       } else {
         handleDislikeRecipe(recipe);
@@ -201,9 +201,7 @@ function App() {
 
   const handleDislikeRecipe = (recipe) => {
     mainApi.dislikeRecipe(recipe._id).then((res) => {
-      const updatedLikedRecipes = likedRecipes.filter(
-        (r) => r._id !== recipe._id
-      );
+      const updatedLikedRecipes = likedRecipes.filter((r) => r._id !== res._id);
       setLikedRecipes(updatedLikedRecipes);
     });
   };
