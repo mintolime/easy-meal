@@ -9,6 +9,16 @@ const getRecipes = (req, res, next) => {
     .catch(next);
 };
 
+const getRecipeById = (req, res, next) => {
+  const recipeId = req.params.recipeId;
+
+  Recipe.findById(recipeId)
+    .then((recipe) => {
+      res.send(recipe);
+    })
+    .catch(next);
+};
+
 const createRecipe = (req, res, next) => {
   Recipe.create({ ...req.body })
     .then((newRecipe) => {

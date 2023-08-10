@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 const User = require('../models/user');
+const Recipe = require('../models/recipe');
+
 const customError = require('../errors');
 
 // const checkUser = (user, res) => {
@@ -74,7 +76,7 @@ const login = (req, res, next) => {
 
 const getMe = (req, res, next) => {
   User.findById(req.user._id)
-  .populate(['likes'])
+    .populate(['likes'])
     .then((user) => res.send(user))
     .catch((error) => {
       if (error.name === 'ValidationError') {
@@ -97,8 +99,15 @@ const likeRecipe = (req, res, next) => {
     _id,
     { $addToSet: { likes: recipeId } },
     { new: true, runValidators: true }
-  ).populate(['likes'])
-    .then((user) => res.send(user.likes))
+  )
+    .populate(['likes'])
+    .then((user) => {
+      Recipe.findById(recipeId)
+        .then((recipe) => {
+          res.send(recipe);
+        })
+        .catch(next);
+    })
     .catch(next);
 };
 
@@ -112,7 +121,11 @@ const dislikeRecipe = (req, res, next) => {
     { new: true, runValidators: true }
   )
     .then((user) => {
-      res.send(user.likes);
+      Recipe.findById(recipeId)
+        .then((recipe) => {
+          res.send(recipe);
+        })
+        .catch(next);
     })
     .catch(next);
 };
@@ -122,5 +135,5 @@ module.exports = {
   createUser,
   getMe,
   likeRecipe,
-  dislikeRecipe
+  dislikeRecipe,
 };
