@@ -94,8 +94,9 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
               >
                 Избранное
               </Link>
-              <Link className="header__link" to="/new-recipe">
-                Новый рецепт
+
+              <Link className="header__link" to="/admin">
+                Админка
               </Link>
               {/* <Link
                 onClick={onClose}
