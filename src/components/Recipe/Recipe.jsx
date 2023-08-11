@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import DOMPurify from "dompurify";
+import { useEffect, useState } from 'react';
+import DOMPurify from 'dompurify';
 
-import "./Recipe.css";
-import Button from "../Button/Button";
-import heart from "../../images/icon__heart.svg";
-import heartLiked from "../../images/icon__heart_liked.svg";
-import dice from "../../images/dice_icon.svg";
-import AddToCart from "../../images/cart.svg";
+import './Recipe.css';
+import Button from '../Button/Button';
+import heart from '../../images/icon__heart.svg';
+import heartLiked from '../../images/icon__heart_liked.svg';
+import dice from '../../images/dice_icon.svg';
+import AddToCart from '../../images/cart.svg';
 
 const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   const [showInstructions, setShowInstructions] = useState(false);
@@ -36,9 +36,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
         />
 
         <Button
-          btnText={
-            <img className="recipe__icon-dice" src={dice} alt="dice icon" />
-          }
+          btnText={<img className="recipe__icon-dice" src={dice} alt="dice icon" />}
           onClick={getRandomRecipe}
         />
       </div>
@@ -57,14 +55,14 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
         <div className="recipe__buttons-container recipe__buttons-container_flex-column">
           {showInstructions ? (
             <Button
-              btnClass={"recipe__button"}
-              btnText={"Ингредиенты"}
+              btnClass={'recipe__button'}
+              btnText={'Ингредиенты'}
               onClick={() => setShowInstructions((prev) => !prev)}
             />
           ) : (
             <Button
-              btnClass={"recipe__button"}
-              btnText={"Как готовить"}
+              btnClass={'recipe__button'}
+              btnText={'Как готовить'}
               onClick={() => setShowInstructions((prev) => !prev)}
             />
           )}
@@ -74,19 +72,17 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
               className="recipe__button recipe__button-yt"
               href={recipe.youtubeLink || recipe.youtubeUrl}
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
               Видео
             </a>
           )}
           <div className="recipe__buttons-container recipe__buttons-container_flex-column ">
-            <p className="recipe__author">{recipe.mealAuthor || "No Author"}</p>
+            <p className="recipe__author">{recipe.mealAuthor || 'No Author'}</p>
             <a
               className="recipe__author-link"
-              href="#"
+              href={recipe.mealSourceUrl}
               target="_blank"
-              rel="noreferrer"
-            >
+              rel="noreferrer">
               Полный рецепт &#10132;
             </a>
           </div>
@@ -102,10 +98,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
         <ul className="recipe__ingredients ">
           {recipe.ingredients?.map((item, index) => {
             return (
-              <li
-                className="recipe__ingreditent-container recipe__box-shabow"
-                key={index}
-              >
+              <li className="recipe__ingreditent-container recipe__box-shabow" key={index}>
                 <div className="recipe__ingreditent">
                   <p className="recipe__ingreditent-name">{item.ingredient}</p>
                   <p className="recipe__ingreditent-measure">{item.measure}</p>

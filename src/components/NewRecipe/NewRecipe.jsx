@@ -1,0 +1,144 @@
+import React from 'react';
+import { Button, Form, Input, InputNumber, Space } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { layout, validateMessages } from '../../utils/configAntDesign';
+
+const NewRecipe = ({ onCreateRecipe }) => {
+  const onFinish = (values) => {
+    onCreateRecipe(values);
+    console.log(values);
+  };
+
+  return (
+    // <div className="form">
+
+      <Form
+      className="form"
+        {...layout}
+        name="nest-messages"
+        onFinish={onFinish}
+        style={{
+          maxWidth: 600,
+        }}
+        validateMessages={validateMessages}>
+         <h2 className="form__title">Новый рецепт</h2>
+         
+        <Form.Item name="mealAuthor" label="Автор">
+          <Input />
+        </Form.Item>
+
+        <Form.Item name="mealName" label="Блюдо" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+
+        <Form.Item name="mealCategory" label="Категория">
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="mealSourceUrl"
+          label="Ссылка на источник"
+          rules={[{ type: 'url' }, { type: 'string', min: 6 }]}>
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="imageUrl"
+          label="Ссылка на изображение"
+          rules={[
+            {
+              required: true,
+            },
+            { type: 'url' },
+            { type: 'string', min: 6 },
+          ]}>
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="youtubeUrl"
+          label="Ссылка на видео"
+          rules={[{ type: 'url' }, { type: 'string', min: 6 }]}>
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="instructions"
+          label="Способ приготовления"
+          rules={[
+            {
+              required: true,
+              message: 'Это поле пропущено',
+            },
+          ]}>
+          <Input.TextArea />
+        </Form.Item>
+
+        <Form.Item name="ingredients" label="Ингредиенты" rules={[{ required: true }]}>
+
+          <Form.List name="ingredients">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space
+                    key={key}
+                    style={{
+                      display: 'flex',
+                      marginBottom: 8,
+                    }}
+                    align="baseline">
+                    <Form.Item
+                      {...restField}
+                      name={[name, 'ingredient']}
+                      // name='Продукт'
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Это поле пропущено',
+                        },
+                      ]}>
+                      <Input placeholder="Продукт" />
+                    </Form.Item>
+                    <Form.Item
+                      {...restField}
+                      name={[name, 'measure']}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Это поле пропущено',
+                        },
+                      ]}>
+                      <Input placeholder="Граммовка" />
+                    </Form.Item>
+                    <MinusCircleOutlined onClick={() => remove(name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                    Добавить ингредиент
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+
+        </Form.Item>
+
+        <Form.Item
+          wrapperCol={{
+            ...layout.wrapperCol,
+            offset: 8,
+          }}>
+
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+
+        </Form.Item>
+
+      </Form>
+    // </div>
+  );
+};
+
+export default NewRecipe;

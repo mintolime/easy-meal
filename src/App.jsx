@@ -1,32 +1,33 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { message } from "antd";
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
-import "./App.css";
-import Loader from "./components/Loader/Loader";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import Recipe from "./components/Recipe/Recipe";
-import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
-import SavedRecipes from "./components/SavedRecipes/SavedRecipes";
-import NotFound from "./components/NotFound/NotFound";
-import ShoppingList from "./components/ShoppingList/ShoppingList";
-import { API_BACKEND, footerRoutes, headerRoutes } from "./utils/config";
-import { checkPath } from "./utils/functions";
-import { Auth } from "./utils/api/AuthApi";
-import { MainApi } from "./utils/api/MainApi";
-import { initialRecipes } from "./utils/constants";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import './App.css';
+import Loader from './components/Loader/Loader';
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
+import Main from './components/Main/Main';
+import Recipe from './components/Recipe/Recipe';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
+import SavedRecipes from './components/SavedRecipes/SavedRecipes';
+import NotFound from './components/NotFound/NotFound';
+import ShoppingList from './components/ShoppingList/ShoppingList';
+import { API_BACKEND, footerRoutes, headerRoutes } from './utils/config';
+import { checkPath } from './utils/functions';
+import { Auth } from './utils/api/AuthApi';
+import { MainApi } from './utils/api/MainApi';
+import { initialRecipes } from './utils/constants';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import NewRecipe from './components/NewRecipe/NewRecipe';
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isEmailUser, setIsEmailUser] = useState("");
+  const [isEmailUser, setIsEmailUser] = useState('');
   // проверка для отображения
   const headerView = checkPath(headerRoutes, location);
   const footerView = checkPath(footerRoutes, location);
@@ -43,7 +44,7 @@ function App() {
 
   const handleSetRecipe = (newRecipe) => {
     setRecipe(newRecipe);
-    navigate("/recipe");
+    navigate('/recipe');
   };
 
   const getRandomRecipe = () => {
@@ -64,23 +65,23 @@ function App() {
   }, []);
 
   const getRecipe = () => {
-    navigate("/recipe");
+    navigate('/recipe');
   };
 
   // API //
   const apiAuth = new Auth({
     url: API_BACKEND,
     headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
     },
   });
 
   const mainApi = new MainApi({
     url: API_BACKEND,
     headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
     },
   });
 
@@ -99,7 +100,7 @@ function App() {
   }, [isLoggedIn]);
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem('jwt');
     //обертка функция
     const delayedCheckToken = () => {
       apiAuth
@@ -113,12 +114,12 @@ function App() {
         .catch((err) => {
           if (err.status === 401) {
             setIsLoading(false);
-            localStorage.removeItem("jwt");
-            navigate("/signin", { replace: true });
+            localStorage.removeItem('jwt');
+            navigate('/signin', { replace: true });
           }
           console.log(
             `Что-то пошло не так: ошибка запроса статус ${err.status},
-            сообщение ${err.errorText} 😔`
+            сообщение ${err.errorText} 😔`,
           );
         });
     };
@@ -135,13 +136,13 @@ function App() {
     return apiAuth
       .register(data)
       .then((res) => {
-        showNotificationAnt("success", "Успешно!");
-        navigate("/signin", { replace: true });
+        showNotificationAnt('success', 'Успешно!');
+        navigate('/signin', { replace: true });
       })
       .catch((err) => {
-        showNotificationAnt("error", err.errorText);
+        showNotificationAnt('error', err.errorText);
         console.log(
-          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
+          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`,
         );
       });
   };
@@ -151,17 +152,17 @@ function App() {
       .authorize(data)
       .then((data) => {
         setIsLoggedIn(true);
-        showNotificationAnt("success", "Рады Вас видеть снова!");
+        showNotificationAnt('success', 'Рады Вас видеть снова!');
         // apiAuth.checkToken(data.token).then((res) => {
         setIsEmailUser(data.email);
         // });
-        localStorage.setItem("jwt", data.token);
-        navigate("/", { replace: true });
+        localStorage.setItem('jwt', data.token);
+        navigate('/', { replace: true });
       })
       .catch((err) => {
-        showNotificationAnt("error", err.errorText);
+        showNotificationAnt('error', err.errorText);
         console.log(
-          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
+          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`,
         );
         setIsLoggedIn(false);
         // setIsRegistration(false);
@@ -170,8 +171,8 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("jwt");
-    navigate("/signin", { replace: true });
+    localStorage.removeItem('jwt');
+    navigate('/signin', { replace: true });
     setIsLoggedIn(false);
   };
 
@@ -197,8 +198,8 @@ function App() {
       }
     } else {
       showNotificationAnt(
-        "warning",
-        "Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное"
+        'warning',
+        'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное',
       );
     }
   };
@@ -227,14 +228,8 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<Main getRecipe={getRecipe} />} />
-          <Route
-            path="/signup"
-            element={<Register onRegister={handleRegistration} />}
-          />
-          <Route
-            path="/signin"
-            element={<Login onLogin={handleAuthorization} />}
-          />
+          <Route path="/signup" element={<Register onRegister={handleRegistration} />} />
+          <Route path="/signin" element={<Login onLogin={handleAuthorization} />} />
           <Route
             path="/recipe"
             element={
@@ -257,6 +252,10 @@ function App() {
                 onSetRecipe={handleSetRecipe}
               />
             }
+          />
+          <Route
+            path="/new-recipe"
+            element={<ProtectedRoute isLoggedIn={isLoggedIn} component={NewRecipe} onCreateRecipe={handleCreateRecipe} />}
           />
           {/* <Route path="/shopping-list" element={<ShoppingList />} /> */}
           <Route path="*" element={<NotFound isLoggedIn={isLoggedIn} />} />
