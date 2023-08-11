@@ -3,9 +3,32 @@ import { Button, Form, Input, Select, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { layout, validateMessages } from '../../utils/configAntDesign';
 
-const NewRecipe = ({ onCreateRecipe }) => {
+const RecipeForm = ({
+  onCreateRecipe,
+  updatingRecipe,
+  onUpdateRecipe,
+  onSetUpdatingRecipe
+}) => {
+  const [form] = Form.useForm();
+
+  React.useEffect(() => {
+    if (!updatingRecipe) {
+      return;
+    } else {
+      form.setFieldsValue(updatingRecipe);
+    }
+  }, [updatingRecipe]);
+
+  console.log(updatingRecipe._id);
+
   const onFinish = (values) => {
-    onCreateRecipe(values);
+    if (updatingRecipe._id !== undefined) {
+      onUpdateRecipe(updatingRecipe._id, values);
+    } else {
+      onCreateRecipe(values);
+    }
+    form.resetFields();
+
     console.log(values);
   };
 
@@ -13,15 +36,19 @@ const NewRecipe = ({ onCreateRecipe }) => {
     // <div className="form">
 
     <Form
+      form={form}
       className="form"
       {...layout}
       name="nest-messages"
       onFinish={onFinish}
       style={{
-        maxWidth: 600,
+        maxWidth: 600
       }}
-      validateMessages={validateMessages}>
-      <h2 className="form__title">Новый рецепт</h2>
+      validateMessages={validateMessages}
+    >
+      <h2 className="form__title">
+        {updatingRecipe._id ? 'Редактировать рецепт' : 'Создать рецепт'}
+      </h2>
 
       <Form.Item name="mealAuthor" label="Автор">
         <Input />
@@ -44,7 +71,8 @@ const NewRecipe = ({ onCreateRecipe }) => {
       <Form.Item
         name="mealSourceUrl"
         label="Ссылка на источник"
-        rules={[{ type: 'url' }, { type: 'string', min: 6 }]}>
+        rules={[{ type: 'url' }, { type: 'string', min: 6 }]}
+      >
         <Input />
       </Form.Item>
 
@@ -53,18 +81,20 @@ const NewRecipe = ({ onCreateRecipe }) => {
         label="Ссылка на изображение"
         rules={[
           {
-            required: true,
+            required: true
           },
           { type: 'url' },
-          { type: 'string', min: 6 },
-        ]}>
+          { type: 'string', min: 6 }
+        ]}
+      >
         <Input />
       </Form.Item>
 
       <Form.Item
         name="youtubeUrl"
         label="Ссылка на видео"
-        rules={[{ type: 'url' }, { type: 'string', min: 6 }]}>
+        rules={[{ type: 'url' }, { type: 'string', min: 6 }]}
+      >
         <Input />
       </Form.Item>
 
@@ -74,13 +104,18 @@ const NewRecipe = ({ onCreateRecipe }) => {
         rules={[
           {
             required: true,
-            message: 'Это поле пропущено',
-          },
-        ]}>
+            message: 'Это поле пропущено'
+          }
+        ]}
+      >
         <Input.TextArea />
       </Form.Item>
 
-      <Form.Item name="ingredients" label="Ингредиенты" rules={[{ required: true }]}>
+      <Form.Item
+        name="ingredients"
+        label="Ингредиенты"
+        rules={[{ required: true }]}
+      >
         <Form.List name="ingredients">
           {(fields, { add, remove }) => (
             <>
@@ -89,9 +124,10 @@ const NewRecipe = ({ onCreateRecipe }) => {
                   key={key}
                   style={{
                     display: 'flex',
-                    marginBottom: 8,
+                    marginBottom: 8
                   }}
-                  align="baseline">
+                  align="baseline"
+                >
                   <Form.Item
                     {...restField}
                     name={[name, 'ingredient']}
@@ -99,9 +135,10 @@ const NewRecipe = ({ onCreateRecipe }) => {
                     rules={[
                       {
                         required: true,
-                        message: 'Это поле пропущено',
-                      },
-                    ]}>
+                        message: 'Это поле пропущено'
+                      }
+                    ]}
+                  >
                     <Input placeholder="Продукт" />
                   </Form.Item>
                   <Form.Item
@@ -110,16 +147,22 @@ const NewRecipe = ({ onCreateRecipe }) => {
                     rules={[
                       {
                         required: true,
-                        message: 'Это поле пропущено',
-                      },
-                    ]}>
+                        message: 'Это поле пропущено'
+                      }
+                    ]}
+                  >
                     <Input placeholder="Граммовка" />
                   </Form.Item>
                   <MinusCircleOutlined onClick={() => remove(name)} />
                 </Space>
               ))}
               <Form.Item>
-                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  icon={<PlusOutlined />}
+                >
                   Добавить ингредиент
                 </Button>
               </Form.Item>
@@ -131,10 +174,21 @@ const NewRecipe = ({ onCreateRecipe }) => {
       <Form.Item
         wrapperCol={{
           ...layout.wrapperCol,
-          offset: 8,
-        }}>
+          offset: 8
+        }}
+      >
         <Button type="primary" htmlType="submit">
           Submit
+        </Button>
+
+        <Button
+          htmlType="button"
+          onClick={() => {
+            form.resetFields();
+            onSetUpdatingRecipe({});
+          }}
+        >
+          Reset
         </Button>
       </Form.Item>
     </Form>
@@ -142,4 +196,4 @@ const NewRecipe = ({ onCreateRecipe }) => {
   );
 };
 
-export default NewRecipe;
+export default RecipeForm;

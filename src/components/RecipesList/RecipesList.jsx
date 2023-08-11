@@ -1,37 +1,44 @@
-import Button from "../Button/Button";
-import { message, Popconfirm, Button as AntButton } from "antd";
-import { DeleteTwoTone } from "@ant-design/icons";
-import "./SavedRecipes.css";
-import { useNavigate } from "react-router-dom";
+import Button from '../Button/Button';
+import { message, Popconfirm, Button as AntButton } from 'antd';
+import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 
-const SavedRecipes = ({ likedRecipes, onDislikeRecipe, onSetRecipe }) => {
-  // console.log(likedRecipes);
+import './RecipesList.css';
+import { useNavigate } from 'react-router-dom';
+
+const RecipesList = ({
+  recipes,
+  onDeleteRecipe,
+  onSetRecipe,
+  onChangeTab,
+  onSetUpdatingRecipe
+}) => {
+  // console.log(recipes);
   const navigate = useNavigate();
 
-  const confirm = (id) => {
-    onDislikeRecipe(id);
-    message.success("На одну вкусняшку стало меньше");
+  const confirm = (recipe) => {
+    onDeleteRecipe(recipe);
+    message.success('На одну вкусняшку стало меньше');
   };
 
   return (
     <div className="saved-recipes">
-      {likedRecipes.length === 0 ? (
+      {recipes.length === 0 ? (
         <div className="saved-recipes__start-container">
           <p>Здесь будут храниться все понравившиеся вам рецепты </p>
 
           <AntButton
-            style={{ maxWidth: "146px", margin: "0 auto" }}
+            style={{ maxWidth: '146px', margin: '0 auto' }}
             size="large"
-            onClick={() => navigate("/recipe")}
+            onClick={() => navigate('/recipe')}
           >
             За вкусняшкой!
           </AntButton>
         </div>
       ) : (
-        ""
+        ''
       )}
       <ul className="saved-recipes__container">
-        {likedRecipes.map((recipe) => {
+        {recipes.map((recipe) => {
           return (
             <li
               key={recipe._id}
@@ -54,6 +61,22 @@ const SavedRecipes = ({ likedRecipes, onDislikeRecipe, onSetRecipe }) => {
               </p>
 
               <div className="saved-recipes__card-trash">
+                <Button
+                  btnText={
+                    <EditOutlined
+                      style={{
+                        fontSize: '20px',
+                        color: 'green',
+                        marginRight: '12px'
+                      }}
+                    />
+                  }
+                  onClick={() => {
+                    onChangeTab('2');
+                    onSetUpdatingRecipe(recipe);
+                  }}
+                />
+
                 <Popconfirm
                   // title="Delete the task"
                   placement="left"
@@ -67,7 +90,7 @@ const SavedRecipes = ({ likedRecipes, onDislikeRecipe, onSetRecipe }) => {
                     btnText={
                       <DeleteTwoTone
                         twoToneColor="crimson"
-                        style={{ fontSize: "20px" }}
+                        style={{ fontSize: '20px' }}
                       />
                     }
                   />
@@ -81,4 +104,4 @@ const SavedRecipes = ({ likedRecipes, onDislikeRecipe, onSetRecipe }) => {
   );
 };
 
-export default SavedRecipes;
+export default RecipesList;

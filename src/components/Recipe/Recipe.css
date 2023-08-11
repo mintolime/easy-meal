@@ -36,7 +36,7 @@
   border-radius: 10px;
   justify-self: center;
   /* выравнивание картинки */
-  object-fit: fill;
+  object-fit: cover;
   object-position: center;
   /* margin: 30px 0 40px; */
 }

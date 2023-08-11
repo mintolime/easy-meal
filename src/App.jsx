@@ -11,16 +11,15 @@ import Main from './components/Main/Main';
 import Recipe from './components/Recipe/Recipe';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
-import SavedRecipes from './components/SavedRecipes/SavedRecipes';
+import RecipesList from './components/RecipesList/RecipesList';
 import NotFound from './components/NotFound/NotFound';
-import ShoppingList from './components/ShoppingList/ShoppingList';
 import { API_BACKEND, footerRoutes, headerRoutes } from './utils/config';
 import { checkPath } from './utils/functions';
 import { Auth } from './utils/api/AuthApi';
 import { MainApi } from './utils/api/MainApi';
-import { initialRecipes } from './utils/constants';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import NewRecipe from './components/NewRecipe/NewRecipe';
+import NewRecipe from './components/RecipeForm/RecipeForm';
+import AdminPanel from './components/AdminPanel/AdminPanel';
 
 function App() {
   const location = useLocation();
@@ -73,16 +72,16 @@ function App() {
     url: API_BACKEND,
     headers: {
       'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    },
+      authorization: `Bearer ${localStorage.getItem('jwt')}`
+    }
   });
 
   const mainApi = new MainApi({
     url: API_BACKEND,
     headers: {
       'Content-Type': 'application/json',
-      authorization: `Bearer ${localStorage.getItem('jwt')}`,
-    },
+      authorization: `Bearer ${localStorage.getItem('jwt')}`
+    }
   });
 
   useEffect(() => {
@@ -119,7 +118,7 @@ function App() {
           }
           console.log(
             `Что-то пошло не так: ошибка запроса статус ${err.status},
-            сообщение ${err.errorText} 😔`,
+            сообщение ${err.errorText} 😔`
           );
         });
     };
@@ -142,7 +141,7 @@ function App() {
       .catch((err) => {
         showNotificationAnt('error', err.errorText);
         console.log(
-          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`,
+          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
       });
   };
@@ -162,7 +161,7 @@ function App() {
       .catch((err) => {
         showNotificationAnt('error', err.errorText);
         console.log(
-          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`,
+          `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
         setIsLoggedIn(false);
         // setIsRegistration(false);
@@ -179,10 +178,49 @@ function App() {
   // --- Recipes API methods ---
   const handleCreateRecipe = (recipe) => {
     if (isLoggedIn) {
-      mainApi.createRecipe(recipe).then((newRecipe) => {
-        // setLikedRecipes([...likedRecipes, newRecipe]);
-        console.log(newRecipe);
-      });
+      mainApi
+        .createRecipe(recipe)
+        .then((newRecipe) => {
+          setAllRecipes([...allRecipes, newRecipe]);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const handleUpdateRecipe = (id, recipe) => {
+    if (isLoggedIn) {
+      mainApi
+        .updateRecipe(id, recipe)
+        .then((newRecipe) => {
+          const updated = allRecipes.filter((r) => r._id !== id);
+          setAllRecipes([...updated, newRecipe]);
+          // let updatedRecipe = allRecipes.find((r) => r._id === id);
+          // console.log('1', updatedRecipe);
+          // if (updatedRecipe) {
+          //   updatedRecipe = newRecipe;
+          //   const filtered = allRecipes
+
+          //   console.log('2', updatedRecipe);
+          //   setAllRecipes([...allRecipes, updatedRecipe]);
+          // }
+          // console.log(newRecipe);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const handleDeleteRecipe = (recipe) => {
+    if (isLoggedIn) {
+      mainApi
+        .deleteRecipe(recipe._id)
+        .then((res) => {
+          const updatedAllRecipes = allRecipes.filter(
+            (r) => r._id !== recipe._id
+          );
+          setAllRecipes(updatedAllRecipes);
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -199,7 +237,7 @@ function App() {
     } else {
       showNotificationAnt(
         'warning',
-        'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное',
+        'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное'
       );
     }
   };
@@ -228,8 +266,14 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<Main getRecipe={getRecipe} />} />
-          <Route path="/signup" element={<Register onRegister={handleRegistration} />} />
-          <Route path="/signin" element={<Login onLogin={handleAuthorization} />} />
+          <Route
+            path="/signup"
+            element={<Register onRegister={handleRegistration} />}
+          />
+          <Route
+            path="/signin"
+            element={<Login onLogin={handleAuthorization} />}
+          />
           <Route
             path="/recipe"
             element={
@@ -246,16 +290,38 @@ function App() {
             element={
               <ProtectedRoute
                 isLoggedIn={isLoggedIn}
-                component={SavedRecipes}
-                likedRecipes={likedRecipes}
-                onDislikeRecipe={handleDislikeRecipe}
+                component={RecipesList}
+                recipes={likedRecipes}
+                onDeleteRecipe={handleDislikeRecipe}
                 onSetRecipe={handleSetRecipe}
               />
             }
           />
           <Route
             path="/new-recipe"
-            element={<ProtectedRoute isLoggedIn={isLoggedIn} component={NewRecipe} onCreateRecipe={handleCreateRecipe} />}
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                component={NewRecipe}
+                onCreateRecipe={handleCreateRecipe}
+                onUpdateRecipe={handleUpdateRecipe}
+              />
+            }
+          />
+
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                component={AdminPanel}
+                recipes={allRecipes}
+                onSetRecipe={handleSetRecipe}
+                onDeleteRecipe={handleDeleteRecipe}
+                onCreateRecipe={handleCreateRecipe}
+                onUpdateRecipe={handleUpdateRecipe}
+              />
+            }
           />
           {/* <Route path="/shopping-list" element={<ShoppingList />} /> */}
           <Route path="*" element={<NotFound isLoggedIn={isLoggedIn} />} />
