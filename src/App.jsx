@@ -194,16 +194,6 @@ function App() {
         .then((newRecipe) => {
           const updated = allRecipes.filter((r) => r._id !== id);
           setAllRecipes([...updated, newRecipe]);
-          // let updatedRecipe = allRecipes.find((r) => r._id === id);
-          // console.log('1', updatedRecipe);
-          // if (updatedRecipe) {
-          //   updatedRecipe = newRecipe;
-          //   const filtered = allRecipes
-
-          //   console.log('2', updatedRecipe);
-          //   setAllRecipes([...allRecipes, updatedRecipe]);
-          // }
-          // console.log(newRecipe);
         })
         .catch((err) => console.log(err));
     }

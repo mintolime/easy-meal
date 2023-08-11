@@ -3,7 +3,7 @@ import { message, Popconfirm, Button as AntButton } from 'antd';
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 
 import './RecipesList.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const RecipesList = ({
   recipes,
@@ -14,6 +14,7 @@ const RecipesList = ({
 }) => {
   // console.log(recipes);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const confirm = (recipe) => {
     onDeleteRecipe(recipe);
@@ -61,21 +62,23 @@ const RecipesList = ({
               </p>
 
               <div className="saved-recipes__card-trash">
-                <Button
-                  btnText={
-                    <EditOutlined
-                      style={{
-                        fontSize: '20px',
-                        color: 'green',
-                        marginRight: '12px'
-                      }}
-                    />
-                  }
-                  onClick={() => {
-                    onChangeTab('2');
-                    onSetUpdatingRecipe(recipe);
-                  }}
-                />
+                {location.pathname === '/admin' && (
+                  <Button
+                    btnText={
+                      <EditOutlined
+                        style={{
+                          fontSize: '20px',
+                          color: 'green',
+                          marginRight: '12px'
+                        }}
+                      />
+                    }
+                    onClick={() => {
+                      onChangeTab('2');
+                      onSetUpdatingRecipe(recipe);
+                    }}
+                  />
+                )}
 
                 <Popconfirm
                   // title="Delete the task"
