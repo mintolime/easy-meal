@@ -6,7 +6,7 @@ const authRouter = require('./auth');
 
 router.use(authRouter);
 router.use('/users', auth, usersRouter);
-router.use('/recipes', auth, recipesRouter);
+router.use('/recipes', recipesRouter);
 router.use('/*', auth);
 
 module.exports = router;

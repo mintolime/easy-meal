@@ -1,4 +1,5 @@
 const recipesRouter = require('express').Router();
+const auth = require('../middlewares/auth');
 const { celebrate } = require('celebrate');
 
 const {
@@ -14,17 +15,19 @@ const {
   updateRecipe,
 } = require('../controllers/recipes');
 
-recipesRouter.get('/', getRecipes);
+recipesRouter.get('/', auth, getRecipes);
 recipesRouter.get('/random', getRandomRecipe);
 recipesRouter.patch(
   '/:recipeId',
+  auth,
   celebrate(createRecipeValidation),
   updateRecipe
 );
-recipesRouter.post('/', celebrate(createRecipeValidation), createRecipe);
+recipesRouter.post('/', auth, celebrate(createRecipeValidation), createRecipe);
 
 recipesRouter.delete(
   '/:recipeId',
+  auth,
   celebrate(deleteRecipeValidation),
   deleteRecipe
 );
