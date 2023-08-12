@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import './Footer.css';
+import { Link } from "react-router-dom";
+import "./Footer.css";
 
 function Footer() {
   return (
@@ -7,14 +7,14 @@ function Footer() {
       <div className="footer__creator">
         <p className="footer__creator_text">&#169;{new Date().getFullYear()}</p>
         <p className="footer__creator_text">
-          Made by{' '}
+          Made by{" "}
           <a
             className="footer__link footer__hover"
             href="https://github.com/mintolime"
             target="_blank"
             rel="noreferrer"
           >
-            mintolime{' '}
+            mintolime{" "}
           </a>
           &#38;
           <a
@@ -23,15 +23,12 @@ function Footer() {
             target="_blank"
             rel="noreferrer"
           >
-            {' '}
+            {" "}
             alveek
           </a>
         </p>
       </div>
       <div className="footer__creator">
-        <Link className="footer__link ">
-          <p className="footer__creator_text footer__hover">TheMealDB</p>
-        </Link>
         <Link className="footer__link ">
           <p className="footer__creator_text footer__hover">GitHub</p>
         </Link>

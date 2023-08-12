@@ -1,13 +1,13 @@
-import React from 'react';
-import { Button, Form, Input, Select, Space } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { layout, validateMessages } from '../../utils/configAntDesign';
+import React from "react";
+import { Button, Form, Input, Select, Space } from "antd";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { layout, validateMessages } from "../../utils/configAntDesign";
 
 const RecipeForm = ({
   onCreateRecipe,
   updatingRecipe,
   onUpdateRecipe,
-  onSetUpdatingRecipe
+  onSetUpdatingRecipe,
 }) => {
   const [form] = Form.useForm();
 
@@ -19,11 +19,10 @@ const RecipeForm = ({
     }
   }, [updatingRecipe]);
 
-  console.log(updatingRecipe._id);
-
   const onFinish = (values) => {
     if (updatingRecipe._id !== undefined) {
       onUpdateRecipe(updatingRecipe._id, values);
+      onSetUpdatingRecipe({});
     } else {
       onCreateRecipe(values);
     }
@@ -42,12 +41,12 @@ const RecipeForm = ({
       name="nest-messages"
       onFinish={onFinish}
       style={{
-        maxWidth: 600
+        maxWidth: 600,
       }}
       validateMessages={validateMessages}
     >
       <h2 className="form__title">
-        {updatingRecipe._id ? 'Редактировать рецепт' : 'Создать рецепт'}
+        {updatingRecipe._id ? "Редактировать рецепт" : "Создать рецепт"}
       </h2>
 
       <Form.Item name="mealAuthor" label="Автор">
@@ -71,7 +70,7 @@ const RecipeForm = ({
       <Form.Item
         name="mealSourceUrl"
         label="Ссылка на источник"
-        rules={[{ type: 'url' }, { type: 'string', min: 6 }]}
+        rules={[{ type: "url" }, { type: "string", min: 6 }]}
       >
         <Input />
       </Form.Item>
@@ -81,10 +80,10 @@ const RecipeForm = ({
         label="Ссылка на изображение"
         rules={[
           {
-            required: true
+            required: true,
           },
-          { type: 'url' },
-          { type: 'string', min: 6 }
+          { type: "url" },
+          { type: "string", min: 6 },
         ]}
       >
         <Input />
@@ -93,7 +92,7 @@ const RecipeForm = ({
       <Form.Item
         name="youtubeUrl"
         label="Ссылка на видео"
-        rules={[{ type: 'url' }, { type: 'string', min: 6 }]}
+        rules={[{ type: "url" }, { type: "string", min: 6 }]}
       >
         <Input />
       </Form.Item>
@@ -104,8 +103,8 @@ const RecipeForm = ({
         rules={[
           {
             required: true,
-            message: 'Это поле пропущено'
-          }
+            message: "Это поле пропущено",
+          },
         ]}
       >
         <Input.TextArea />
@@ -123,32 +122,32 @@ const RecipeForm = ({
                 <Space
                   key={key}
                   style={{
-                    display: 'flex',
-                    marginBottom: 8
+                    display: "flex",
+                    marginBottom: 8,
                   }}
                   align="baseline"
                 >
                   <Form.Item
                     {...restField}
-                    name={[name, 'ingredient']}
+                    name={[name, "ingredient"]}
                     // name='Продукт'
                     rules={[
                       {
                         required: true,
-                        message: 'Это поле пропущено'
-                      }
+                        message: "Это поле пропущено",
+                      },
                     ]}
                   >
                     <Input placeholder="Продукт" />
                   </Form.Item>
                   <Form.Item
                     {...restField}
-                    name={[name, 'measure']}
+                    name={[name, "measure"]}
                     rules={[
                       {
                         required: true,
-                        message: 'Это поле пропущено'
-                      }
+                        message: "Это поле пропущено",
+                      },
                     ]}
                   >
                     <Input placeholder="Граммовка" />
@@ -174,7 +173,7 @@ const RecipeForm = ({
       <Form.Item
         wrapperCol={{
           ...layout.wrapperCol,
-          offset: 8
+          offset: 8,
         }}
       >
         <Button type="primary" htmlType="submit">
