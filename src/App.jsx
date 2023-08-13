@@ -154,6 +154,7 @@ function App() {
         showNotificationAnt("success", "Рады Вас видеть снова!");
         // apiAuth.checkToken(data.token).then((res) => {
         setIsEmailUser(data.email);
+        console.log(data)
         // });
         localStorage.setItem("jwt", data.token);
         navigate("/", { replace: true });
