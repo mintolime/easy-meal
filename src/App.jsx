@@ -26,7 +26,11 @@ function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isEmailUser, setIsEmailUser] = useState("");
+  // единый стейт для пользователя
+  const [user, setUser] = useState({
+    isEmailUser: "",
+    isAdminUser: false,
+  });
   // проверка для отображения
   const headerView = checkPath(headerRoutes, location);
   const footerView = checkPath(footerRoutes, location);
@@ -90,12 +94,13 @@ function App() {
         setLikedRecipes(user.likes);
       });
 
-    mainApi
-      .getRecipes()
-      .then((recipes) => {
-        setAllRecipes(recipes);
-      })
-      .catch((err) => console.log(err));
+    isLoggedIn &&
+      mainApi
+        .getRecipes()
+        .then((recipes) => {
+          setAllRecipes(recipes);
+        })
+        .catch((err) => console.log(err));
   }, [isLoggedIn]);
 
   React.useEffect(() => {
@@ -107,7 +112,12 @@ function App() {
         .then((res) => {
           setIsLoggedIn(true);
           setIsLoading(false);
-          setIsEmailUser(res.email);
+          console.log("token", res);
+          setUser((prevUser) => ({
+            ...prevUser,
+            isAdminUser: true,
+            isEmailUser: res.email,
+          }));
           navigate(location.pathname, { replace: true });
         })
         .catch((err) => {
@@ -152,10 +162,16 @@ function App() {
       .then((data) => {
         setIsLoggedIn(true);
         showNotificationAnt("success", "Рады Вас видеть снова!");
-        // apiAuth.checkToken(data.token).then((res) => {
-        setIsEmailUser(data.email);
-        console.log(data)
-        // });
+
+        apiAuth.checkToken(data.token).then((res) => {
+          setUser((prevUser) => ({
+            ...prevUser,
+            isAdminUser: true,
+            isEmailUser: res.email,
+          }));
+          console.log("login", res);
+        });
+        
         localStorage.setItem("jwt", data.token);
         navigate("/", { replace: true });
       })
@@ -165,8 +181,6 @@ function App() {
           `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
         setIsLoggedIn(false);
-        // setIsRegistration(false);
-        // handleRegistrationSuccess();
       });
   };
 
@@ -174,6 +188,11 @@ function App() {
     localStorage.removeItem("jwt");
     navigate("/signin", { replace: true });
     setIsLoggedIn(false);
+    setUser((prevUser) => ({
+      ...prevUser,
+      isEmailUser: "",
+      isAdminUser: false,
+    }));
   };
 
   // --- Recipes API methods ---
@@ -256,8 +275,10 @@ function App() {
         <Header
           isLoggedIn={isLoggedIn}
           isLoading={isLoading}
+          isCurrentUser={user}
+          // isAdmin={isAdminUser}
           onLogout={handleLogout}
-          isEmailUser={isEmailUser}
+          // isEmailUser={isEmailUser}
         />
       )}
       {contextHolder}
@@ -310,20 +331,22 @@ function App() {
             }
           />
 
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute
-                isLoggedIn={isLoggedIn}
-                component={AdminPanel}
-                recipes={allRecipes}
-                onSetRecipe={handleSetRecipe}
-                onDeleteRecipe={handleDeleteRecipe}
-                onCreateRecipe={handleCreateRecipe}
-                onUpdateRecipe={handleUpdateRecipe}
-              />
-            }
-          />
+          {user.isAdminUser && (
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  component={AdminPanel}
+                  recipes={allRecipes}
+                  onSetRecipe={handleSetRecipe}
+                  onDeleteRecipe={handleDeleteRecipe}
+                  onCreateRecipe={handleCreateRecipe}
+                  onUpdateRecipe={handleUpdateRecipe}
+                />
+              }
+            />
+          )}
           {/* <Route path="/shopping-list" element={<ShoppingList />} /> */}
           <Route path="*" element={<NotFound isLoggedIn={isLoggedIn} />} />
         </Routes>

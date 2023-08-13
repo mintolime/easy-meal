@@ -7,19 +7,19 @@ import Button from '../Button/Button';
 const Login = ({ onLogin }) => {
   const onFinish = (values) => {
     onLogin(values);
-    console.log('Success:', values);
+    // console.log('Success:', values);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log('Failed:', errorInfo);
+  // };
   return (
     <Form
       className="form page__flexbox-column"
       layout="vertical"
       name="basic"
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+      // onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <h3 className="form__title">Вход</h3>
