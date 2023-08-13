@@ -5,16 +5,9 @@ import Button from "../Button/Button";
 import { Drawer } from "antd";
 import { Link } from "react-router-dom";
 
-function Header({
-  isLoggedIn,
-  onLogout,
-  isEmailUser,
-  isLoading,
-  isAdmin,
-  isCurrentUser,
-}) {
+function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
   const [open, setOpen] = useState(false);
-  console.log(isCurrentUser, "header");
+  
   const showDrawer = () => {
     setOpen(true);
   };

@@ -87,20 +87,45 @@ function App() {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   });
+  
+  // useEffect(() => {
+  //   isLoggedIn &&
+  //     mainApi.getSavedRecipes().then((user) => {
+  //       setLikedRecipes(user.likes);
+  //     });
+
+  //   isLoggedIn &&
+  //     mainApi
+  //       .getRecipes()
+  //       .then((recipes) => {
+  //         setAllRecipes(recipes);
+  //       })
+  //       .catch((err) => console.log(err));
+  // }, [isLoggedIn]);
 
   useEffect(() => {
-    isLoggedIn &&
-      mainApi.getSavedRecipes().then((user) => {
-        setLikedRecipes(user.likes);
-      });
-
-    isLoggedIn &&
-      mainApi
-        .getRecipes()
-        .then((recipes) => {
+    const fetchData = async () => {
+      try {
+        if (isLoggedIn) {
+          const [savedRecipes, recipes, auth] = await Promise.all([
+            mainApi.getSavedRecipes(),
+            mainApi.getRecipes(),
+            apiAuth.checkToken(),
+          ]);
+          setLikedRecipes(savedRecipes.likes);
           setAllRecipes(recipes);
-        })
-        .catch((err) => console.log(err));
+          setUser((prevUser) => ({
+            ...prevUser,
+            isAdminUser: auth.isAdmin,
+            isEmailUser: auth.email,
+          }));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
   }, [isLoggedIn]);
 
   React.useEffect(() => {
@@ -112,12 +137,6 @@ function App() {
         .then((res) => {
           setIsLoggedIn(true);
           setIsLoading(false);
-          console.log("token", res);
-          setUser((prevUser) => ({
-            ...prevUser,
-            isAdminUser: true,
-            isEmailUser: res.email,
-          }));
           navigate(location.pathname, { replace: true });
         })
         .catch((err) => {
@@ -162,16 +181,6 @@ function App() {
       .then((data) => {
         setIsLoggedIn(true);
         showNotificationAnt("success", "Рады Вас видеть снова!");
-
-        apiAuth.checkToken(data.token).then((res) => {
-          setUser((prevUser) => ({
-            ...prevUser,
-            isAdminUser: true,
-            isEmailUser: res.email,
-          }));
-          console.log("login", res);
-        });
-        
         localStorage.setItem("jwt", data.token);
         navigate("/", { replace: true });
       })
@@ -276,9 +285,7 @@ function App() {
           isLoggedIn={isLoggedIn}
           isLoading={isLoading}
           isCurrentUser={user}
-          // isAdmin={isAdminUser}
           onLogout={handleLogout}
-          // isEmailUser={isEmailUser}
         />
       )}
       {contextHolder}
