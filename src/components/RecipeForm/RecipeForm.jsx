@@ -32,8 +32,6 @@ const RecipeForm = ({
   };
 
   return (
-    // <div className="form">
-
     <Form
       form={form}
       className="form"
@@ -191,7 +189,6 @@ const RecipeForm = ({
         </Button>
       </Form.Item>
     </Form>
-    // </div>
   );
 };
 
