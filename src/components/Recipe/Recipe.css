@@ -2,12 +2,11 @@
   padding: 30px 18px;
   max-width: 440px;
   display: grid;
-  grid-template-columns: 300px;
   grid-template-rows: 30px repeat(2, 300px) 1fr;
   grid-row-gap: 40px;
-  /* padding: 30px 58px; */
   margin: 0 auto;
 }
+
 /* замиксовала стили, чтобы добавлять к разным блокам <3 */
 .recipe__box-shabow {
   padding: 14px 14px;
@@ -18,9 +17,6 @@
 .recipe__info {
   display: grid;
   gap: 15px;
-  /* grid-template-rows: 82px 18px 82px; */
-  /* min-height: 170px; */
-  /* margin-bottom: 35px; */
 }
 
 .recipe__img-box {
@@ -30,7 +26,6 @@
 }
 
 .recipe__image {
-  /* width: 284px; */
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -38,7 +33,6 @@
   /* выравнивание картинки */
   object-fit: cover;
   object-position: center;
-  /* margin: 30px 0 40px; */
 }
 
 .recipe__ingredients {
@@ -125,7 +119,6 @@
   padding: 10px;
   border-radius: 7px;
   /* убрала немного ширину, так как сплющивало кнопки */
-  /* width: 120px; */
   height: 36px;
   font-size: 14px;
   color: white;
@@ -166,11 +159,9 @@
   transform: scale(1.1);
 }
 
-@media screen and (min-width: 590px) {
+@media screen and (min-width: 850px) {
   .recipe {
     max-width: 100%;
-    /* grid-template-columns: 1fr 1fr; */
-    /* grid-template-columns: repeat(auto-fit, minmax(284px, 400px)); */
     grid-template-columns: 300px 400px;
     grid-template-rows: 300px 30px 300px 1fr;
     grid-column-gap: 70px;
@@ -191,7 +182,6 @@
   }
 
   .recipe__ingredients {
-    /* grid-area: 1 / 2 / 4 / 3; */
     grid-area: 1 / 2 / 5 / 3;
   }
 
