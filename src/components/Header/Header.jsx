@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import './Header.css';
-import logo from '../../images/header-logo.svg';
-import Button from '../Button/Button';
-import { Drawer } from 'antd';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import "./Header.css";
+import logo from "../../images/header-logo.svg";
+import Button from "../Button/Button";
+import { Drawer } from "antd";
+import { Link } from "react-router-dom";
 
-function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
+function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
   const [open, setOpen] = useState(false);
-
+  
   const showDrawer = () => {
     setOpen(true);
   };
@@ -17,7 +17,7 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
 
   return (
     <header className="header">
-      <Link to={'/'}>
+      <Link to={"/"}>
         <img className="header__logo" src={logo} alt="логотип шапки сайта" />
       </Link>
       {/* скрываю блок, чтобы при загрузке не показывал блок */}
@@ -42,10 +42,15 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
               {/* <Link className="header__link" to="/shopping-list">
                 Список покупок
               </Link> */}
-              <p className="header__profile">{isEmailUser}</p>
+              {isCurrentUser.isAdminUser && (
+                <Link className="header__link" to="/admin">
+                  Админка
+                </Link>
+              )}
+              <p className="header__profile">{isCurrentUser.isEmailUser}</p>
               <Button
-                btnClass={'button_type_signout'}
-                btnText={'Выйти'}
+                btnClass={"button_type_signout"}
+                btnText={"Выйти"}
                 onClick={onLogout}
               />
             </nav>
@@ -54,7 +59,7 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
       </div>
 
       <div className="header__nav_tablet">
-        <Button btnClass={'button_type_menu-open'} onClick={showDrawer} />
+        <Button btnClass={"button_type_menu-open"} onClick={showDrawer} />
 
         <Drawer
           title="Easy Meal"
@@ -83,7 +88,7 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
 
           {isLoggedIn && (
             <nav className="header__nav header__nav-authorized">
-              <p className="header__profile">{isEmailUser}</p>
+              <p className="header__profile">{isCurrentUser.isEmailUser}</p>
               <Link
                 onClick={onClose}
                 className="header__link header__link-drawer"
@@ -91,6 +96,12 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
               >
                 Избранное
               </Link>
+
+              {isCurrentUser.isAdminUser && (
+                <Link className="header__link header__link-drawer" to="/admin">
+                  Админка
+                </Link>
+              )}
               {/* <Link
                 onClick={onClose}
                 className="header__link header__link-drawer"
@@ -98,8 +109,8 @@ function Header({ isLoggedIn, onLogout, isEmailUser, isLoading }) {
                 Список покупок
               </Link> */}
               <Button
-                btnClass={'button_type_signout'}
-                btnText={'Выйти'}
+                btnClass={"button_type_signout"}
+                btnText={"Выйти"}
                 onClick={() => {
                   onLogout();
                   onClose();

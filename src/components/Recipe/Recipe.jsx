@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import DOMPurify from 'dompurify';
 
 import './Recipe.css';
 import Button from '../Button/Button';
@@ -7,10 +8,10 @@ import heartLiked from '../../images/icon__heart_liked.svg';
 import dice from '../../images/dice_icon.svg';
 import AddToCart from '../../images/cart.svg';
 
-const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
+const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   const [showInstructions, setShowInstructions] = useState(false);
-  const isLiked = likedRecipes.some((r) => r.mealId === recipe.mealId);
-  const likedRecipe = likedRecipes.find((r) => r.mealId === recipe.mealId);
+  const isLiked = likedRecipes.some((r) => r._id === recipe._id);
+  const cleanInstructions = DOMPurify.sanitize(recipe.instructions);
 
   // Почему-то при переходе с главной страницы на рецепты попадаешь в конец,
   // поэтому добавил принудильный скролл наверх
@@ -28,32 +29,30 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
               src={isLiked ? heartLiked : heart}
               alt="heart icon"
               onClick={() => {
-                saveRecipe(recipe, likedRecipe?._id, isLiked);
+                onLikeRecipe(recipe, isLiked);
               }}
             />
           }
         />
 
         <Button
-          btnText={
-            <img className="recipe__icon-dice" src={dice} alt="dice icon" />
-          }
+          btnText={<img className="recipe__icon-dice" src={dice} alt="dice icon" />}
           onClick={getRandomRecipe}
         />
       </div>
 
       <img
         className="recipe__image"
-        src={recipe.imageLink}
+        src={recipe.imageLink || recipe.imageUrl}
         alt={recipe.mealName}
       />
       <div className="recipe__info recipe__box-shabow">
         <h1 className="recipe__meal-name">{recipe.mealName}</h1>
-        <p className="recipe__ingredients-quantity">
+        {/* <p className="recipe__ingredients-quantity">
           {recipe.ingredients?.length} ингредиентов
-        </p>
+        </p> */}
 
-        <div className="recipe__buttons-container">
+        <div className="recipe__buttons-container recipe__buttons-container_flex-column">
           {showInstructions ? (
             <Button
               btnClass={'recipe__button'}
@@ -67,29 +66,39 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, saveRecipe }) => {
               onClick={() => setShowInstructions((prev) => !prev)}
             />
           )}
-          <a
-            className="recipe__button-yt"
-            href={recipe.youtubeLink}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Видео
-          </a>
+
+          {(recipe.youtubeLink || recipe.youtubeUrl) && (
+            <a
+              className="recipe__button recipe__button-yt"
+              href={recipe.youtubeLink || recipe.youtubeUrl}
+              target="_blank"
+              rel="noreferrer">
+              Видео
+            </a>
+          )}
+          <div className="recipe__buttons-container recipe__buttons-container_flex-column ">
+            <p className="recipe__author">{recipe.mealAuthor || 'No Author'}</p>
+            <a
+              className="recipe__author-link"
+              href={recipe.mealSourceUrl}
+              target="_blank"
+              rel="noreferrer">
+              Полный рецепт &#10132;
+            </a>
+          </div>
         </div>
       </div>
 
       {showInstructions ? (
-        <p className="recipe__instructions recipe__box-shabow">
-          {recipe.instructions}
-        </p>
+        <p
+          className="recipe__instructions recipe__box-shabow"
+          dangerouslySetInnerHTML={{ __html: cleanInstructions }}
+        />
       ) : (
         <ul className="recipe__ingredients ">
           {recipe.ingredients?.map((item, index) => {
             return (
-              <li
-                className="recipe__ingreditent-container recipe__box-shabow"
-                key={index}
-              >
+              <li className="recipe__ingreditent-container recipe__box-shabow" key={index}>
                 <div className="recipe__ingreditent">
                   <p className="recipe__ingreditent-name">{item.ingredient}</p>
                   <p className="recipe__ingreditent-measure">{item.measure}</p>

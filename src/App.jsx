@@ -11,26 +11,31 @@ import Main from "./components/Main/Main";
 import Recipe from "./components/Recipe/Recipe";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-import SavedRecipes from "./components/SavedRecipes/SavedRecipes";
+import RecipesList from "./components/RecipesList/RecipesList";
 import NotFound from "./components/NotFound/NotFound";
-import ShoppingList from "./components/ShoppingList/ShoppingList";
 import { API_BACKEND, footerRoutes, headerRoutes } from "./utils/config";
 import { checkPath } from "./utils/functions";
 import { Auth } from "./utils/api/AuthApi";
 import { MainApi } from "./utils/api/MainApi";
-import { initialRecipes } from "./utils/constants";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import NewRecipe from "./components/RecipeForm/RecipeForm";
+import AdminPanel from "./components/AdminPanel/AdminPanel";
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isEmailUser, setIsEmailUser] = useState("");
+  // единый стейт для пользователя
+  const [user, setUser] = useState({
+    isEmailUser: "",
+    isAdminUser: false,
+  });
   // проверка для отображения
   const headerView = checkPath(headerRoutes, location);
   const footerView = checkPath(footerRoutes, location);
 
+  const [allRecipes, setAllRecipes] = useState([]);
   const [recipe, setRecipe] = useState([]);
   const [likedRecipes, setLikedRecipes] = useState([]);
 
@@ -40,62 +45,22 @@ function App() {
     messageApi[type](`${message}`);
   };
 
-  // const getRandomRecipe = () => {
-  //   fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-  //     .then((data) => data.json())
-  //     .then((randRecipe) => {
-  //       console.log(randRecipe);
-  //       const newRecipe = modifyRecipeObject(randRecipe.meals[0]);
-  //       setRecipe(newRecipe);
-
-  //       if (location.pathname !== '/recipe') {
-  //         navigate('/recipe');
-  //       }
-  //     });
-  // };
-
   const handleSetRecipe = (newRecipe) => {
     setRecipe(newRecipe);
     navigate("/recipe");
   };
 
-  // Временно только 10 рецептов передаются из initialRecipes
   const getRandomRecipe = () => {
-    const index = Math.floor(Math.random() * (initialRecipes.meals.length - 1));
-    const randomRecipe = initialRecipes.meals[index];
-    const modifiedRecipe = modifyRecipeObject(randomRecipe);
-    if (modifiedRecipe.mealId == recipe.mealId) {
-      getRandomRecipe();
-    } else {
-      setRecipe(modifiedRecipe);
-    }
-  };
-
-  const modifyRecipeObject = (value) => {
-    let ingredients = [];
-
-    for (let i = 1; i <= 30; i++) {
-      let ingredient = value[`strIngredient${i}`];
-      let measure = value[`strMeasure${i}`];
-
-      if (ingredient !== "" && measure !== "") {
-        ingredients.push({ ingredient, measure });
-      } else {
-        break;
-      }
-    }
-
-    const newRecipe = {
-      mealName: value.strMeal,
-      mealId: value.idMeal,
-      mealCategory: value.strCategory,
-      youtubeLink: value.strYoutube,
-      imageLink: value.strMealThumb,
-      instructions: value.strInstructions,
-      ingredients,
-    };
-
-    return newRecipe;
+    mainApi
+      .getRandomRecipe()
+      .then((randomRecipe) => {
+        if (recipe._id === randomRecipe._id) {
+          getRandomRecipe();
+        } else {
+          setRecipe(randomRecipe);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -122,12 +87,45 @@ function App() {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   });
+  
+  // useEffect(() => {
+  //   isLoggedIn &&
+  //     mainApi.getSavedRecipes().then((user) => {
+  //       setLikedRecipes(user.likes);
+  //     });
+
+  //   isLoggedIn &&
+  //     mainApi
+  //       .getRecipes()
+  //       .then((recipes) => {
+  //         setAllRecipes(recipes);
+  //       })
+  //       .catch((err) => console.log(err));
+  // }, [isLoggedIn]);
 
   useEffect(() => {
-    isLoggedIn &&
-      mainApi.getSavedRecipes().then((recipes) => {
-        setLikedRecipes(recipes);
-      });
+    const fetchData = async () => {
+      try {
+        if (isLoggedIn) {
+          const [savedRecipes, recipes, auth] = await Promise.all([
+            mainApi.getSavedRecipes(),
+            mainApi.getRecipes(),
+            apiAuth.checkToken(),
+          ]);
+          setLikedRecipes(savedRecipes.likes);
+          setAllRecipes(recipes);
+          setUser((prevUser) => ({
+            ...prevUser,
+            isAdminUser: auth.isAdmin,
+            isEmailUser: auth.email,
+          }));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
   }, [isLoggedIn]);
 
   React.useEffect(() => {
@@ -139,14 +137,13 @@ function App() {
         .then((res) => {
           setIsLoggedIn(true);
           setIsLoading(false);
-          setIsEmailUser(res.email);
           navigate(location.pathname, { replace: true });
         })
         .catch((err) => {
-          if (err.status === 401) {
+          if (err.status === 401 || err.status === undefined) {
             setIsLoading(false);
             localStorage.removeItem("jwt");
-            navigate("/signin", { replace: true });
+            navigate("/", { replace: true });
           }
           console.log(
             `Что-то пошло не так: ошибка запроса статус ${err.status},
@@ -157,7 +154,7 @@ function App() {
 
     //тут проверяем, если токен корректный то вызываем запрос с задержкой 2 секунды
     if (jwt) {
-      setTimeout(delayedCheckToken, 2000);
+      setTimeout(delayedCheckToken, 200);
     } else {
       setIsLoading(false);
     }
@@ -184,9 +181,6 @@ function App() {
       .then((data) => {
         setIsLoggedIn(true);
         showNotificationAnt("success", "Рады Вас видеть снова!");
-        // apiAuth.checkToken(data.token).then((res) => {
-        setIsEmailUser(data.email);
-        // });
         localStorage.setItem("jwt", data.token);
         navigate("/", { replace: true });
       })
@@ -196,8 +190,6 @@ function App() {
           `Что-то пошло не так: ошибка запроса статус ${err.status}, сообщение ${err.errorText} 😔`
         );
         setIsLoggedIn(false);
-        // setIsRegistration(false);
-        // handleRegistrationSuccess();
       });
   };
 
@@ -205,17 +197,71 @@ function App() {
     localStorage.removeItem("jwt");
     navigate("/signin", { replace: true });
     setIsLoggedIn(false);
+    setUser((prevUser) => ({
+      ...prevUser,
+      isEmailUser: "",
+      isAdminUser: false,
+    }));
   };
 
   // --- Recipes API methods ---
-  const handleSaveRecipe = (recipe, id, isLiked) => {
+  const handleCreateRecipe = (recipe) => {
+    if (isLoggedIn) {
+      mainApi
+        .createRecipe(recipe)
+        .then((newRecipe) => {
+          showNotificationAnt("success", "Рецепт успешно создан!");
+          setAllRecipes([...allRecipes, newRecipe]);
+        })
+        .catch((err) => {
+          showNotificationAnt("error", err.errorText);
+          console.log(err);
+        });
+    }
+  };
+
+  const handleUpdateRecipe = (id, recipe) => {
+    if (isLoggedIn) {
+      mainApi
+        .updateRecipe(id, recipe)
+        .then((newRecipe) => {
+          showNotificationAnt("success", "Рецепт обновлен!");
+          const updated = allRecipes.filter((r) => r._id !== id);
+          setAllRecipes([...updated, newRecipe]);
+        })
+        .catch((err) => {
+          showNotificationAnt("error", err.errorText);
+          console.log(err);
+        });
+    }
+  };
+
+  const handleDeleteRecipe = (recipe) => {
+    if (isLoggedIn) {
+      mainApi
+        .deleteRecipe(recipe._id)
+        .then((res) => {
+          const updatedAllRecipes = allRecipes.filter(
+            (r) => r._id !== recipe._id
+          );
+          setAllRecipes(updatedAllRecipes);
+        })
+        .catch((err) => {
+          showNotificationAnt("error", err.errorText);
+          console.log(err);
+        });
+    }
+  };
+
+  const handleLikeRecipe = (recipe, isLiked) => {
+    // console.log(recipe);
     if (isLoggedIn) {
       if (!isLiked) {
-        mainApi.saveRecipe(recipe).then((newRecipe) => {
+        mainApi.likeRecipe(recipe._id).then((newRecipe) => {
           setLikedRecipes([...likedRecipes, newRecipe]);
         });
       } else {
-        handleDeleteRecipe(id);
+        handleDislikeRecipe(recipe);
       }
     } else {
       showNotificationAnt(
@@ -225,11 +271,9 @@ function App() {
     }
   };
 
-  const handleDeleteRecipe = (id) => {
-    mainApi.deleteRecipe(id).then((res) => {
-      const updatedLikedRecipes = likedRecipes.filter(
-        (r) => r.mealId !== res.mealId
-      );
+  const handleDislikeRecipe = (recipe) => {
+    mainApi.dislikeRecipe(recipe._id).then((res) => {
+      const updatedLikedRecipes = likedRecipes.filter((r) => r._id !== res._id);
       setLikedRecipes(updatedLikedRecipes);
     });
   };
@@ -240,8 +284,8 @@ function App() {
         <Header
           isLoggedIn={isLoggedIn}
           isLoading={isLoading}
+          isCurrentUser={user}
           onLogout={handleLogout}
-          isEmailUser={isEmailUser}
         />
       )}
       {contextHolder}
@@ -266,7 +310,7 @@ function App() {
                 recipe={recipe}
                 likedRecipes={likedRecipes}
                 getRandomRecipe={getRandomRecipe}
-                saveRecipe={handleSaveRecipe}
+                onLikeRecipe={handleLikeRecipe}
               />
             }
           />
@@ -275,13 +319,41 @@ function App() {
             element={
               <ProtectedRoute
                 isLoggedIn={isLoggedIn}
-                component={SavedRecipes}
-                likedRecipes={likedRecipes}
-                onDeleteRecipe={handleDeleteRecipe}
+                component={RecipesList}
+                recipes={likedRecipes}
+                onDeleteRecipe={handleDislikeRecipe}
                 onSetRecipe={handleSetRecipe}
               />
             }
           />
+          <Route
+            path="/new-recipe"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                component={NewRecipe}
+                onCreateRecipe={handleCreateRecipe}
+                onUpdateRecipe={handleUpdateRecipe}
+              />
+            }
+          />
+
+          {user.isAdminUser && (
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute
+                  isLoggedIn={isLoggedIn}
+                  component={AdminPanel}
+                  recipes={allRecipes}
+                  onSetRecipe={handleSetRecipe}
+                  onDeleteRecipe={handleDeleteRecipe}
+                  onCreateRecipe={handleCreateRecipe}
+                  onUpdateRecipe={handleUpdateRecipe}
+                />
+              }
+            />
+          )}
           {/* <Route path="/shopping-list" element={<ShoppingList />} /> */}
           <Route path="*" element={<NotFound isLoggedIn={isLoggedIn} />} />
         </Routes>
