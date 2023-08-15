@@ -12,6 +12,7 @@
   color: #3f4255;
   /* Title/banners_or_infographic */
   font-size: 28px;
+  font-display: fallback;
   font-style: normal;
   font-weight: 400;
   white-space: pre-line;
@@ -21,6 +22,7 @@
 }
 
 .main__subtitle {
+  font-display: fallback;
   font-size: 14px;
   white-space: pre-line;
   margin: 0;
@@ -63,7 +65,7 @@
   .main {
     flex-direction: row;
     padding: 12px 45px 60px;
-    align-items: start;
+    /* align-items: start; */
     justify-content: space-between;
     padding: 12px 95px 105px;
   }

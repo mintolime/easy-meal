@@ -1,5 +1,5 @@
 import Button from '../Button/Button';
-import plate from '../../images/plate.png';
+import plate from '../../images/plate.jpg';
 import './Main.css';
 
 function Main({ getRecipe }) {

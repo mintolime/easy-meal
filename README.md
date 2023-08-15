@@ -17,7 +17,7 @@ https://easymeal.click/
 - `Express`
 - `React`
 - `Node`
-- `Material UI`
+- `Ant Design`
 - `Figma`
 
 ## Запуск проекта
