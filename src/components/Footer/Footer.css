@@ -28,12 +28,12 @@
 
 .footer__link {
   text-decoration: none;
-  color: #9093a6;
+  color: #2c2c2c;
 }
 
 .footer__hover:hover {
   font-weight: 500;
-  color: #4c4c4c;
+  color: #7c7c7d;
 }
 
 @media screen and (min-width: 320px) {
