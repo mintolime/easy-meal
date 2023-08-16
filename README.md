@@ -1,2 +1,38 @@
-# easy-meal
-Welcome to our website for random food search! Our random search feature will help you discover new and interesting dishes that you can prepare at home or order at a restaurant. Simply click the "Random Search" button and enjoy the amazing results!
+# EasyMeal
+
+
+## Страница проекта
+https://easymeal.click/
+## Описание
+Проект, разработанный для генерации разнообразных рецептов. Будь вы опытным поваром или новичком на кухне, EasyMeal поможет вам найти идеи для приготовления вкусных блюд.
+
+Генерация рецептов на основе выбранного типа блюда или ингредиента.
+Просмотр подробной информации о каждом рецепте, включая список ингредиентов, инструкции по приготовлению и время приготовления.
+Поиск рецептов по ключевым словам или типу блюда.
+Обновление базы данных рецептов для включения новых блюд и ингредиентов.
+
+## Стек
+
+- `Mongo`
+- `Express`
+- `React`
+- `Node`
+- `Ant Design`
+- `Figma`
+
+## Запуск проекта
+
+1. Клонировать репозиторий
+
+    `git clone https://github.com/mintolime/easy-meal.git`
+
+2. Установить зависимости
+
+    `cd easy-meal`
+
+    `npm install`
+
+3. Для запуска использовать команды
+
+    `npm run dev`
+

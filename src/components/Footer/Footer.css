@@ -17,7 +17,7 @@
 
 .footer__creator_text {
   /* font-family: Martel Sans, sans-serif; */
-  color: #9093a6;
+  color: #2c2c2c;
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
@@ -28,12 +28,12 @@
 
 .footer__link {
   text-decoration: none;
-  color: #9093a6;
+  color: #2c2c2c;
 }
 
 .footer__hover:hover {
   font-weight: 500;
-  color: #4c4c4c;
+  color: #969696;
 }
 
 @media screen and (min-width: 320px) {
