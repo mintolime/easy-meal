@@ -10,6 +10,12 @@
   color: #000;
   text-align: center;
   opacity: 1;
+  -webkit-touch-callout: none; /* Disable callout */
+  -webkit-user-select: none; /* Disable selection */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .button:hover {
@@ -80,6 +86,15 @@
   width: 154px;
   font-size: 14px;
   color: white;
+}
+
+.recipe__dice-btn {
+  height: 30px;
+}
+
+.recipe__heart-btn {
+  height: 30px;
+  transition: all 0.2s ease-in-out;
 }
 
 @media screen and (min-width: 720px) {

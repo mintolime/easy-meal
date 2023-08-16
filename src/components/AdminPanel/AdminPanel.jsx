@@ -44,11 +44,6 @@ const AdminPanel = ({
         />
       ),
     },
-    {
-      key: "3",
-      label: `Tab 3`,
-      children: <Boobies />,
-    },
   ];
 
   return (
@@ -61,10 +56,6 @@ const AdminPanel = ({
       />
     </section>
   );
-};
-
-const Boobies = () => {
-  return <h2>( • ) ( • )-----(≖_≖)</h2>;
 };
 
 export default AdminPanel;
