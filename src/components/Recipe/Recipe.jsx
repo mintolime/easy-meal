@@ -59,6 +59,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
 
       <img
         className="recipe__image"
+        loading="lazy"
         src={recipe.imageUrl}
         alt={recipe.mealName}
       />

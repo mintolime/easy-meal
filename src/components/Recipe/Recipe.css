@@ -2,9 +2,15 @@
   padding: 30px 18px;
   max-width: 440px;
   display: grid;
-  grid-template-rows: 30px repeat(2, 300px) 1fr;
+  grid-template-columns: 300px;
+  grid-template-rows: 300px 30px 300px 1fr;
   grid-row-gap: 40px;
   margin: 0 auto;
+  grid-template-areas:
+    "image"
+    "buttons"
+    "info"
+    "ingredients";
 }
 
 /* замиксовала стили, чтобы добавлять к разным блокам <3 */
@@ -17,6 +23,7 @@
 .recipe__info {
   display: grid;
   gap: 15px;
+  grid-area: info;
 }
 
 .recipe__img-box {
@@ -33,12 +40,14 @@
   /* выравнивание картинки */
   object-fit: cover;
   object-position: center;
+  grid-area: image;
 }
 
 .recipe__ingredients {
   padding: 0;
   margin: 0;
   list-style: none;
+  grid-area: ingredients;
 }
 
 .recipe__ingredients-quantity {
@@ -56,6 +65,7 @@
   align-items: center;
   margin-bottom: 16px;
   line-height: 1.6;
+  grid-area: buttons;
 }
 
 .recipe__ingreditent-container:last-child {
@@ -159,12 +169,18 @@
   transform: scale(1.1);
 }
 
-@media screen and (min-width: 850px) {
+@media screen and (min-width: 600px) {
+  .recipe {
+    grid-template-columns: 400px;
+  }
+}
+
+@media screen and (min-width: 700px) {
   .recipe {
     max-width: 100%;
-    grid-template-columns: 300px 400px;
+    grid-template-columns: 300px 300px;
     grid-template-rows: 300px 30px 300px 1fr;
-    grid-column-gap: 70px;
+    grid-column-gap: 30px;
   }
 
   .recipe__info {
@@ -187,5 +203,12 @@
 
   .recipe__instructions {
     grid-area: 1 / 2 / 5 / 3;
+  }
+}
+
+@media screen and (min-width: 850px) {
+  .recipe {
+    grid-template-columns: 300px 400px;
+    grid-column-gap: 70px;
   }
 }

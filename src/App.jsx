@@ -54,11 +54,16 @@ function App() {
     mainApi
       .getRandomRecipe()
       .then((randomRecipe) => {
-        if (recipe._id === randomRecipe._id) {
-          getRandomRecipe();
-        } else {
-          setRecipe(randomRecipe);
-        }
+        const img = new Image();
+        img.src = randomRecipe.imageUrl;
+
+        img.onload = () => {
+          if (recipe._id === randomRecipe._id) {
+            getRandomRecipe();
+          } else {
+            setRecipe(randomRecipe);
+          }
+        };
       })
       .catch((err) => console.log(err));
   };
@@ -87,21 +92,6 @@ function App() {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   });
-  
-  // useEffect(() => {
-  //   isLoggedIn &&
-  //     mainApi.getSavedRecipes().then((user) => {
-  //       setLikedRecipes(user.likes);
-  //     });
-
-  //   isLoggedIn &&
-  //     mainApi
-  //       .getRecipes()
-  //       .then((recipes) => {
-  //         setAllRecipes(recipes);
-  //       })
-  //       .catch((err) => console.log(err));
-  // }, [isLoggedIn]);
 
   useEffect(() => {
     const fetchData = async () => {
