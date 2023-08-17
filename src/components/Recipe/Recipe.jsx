@@ -10,6 +10,7 @@ import AddToCart from "../../images/cart.svg";
 
 const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   const [rotateDice, setRotateDice] = useState(false);
+  const [scaleHeart, setScaleHeart] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
   const isLiked = likedRecipes.some((r) => r._id === recipe._id);
   const cleanInstructions = DOMPurify.sanitize(recipe.instructions);
@@ -20,10 +21,15 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
     window.scrollTo(0, 0);
   }, []);
 
-  const animateDice = () => {
-    setRotateDice(true);
+  const animateButton = (btn) => {
+    if (btn === "heart") {
+      setScaleHeart(true);
+    } else if (btn === "dice") {
+      setRotateDice(true);
+    }
 
     setTimeout(() => {
+      setScaleHeart(false);
       setRotateDice(false);
     }, 600);
   };
@@ -32,13 +38,14 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
     <section className="recipe">
       <div className="recipe__buttons-container">
         <Button
-          btnClass={`recipe__heart-btn ${isLiked && "scale"}`}
+          btnClass={`recipe__heart-btn ${isLiked && scaleHeart && "scale"}`}
           btnText={
             <img
               className="recipe__icon-heart"
               src={isLiked ? heartLiked : heart}
               alt="heart icon"
               onClick={() => {
+                animateButton("heart");
                 onLikeRecipe(recipe, isLiked);
               }}
             />
@@ -51,7 +58,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
             <img className="recipe__icon-dice" src={dice} alt="dice icon" />
           }
           onClick={() => {
-            animateDice();
+            animateButton("dice");
             getRandomRecipe();
           }}
         />
