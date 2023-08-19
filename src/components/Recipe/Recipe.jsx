@@ -5,6 +5,7 @@ import "./Recipe.css";
 import Button from "../Button/Button";
 import heart from "../../images/icon__heart.svg";
 import heartLiked from "../../images/icon__heart_liked.svg";
+import question from "../../images/question-help.svg";
 import dice from "../../images/dice_icon.svg";
 import AddToCart from "../../images/cart.svg";
 
@@ -48,6 +49,17 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
                 animateButton("heart");
                 onLikeRecipe(recipe, isLiked);
               }}
+            />
+          }
+        />
+
+    <Button
+          btnClass={`recipe__heart-btn ${isLiked && scaleHeart && "scale"}`}
+          btnText={
+            <img
+              className="recipe__icon-heart"
+              src={question}
+              alt="heart icon"
             />
           }
         />
