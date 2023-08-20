@@ -103,6 +103,15 @@
   height: 25px;
 }
 
+.recipe__icon-question {
+  width: 35px;
+  height: 35px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  opacity: 0.6;
+}
+
 .recipe__icon-dice {
   width: 30px;
   height: 30px;

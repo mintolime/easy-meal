@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Modal } from "antd";
 import DOMPurify from "dompurify";
 
 import "./Recipe.css";
@@ -13,9 +14,24 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   const [rotateDice, setRotateDice] = useState(false);
   const [scaleHeart, setScaleHeart] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
+
   const isLiked = likedRecipes.some((r) => r._id === recipe._id);
   const cleanInstructions = DOMPurify.sanitize(recipe.instructions);
-
+  const showInfo = () => {
+    Modal.info({
+      title: 'Помощь',
+      content: (
+        <div>
+          <p>Данный ресурс служит для быстрого решения вашей ежедневной головоломки: Что же приготовить на ужин?😱</p>
+          <p>В нашем приложении вы можете увидеть сокращенную версию рецептов. Для перехода к источнику нажмите на "Полный рецепт"</p>
+          <p>Для генерации рецепта нажмите кубик 🎲</p>
+          <p>Чтобы добавить понравившийся рецепт, нажмите на сердечко 🧡 </p>
+          <p>Приятного пользования!</p>
+        </div>
+      ),
+      onOk() {},
+    });
+  };
   // Почему-то при переходе с главной страницы на рецепты попадаешь в конец,
   // поэтому добавил принудильный скролл наверх
   useEffect(() => {
@@ -53,15 +69,16 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
           }
         />
 
-    <Button
-          btnClass={`recipe__heart-btn ${isLiked && scaleHeart && "scale"}`}
+        <Button
+          btnClass="recipe__question"
           btnText={
             <img
-              className="recipe__icon-heart"
+              className="recipe__icon-question"
               src={question}
-              alt="heart icon"
+              alt="question icon"
             />
           }
+          onClick={showInfo}
         />
 
         <Button
