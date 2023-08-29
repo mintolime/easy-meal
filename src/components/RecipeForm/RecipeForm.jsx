@@ -60,8 +60,11 @@ const RecipeForm = ({
         <Select>
           <Select.Option value="Салат">Салат</Select.Option>
           <Select.Option value="Выпечка">Выпечка</Select.Option>
-          <Select.Option value="Паста">Паста</Select.Option>
-          <Select.Option value="Мясо">Мясо</Select.Option>
+          <Select.Option value="Закуски">Закуски</Select.Option>
+          <Select.Option value="Паста и крупы">Паста и крупы</Select.Option>
+          <Select.Option value="Мясо и птица">Мясо и птица</Select.Option>
+          <Select.Option value="Супы">Супы</Select.Option>
+          <Select.Option value="Напитки">Напитки</Select.Option>
         </Select>
       </Form.Item>
 
