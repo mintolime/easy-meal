@@ -29,6 +29,7 @@
   padding: 0;
   line-height: 140%;
 }
+
 .main__content {
   max-width: 540px;
   display: flex;
@@ -37,6 +38,14 @@
   text-align: center;
   gap: 45px 0;
   padding-top: 10%;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 1s, transform 2s;
+}
+
+.main__content_visible {
+  opacity: 1;
+  transform: translateX(0%);
 }
 
 .main__photo-plate {
