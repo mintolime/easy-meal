@@ -1,12 +1,10 @@
 /*======================
     404 page
 =======================*/
-
-
 .page_404 {
   padding: 40px 0;
   background: #fff;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   text-align: center;
 }
 
@@ -21,7 +19,6 @@
   background-size: inherit;
   background-repeat: no-repeat;
 }
-
 
 .page_404__heading {
   font-size: 60px;
