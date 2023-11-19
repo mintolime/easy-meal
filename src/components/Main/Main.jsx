@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../Button/Button';
 import plate from '../../images/plate.jpg';
-import { CSSTransition } from 'react-transition-group';
 import './Main.css';
 
 function Main({ getRecipe }) {
@@ -10,7 +9,7 @@ function Main({ getRecipe }) {
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(true);
-    }, 500); // Здесь можно указать нужную задержку времени в миллисекундах
+    }, 250); // Здесь можно указать нужную задержку времени в миллисекундах
   }, []);
 
   return (
