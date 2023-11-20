@@ -9,12 +9,13 @@
 }
 
 .main__title {
+  font-family: 'bouquet';
   color: #3f4255;
   /* Title/banners_or_infographic */
   font-size: 28px;
   font-display: fallback;
-  font-style: normal;
-  font-weight: 400;
+  /* font-style: normal; */
+  font-weight: 300;
   white-space: pre-line;
   line-height: 110.345%;
   letter-spacing: 2.9px;
@@ -22,8 +23,10 @@
 }
 
 .main__subtitle {
+  font-family: 'Cruinn';
   font-display: fallback;
   font-size: 14px;
+  font-weight: 500;
   white-space: pre-line;
   margin: 0;
   padding: 0;

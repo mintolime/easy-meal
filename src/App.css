@@ -9,7 +9,8 @@
   /* Это, чтобы футер был внизу */
   grid-template-rows: min-content auto min-content;
   height: 100vh;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Cruinn',sans-serif;
+  /* font-family: 'Inter', sans-serif; */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

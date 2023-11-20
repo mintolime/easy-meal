@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   src:
     url('../fonts/Inter-Regular.woff2') format("woff2"),
     url('../fonts/Inter-Regular.woff') format("woff"),
@@ -22,4 +22,29 @@
     url('../fonts/Inter-Black.ttf') format("truetype");
   font-family: "Inter";
   font-weight: 900;
+} */
+
+
+@font-face {
+  src: url('../fonts/bouquet.otf') format('opentype');
+  font-family: 'bouquet';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  src: url('../fonts/CruinnLight.ttf') format('opentype');
+  font-family: 'Cruinn';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  src: url('../fonts/CruinnMedium.ttf') format('opentype');
+  font-family: 'Cruinn';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
 }
