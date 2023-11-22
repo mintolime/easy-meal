@@ -9,11 +9,10 @@
 }
 
 .main__title {
-  font-family: 'bouquet';
+  font-family: 'MakiSans-Regular';
   color: #3f4255;
   /* Title/banners_or_infographic */
   font-size: 28px;
-  font-display: fallback;
   /* font-style: normal; */
   font-weight: 300;
   white-space: pre-line;
@@ -24,7 +23,6 @@
 
 .main__subtitle {
   font-family: 'Cruinn';
-  font-display: fallback;
   font-size: 14px;
   font-weight: 500;
   white-space: pre-line;
