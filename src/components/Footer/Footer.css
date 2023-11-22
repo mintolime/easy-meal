@@ -4,6 +4,7 @@
   justify-content: space-between;
   justify-items: center;
   flex-wrap: wrap;
+  font-family: 'Cruinn',sans-serif;
   gap: 20px;
   padding: 20px;
   border-top: 1px solid #d4d7e5;
@@ -16,9 +17,8 @@
 }
 
 .footer__creator_text {
-  /* font-family: Martel Sans, sans-serif; */
+  font-family: 'Cruinn',sans-serif;
   color: #2c2c2c;
-  font-family: Inter;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;

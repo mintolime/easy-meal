@@ -125,8 +125,9 @@
 }
 
 .recipe__meal-name {
+  font-family: 'MakiSans-Regular';
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 200;
   line-height: 1.2;
   text-align: center;
   margin: 0;
@@ -217,7 +218,7 @@
 
 @media screen and (min-width: 850px) {
   .recipe {
-    grid-template-columns: 300px 400px;
+    grid-template-columns: 300px 1fr;
     grid-column-gap: 70px;
   }
 }

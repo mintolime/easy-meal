@@ -1,9 +1,10 @@
-import Button from '../Button/Button';
-import { message, Popconfirm, Button as AntButton } from 'antd';
+import { message, Popconfirm as AntButton } from 'antd';
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
-
-import './RecipesList.css';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+import Button from '../Button/Button';
+import './RecipesList.css';
+
 
 const RecipesList = ({
   recipes,
@@ -27,13 +28,11 @@ const RecipesList = ({
         <div className="saved-recipes__start-container">
           <p>Здесь будут храниться все понравившиеся вам рецепты </p>
 
-          <AntButton
-            style={{ maxWidth: '146px', margin: '0 auto' }}
-            size="large"
+          <Button
+            btnClass='button button_type_back'
             onClick={() => navigate('/recipe')}
-          >
-            За вкусняшкой!
-          </AntButton>
+            btnText='За вкусняшкой!'
+          />
         </div>
       ) : (
         ''
