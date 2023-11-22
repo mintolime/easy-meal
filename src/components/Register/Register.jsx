@@ -4,7 +4,6 @@ import Button from '../Button/Button';
 const Register = ({ onRegister }) => {
   const onFinish = (values) => {
     onRegister(values);
-    console.log('Success:', values);
   };
 
   const onFinishFailed = (errorInfo) => {

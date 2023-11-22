@@ -1,4 +1,4 @@
-import { message, Popconfirm as AntButton } from 'antd';
+import { message, Popconfirm  } from 'antd';
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 
