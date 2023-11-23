@@ -1,17 +1,11 @@
-import React, { useState } from "react";
-import "./AdminPanel.css";
-import { Tabs } from "antd";
-import RecipeForm from "../RecipeForm/RecipeForm";
-import RecipesList from "../RecipesList/RecipesList";
+import React, { useState } from 'react';
+import './AdminPanel.css';
+import { Tabs } from 'antd';
+import RecipeForm from '../RecipeForm/RecipeForm';
+import RecipesList from '../RecipesList/RecipesList';
 
-const AdminPanel = ({
-  recipes,
-  onCreateRecipe,
-  onUpdateRecipe,
-  onSetRecipe,
-  onDeleteRecipe,
-}) => {
-  const [activeTab, setActiveTab] = useState("1");
+const AdminPanel = ({ recipes, onCreateRecipe, onUpdateRecipe, onSetRecipe, onDeleteRecipe }) => {
+  const [activeTab, setActiveTab] = useState('1');
   const [updatingRecipe, setUpdatingRecipe] = useState({});
 
   const onChangeTab = (key) => {
@@ -20,7 +14,7 @@ const AdminPanel = ({
 
   const items = [
     {
-      key: "1",
+      key: '1',
       label: `Все рецепты (${recipes.length})`,
       children: (
         <RecipesList
@@ -33,7 +27,7 @@ const AdminPanel = ({
       ),
     },
     {
-      key: "2",
+      key: '2',
       label: `Новый рецепт`,
       children: (
         <RecipeForm

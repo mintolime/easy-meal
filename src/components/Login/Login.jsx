@@ -15,8 +15,7 @@ const Login = ({ onLogin }) => {
       layout="vertical"
       name="basic"
       onFinish={onFinish}
-      autoComplete="off"
-    >
+      autoComplete="off">
       <h3 className="form__title">Вход</h3>
       <fieldset className="form__box page__flexbox-column">
         <Form.Item
@@ -26,14 +25,13 @@ const Login = ({ onLogin }) => {
           rules={[
             {
               type: 'email',
-              message: 'Неверный формат почты!'
+              message: 'Неверный формат почты!',
             },
             {
               required: true,
-              message: 'Введите вашу почту!'
-            }
-          ]}
-        >
+              message: 'Введите вашу почту!',
+            },
+          ]}>
           <Input className="form__input" />
         </Form.Item>
 
@@ -41,16 +39,11 @@ const Login = ({ onLogin }) => {
           className="form__box_inner"
           label="Пароль"
           name="password"
-          rules={[{ required: true, message: 'Введите ваш пароль!' }]}
-        >
+          rules={[{ required: true, message: 'Введите ваш пароль!' }]}>
           <Input.Password className="form__input" />
         </Form.Item>
 
-        <Button
-          btnClass={'button_type_login'}
-          btnText="Войти"
-          btnType="submit"
-        />
+        <Button btnClass={'button_type_login'} btnText="Войти" btnType="submit" />
       </fieldset>
     </Form>
   );

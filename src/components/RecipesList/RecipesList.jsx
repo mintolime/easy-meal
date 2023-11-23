@@ -1,17 +1,16 @@
-import { message, Popconfirm  } from 'antd';
+import { message, Popconfirm } from 'antd';
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import Button from '../Button/Button';
 import './RecipesList.css';
 
-
 const RecipesList = ({
   recipes,
   onDeleteRecipe,
   onSetRecipe,
   onChangeTab,
-  onSetUpdatingRecipe
+  onSetUpdatingRecipe,
 }) => {
   // console.log(recipes);
   const navigate = useNavigate();
@@ -29,9 +28,9 @@ const RecipesList = ({
           <p>Здесь будут храниться все понравившиеся вам рецепты </p>
 
           <Button
-            btnClass='button button_type_back'
+            btnClass="button button_type_back"
             onClick={() => navigate('/recipe')}
-            btnText='За вкусняшкой!'
+            btnText="За вкусняшкой!"
           />
         </div>
       ) : (
@@ -40,25 +39,17 @@ const RecipesList = ({
       <ul className="saved-recipes__container">
         {recipes.map((recipe) => {
           return (
-            <li
-              key={recipe._id}
-              className="saved-recipes__card recipe__box-shabow"
-            >
+            <li key={recipe._id} className="saved-recipes__card recipe__box-shabow">
               <img
                 className="saved-recipes__card-image"
                 onClick={() => onSetRecipe(recipe)}
                 src={recipe.imageLink || recipe.imageUrl}
                 alt={recipe.mealName}
               />
-              <h2
-                className="saved-recipes__card-title"
-                onClick={() => onSetRecipe(recipe)}
-              >
+              <h2 className="saved-recipes__card-title" onClick={() => onSetRecipe(recipe)}>
                 {recipe.mealName}
               </h2>
-              <p className="saved-recipes__card-category">
-                {recipe.mealCategory}
-              </p>
+              <p className="saved-recipes__card-category">{recipe.mealCategory}</p>
 
               <div className="saved-recipes__card-trash">
                 {location.pathname === '/admin' && (
@@ -68,7 +59,7 @@ const RecipesList = ({
                         style={{
                           fontSize: '20px',
                           color: 'green',
-                          marginRight: '12px'
+                          marginRight: '12px',
                         }}
                       />
                     }
@@ -86,15 +77,9 @@ const RecipesList = ({
                   onConfirm={() => confirm(recipe)}
                   // onCancel={cancel}
                   okText="Да"
-                  cancelText="Нет"
-                >
+                  cancelText="Нет">
                   <Button
-                    btnText={
-                      <DeleteTwoTone
-                        twoToneColor="crimson"
-                        style={{ fontSize: '20px' }}
-                      />
-                    }
+                    btnText={<DeleteTwoTone twoToneColor="crimson" style={{ fontSize: '20px' }} />}
                   />
                 </Popconfirm>
               </div>

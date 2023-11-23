@@ -1,13 +1,13 @@
-import { useState } from "react";
-import "./Header.css";
-import logo from "../../images/header-logo.svg";
-import Button from "../Button/Button";
-import { Drawer } from "antd";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import './Header.css';
+import logo from '../../images/header-logo.svg';
+import Button from '../Button/Button';
+import { Drawer } from 'antd';
+import { Link } from 'react-router-dom';
 
 function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
   const [open, setOpen] = useState(false);
-  
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -17,7 +17,7 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
 
   return (
     <header className="header">
-      <Link to={"/"}>
+      <Link to={'/'}>
         <img className="header__logo" src={logo} alt="логотип шапки сайта" />
       </Link>
       {/* скрываю блок, чтобы при загрузке не показывал блок */}
@@ -48,39 +48,27 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
                 </Link>
               )}
               <p className="header__profile">{isCurrentUser.isEmailUser}</p>
-              <Button
-                btnClass={"button_type_signout"}
-                btnText={"Выйти"}
-                onClick={onLogout}
-              />
+              <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
             </nav>
           </>
         )}
       </div>
 
       <div className="header__nav_tablet">
-        <Button btnClass={"button_type_menu-open"} onClick={showDrawer} />
+        <Button btnClass={'button_type_menu-open'} onClick={showDrawer} />
 
         <Drawer
+          className="header__drawer"
           title="Easy Meal"
           placement="right"
           onClose={onClose}
-          open={open}
-        >
+          open={open}>
           {!isLoggedIn && (
             <nav className="header__nav header__nav-unauthorized">
-              <Link
-                onClick={onClose}
-                className="header__link header__link-drawer"
-                to="/signup"
-              >
+              <Link onClick={onClose} className="header__link header__link-drawer" to="/signup">
                 Регистрация
               </Link>
-              <Link
-                onClick={onClose}
-                className="header__link header__link-drawer"
-                to="/signin"
-              >
+              <Link onClick={onClose} className="header__link header__link-drawer" to="/signin">
                 Войти
               </Link>
             </nav>
@@ -92,8 +80,7 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
               <Link
                 onClick={onClose}
                 className="header__link header__link-drawer"
-                to="/saved-recipes"
-              >
+                to="/saved-recipes">
                 Избранное
               </Link>
 
@@ -109,8 +96,8 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
                 Список покупок
               </Link> */}
               <Button
-                btnClass={"button_type_signout"}
-                btnText={"Выйти"}
+                btnClass={'button_type_signout'}
+                btnText={'Выйти'}
                 onClick={() => {
                   onLogout();
                   onClose();

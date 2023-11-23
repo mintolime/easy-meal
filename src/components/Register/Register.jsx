@@ -17,8 +17,7 @@ const Register = ({ onRegister }) => {
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
+      autoComplete="off">
       <h3 className="form__title">Регистрация</h3>
 
       <fieldset className="form__box page__flexbox-column">
@@ -29,14 +28,13 @@ const Register = ({ onRegister }) => {
           rules={[
             {
               type: 'email',
-              message: 'В почте содержатся ошибки, попробуйте снова!'
+              message: 'В почте содержатся ошибки, попробуйте снова!',
             },
             {
               required: true,
-              message: 'Введите вашу почту!'
-            }
-          ]}
-        >
+              message: 'Введите вашу почту!',
+            },
+          ]}>
           <Input className="form__input" />
         </Form.Item>
 
@@ -44,16 +42,11 @@ const Register = ({ onRegister }) => {
           className="form__box_inner"
           label="Password"
           name="password"
-          rules={[{ required: true, message: 'Введите ваш пароль!' }]}
-        >
+          rules={[{ required: true, message: 'Введите ваш пароль!' }]}>
           <Input.Password className="form__input" />
         </Form.Item>
 
-        <Button
-          btnClass={'button_type_login'}
-          btnText="Зарегистрироваться"
-          btnType="submit"
-        />
+        <Button btnClass={'button_type_login'} btnText="Зарегистрироваться" btnType="submit" />
         <Button />
       </fieldset>
     </Form>
