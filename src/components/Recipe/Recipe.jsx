@@ -14,6 +14,11 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   const [rotateDice, setRotateDice] = useState(false);
   const [scaleHeart, setScaleHeart] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [showMoreIngredients, setShowMoreIngredients] = useState(false);
+
+  const toggleShowMore = () => {
+    setShowMoreIngredients(!showMoreIngredients);
+  };
 
   const isLiked = likedRecipes.some((r) => r._id === recipe._id);
   const cleanInstructions = DOMPurify.sanitize(recipe.instructions);
@@ -142,28 +147,24 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
           dangerouslySetInnerHTML={{ __html: cleanInstructions }}
         />
       ) : (
-        <ul className="recipe__ingredients ">
-          {recipe.ingredients?.map((item, index) => {
-            return (
+        <ul className="recipe__ingredients">
+          {recipe.ingredients
+            ?.slice(0, showMoreIngredients ? recipe.ingredients.length : 6)
+            .map((item, index) => (
               <li className="recipe__ingreditent-container recipe__box-shabow" key={index}>
                 <div className="recipe__ingreditent">
                   <p className="recipe__ingreditent-name">{item.ingredient}</p>
                   <p className="recipe__ingreditent-measure">{item.measure}</p>
                 </div>
-
-                {/* <Button
-                  btnClass="button_type-addtocart"
-                  btnText={
-                    <img
-                      className="recipe__icon-addtocart"
-                      src={AddToCart}
-                      alt="add to cart icon"
-                    />
-                  }
-                /> */}
               </li>
-            );
-          })}
+            ))}
+          {recipe.ingredients?.length > 6 && (
+            <Button
+              btnClass="recipe__button"
+              onClick={toggleShowMore}
+              btnText={showMoreIngredients ? 'Скрыть ▲' : 'Еще ▼'}
+            />
+          )}
         </ul>
       )}
     </section>

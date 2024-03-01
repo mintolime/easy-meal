@@ -105,6 +105,9 @@
   color: white;
 }
 
+.recipe__button:active{
+  background-color: rgb(161, 119, 228);
+}
 .recipe__dice-btn {
   height: 30px;
 }
