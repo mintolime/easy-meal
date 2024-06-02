@@ -59,7 +59,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
       setRotateDice(false);
     }, 600);
   };
-  console.log(recipe.length > 1);
+  
   return (
     <section className="recipe">
       {recipe.length > 1 ? (
