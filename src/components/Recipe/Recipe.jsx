@@ -54,6 +54,10 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
     if (btn === 'heart') {
       setScaleHeart(true);
     } else if (btn === 'dice') {
+      // при клике на кубик возвращаем состояние скрытого списка ингредиентов 
+      // и инструкции по приготовлению 
+      setShowMoreIngredients(false)
+      setShowInstructions(false)
       setRotateDice(true);
     }
 
