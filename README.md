@@ -1,4 +1,4 @@
-https://api.easymeal.click
+https://api.my-easy-meal.ru/
 
 PORT = 3003
 

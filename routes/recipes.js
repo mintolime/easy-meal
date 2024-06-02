@@ -1,6 +1,6 @@
 const recipesRouter = require('express').Router();
-const auth = require('../middlewares/auth');
 const { celebrate } = require('celebrate');
+const auth = require('../middlewares/auth');
 
 const {
   createRecipeValidation,

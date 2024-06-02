@@ -12,13 +12,13 @@ const userSchema = new mongoose.Schema(
         message: 'Неправильный формат почты',
       },
     },
-    
+
     isAdmin: {
       type: Boolean,
       required: false,
       default: false
     },
-    
+
     password: {
       type: String,
       required: true,
