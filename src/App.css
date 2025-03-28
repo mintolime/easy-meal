@@ -9,7 +9,7 @@
   /* Это, чтобы футер был внизу */
   grid-template-rows: min-content auto min-content;
   height: 100vh;
-  font-family: 'Cruinn',sans-serif;
+  font-family: 'Cruinn', sans-serif;
   /* font-family: 'Inter', sans-serif; */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -23,6 +23,8 @@
   margin: 0 auto;
   /* padding: 2rem; */
   /* text-align: center; */
+  overflow: hidden;
+  overflow: clip;
 }
 
 .temp-login {
@@ -40,7 +42,7 @@
   z-index: 1000000;
 }
 
-.page__flexbox-column{
+.page__flexbox-column {
   display: flex;
   flex-direction: column;
 }
