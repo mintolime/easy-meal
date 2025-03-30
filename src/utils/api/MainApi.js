@@ -19,7 +19,7 @@ export class MainApi {
   }
 
   getRandomRecipe() {
-    return fetch(`${this._url}/recipes/random`, {
+    return fetch(`${this._url}/recipes`, {
       headers: this._headers
     }).then((res) => handleResponce(res));
   }

@@ -7,7 +7,7 @@ export class Auth {
   }
 
   register({ email, password }) {
-    return fetch(`${this.url}/signup`, {
+    return fetch(`${this.url}/register`, {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify({ email, password }),
@@ -15,7 +15,7 @@ export class Auth {
   }
 
   authorize({ email, password }) {
-    return fetch(`${this.url}/signin`, {
+    return fetch(`${this.url}/auth`, {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify({ email, password }),
@@ -23,7 +23,7 @@ export class Auth {
   }
 
   checkToken() {
-    return fetch(`${this.url}/users/me`, {
+    return fetch(`${this.url}/auth_me`, {
       method: "GET",
       headers: this.headers,
     }).then((res) => handleResponce(res));
