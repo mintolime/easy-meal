@@ -33,6 +33,18 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
     },
   };
 
+  const imageVariants = {
+    hidden: { scale: 0.9, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: 'easeOut',
+      },
+    },
+  };
+
   const isLiked = likedRecipes.some((r) => r._id === recipe._id);
   const cleanInstructions = DOMPurify.sanitize(recipe.instructions);
 
@@ -113,7 +125,9 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
         </motion.div>
       </div>
 
-      <img className="recipe__image" loading="lazy" src={recipe.imageUrl} alt={recipe.mealName} />
+      <motion.div variants={imageVariants}>
+        <img className="recipe__image" loading="lazy" src={recipe.imageUrl} alt={recipe.mealName} />
+      </motion.div>
       <div className="recipe__info recipe__box-shabow">
         <h1 className="recipe__meal-name">{recipe.mealName}</h1>
 
@@ -158,46 +172,55 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
         {showInstructions ? (
           <motion.div
             key="instructions"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}>
-            <p
+            <div
               className="recipe__instructions recipe__box-shabow"
               dangerouslySetInnerHTML={{ __html: cleanInstructions }}
             />
           </motion.div>
         ) : (
-          <motion.ul
-            className="recipe__ingredients"
+          <motion.div
             key="ingredients"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}>
-            {recipe.ingredients
-              ?.slice(0, showMoreIngredients ? recipe.ingredients.length : 6)
-              .map((item, index) => (
-                <motion.li
-                  className="recipe__ingreditent-container recipe__box-shabow"
-                  key={index}
-                  variants={itemVariants}>
-                  <div className="recipe__ingreditent">
-                    <p className="recipe__ingreditent-name">{item.ingredient}</p>
-                    <p className="recipe__ingreditent-measure">{item.measure}</p>
-                  </div>
-                </motion.li>
-              ))}
-            {recipe.ingredients?.length > 6 && (
-              <motion.div variants={itemVariants}>
-                <Button
-                  btnClass="recipe__button"
-                  onClick={toggleShowMore}
-                  btnText={showMoreIngredients ? 'Скрыть ▲' : 'Еще ▼'}
-                />
-              </motion.div>
-            )}
-          </motion.ul>
+            transition={{ duration: 0.2 }}>
+            <ul className="recipe__ingredients">
+              {recipe.ingredients
+                ?.slice(0, showMoreIngredients ? recipe.ingredients.length : 6)
+                .map((item, index) => (
+                  <motion.li
+                    className="recipe__ingreditent-container recipe__box-shabow"
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: index * 0.05,
+                    }}>
+                    <div className="recipe__ingreditent">
+                      <p className="recipe__ingreditent-name">{item.ingredient}</p>
+                      <p className="recipe__ingreditent-measure">{item.measure}</p>
+                    </div>
+                  </motion.li>
+                ))}
+              {recipe.ingredients?.length > 6 && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}>
+                  <Button
+                    btnClass="recipe__button"
+                    onClick={toggleShowMore}
+                    btnText={showMoreIngredients ? 'Скрыть ▲' : 'Еще ▼'}
+                  />
+                </motion.div>
+              )}
+            </ul>
+          </motion.div>
         )}
       </AnimatePresence>
     </section>
