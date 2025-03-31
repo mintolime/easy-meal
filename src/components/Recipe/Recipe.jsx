@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Modal } from 'antd';
 import DOMPurify from 'dompurify';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import './Recipe.css';
 import Button from '../Button/Button';
@@ -11,13 +12,25 @@ import dice from '../../images/dice_icon.svg';
 import AddToCart from '../../images/cart.svg';
 
 const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
-  const [rotateDice, setRotateDice] = useState(false);
-  const [scaleHeart, setScaleHeart] = useState(false);
+  const [isDiceRotating, setIsDiceRotating] = useState(false);
+  const [isHeartScaling, setIsHeartScaling] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showMoreIngredients, setShowMoreIngredients] = useState(false);
 
   const toggleShowMore = () => {
     setShowMoreIngredients(!showMoreIngredients);
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: 'easeOut',
+      },
+    },
   };
 
   const isLiked = likedRecipes.some((r) => r._id === recipe._id);
@@ -44,46 +57,43 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
       onOk() {},
     });
   };
-  // Почему-то при переходе с главной страницы на рецепты попадаешь в конец,
-  // поэтому добавил принудильный скролл наверх
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const animateButton = (btn) => {
-    if (btn === 'heart') {
-      setScaleHeart(true);
-    } else if (btn === 'dice') {
-      // при клике на кубик возвращаем состояние скрытого списка ингредиентов 
-      // и инструкции по приготовлению 
-      setShowMoreIngredients(false)
-      setShowInstructions(false)
-      setRotateDice(true);
-    }
+  const handleDiceClick = () => {
+    setIsDiceRotating(true);
+    setShowMoreIngredients(false);
+    setShowInstructions(false);
 
-    setTimeout(() => {
-      setScaleHeart(false);
-      setRotateDice(false);
-    }, 600);
+    getRandomRecipe();
+  };
+
+  const handleHeartClick = () => {
+    setIsHeartScaling(true);
+    onLikeRecipe(recipe, isLiked);
   };
 
   return (
     <section className="recipe">
       <div className="recipe__buttons-container">
-        <Button
-          btnClass={`recipe__heart-btn ${isLiked && scaleHeart && 'scale'}`}
-          btnText={
-            <img
-              className="recipe__icon-heart"
-              src={isLiked ? heartLiked : heart}
-              alt="heart icon"
-              onClick={() => {
-                animateButton('heart');
-                onLikeRecipe(recipe, isLiked);
-              }}
-            />
-          }
-        />
+        <motion.div
+          animate={{ scale: isHeartScaling ? [1, 1.2, 1] : 1 }}
+          transition={{ duration: 0.6 }}
+          onAnimationComplete={() => setIsHeartScaling(false)}>
+          <Button
+            btnClass="recipe__heart-btn"
+            btnText={
+              <img
+                className="recipe__icon-heart"
+                src={isLiked ? heartLiked : heart}
+                alt="heart icon"
+                onClick={handleHeartClick}
+              />
+            }
+          />
+        </motion.div>
 
         <Button
           btnClass="recipe__question"
@@ -91,22 +101,21 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
           onClick={showInfo}
         />
 
-        <Button
-          btnClass={`recipe__dice-btn ${rotateDice && 'rotate'}`}
-          btnText={<img className="recipe__icon-dice" src={dice} alt="dice icon" />}
-          onClick={() => {
-            animateButton('dice');
-            getRandomRecipe();
-          }}
-        />
+        <motion.div
+          animate={{ rotate: isDiceRotating ? 360 : 0 }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          onAnimationComplete={() => setIsDiceRotating(false)}>
+          <Button
+            btnClass="recipe__dice-btn"
+            btnText={<img className="recipe__icon-dice" src={dice} alt="dice icon" />}
+            onClick={handleDiceClick}
+          />
+        </motion.div>
       </div>
 
       <img className="recipe__image" loading="lazy" src={recipe.imageUrl} alt={recipe.mealName} />
       <div className="recipe__info recipe__box-shabow">
         <h1 className="recipe__meal-name">{recipe.mealName}</h1>
-        {/* <p className="recipe__ingredients-quantity">
-          {recipe.ingredients?.length} ингредиентов
-        </p> */}
 
         <div className="recipe__buttons-container recipe__buttons-container_flex-column">
           {showInstructions ? (
@@ -145,32 +154,52 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
         </div>
       </div>
 
-      {showInstructions ? (
-        <p
-          className="recipe__instructions recipe__box-shabow"
-          dangerouslySetInnerHTML={{ __html: cleanInstructions }}
-        />
-      ) : (
-        <ul className="recipe__ingredients">
-          {recipe.ingredients
-            ?.slice(0, showMoreIngredients ? recipe.ingredients.length : 6)
-            .map((item, index) => (
-              <li className="recipe__ingreditent-container recipe__box-shabow" key={index}>
-                <div className="recipe__ingreditent">
-                  <p className="recipe__ingreditent-name">{item.ingredient}</p>
-                  <p className="recipe__ingreditent-measure">{item.measure}</p>
-                </div>
-              </li>
-            ))}
-          {recipe.ingredients?.length > 6 && (
-            <Button
-              btnClass="recipe__button"
-              onClick={toggleShowMore}
-              btnText={showMoreIngredients ? 'Скрыть ▲' : 'Еще ▼'}
+      <AnimatePresence mode="wait">
+        {showInstructions ? (
+          <motion.div
+            key="instructions"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}>
+            <p
+              className="recipe__instructions recipe__box-shabow"
+              dangerouslySetInnerHTML={{ __html: cleanInstructions }}
             />
-          )}
-        </ul>
-      )}
+          </motion.div>
+        ) : (
+          <motion.ul
+            className="recipe__ingredients"
+            key="ingredients"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}>
+            {recipe.ingredients
+              ?.slice(0, showMoreIngredients ? recipe.ingredients.length : 6)
+              .map((item, index) => (
+                <motion.li
+                  className="recipe__ingreditent-container recipe__box-shabow"
+                  key={index}
+                  variants={itemVariants}>
+                  <div className="recipe__ingreditent">
+                    <p className="recipe__ingreditent-name">{item.ingredient}</p>
+                    <p className="recipe__ingreditent-measure">{item.measure}</p>
+                  </div>
+                </motion.li>
+              ))}
+            {recipe.ingredients?.length > 6 && (
+              <motion.div variants={itemVariants}>
+                <Button
+                  btnClass="recipe__button"
+                  onClick={toggleShowMore}
+                  btnText={showMoreIngredients ? 'Скрыть ▲' : 'Еще ▼'}
+                />
+              </motion.div>
+            )}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
