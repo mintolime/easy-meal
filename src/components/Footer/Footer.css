@@ -4,6 +4,7 @@
   justify-content: space-between;
   justify-items: center;
   flex-wrap: wrap;
+  font-family: 'Cruinn',sans-serif;
   gap: 20px;
   padding: 20px;
   border-top: 1px solid #d4d7e5;
@@ -16,9 +17,8 @@
 }
 
 .footer__creator_text {
-  /* font-family: Martel Sans, sans-serif; */
-  color: #9093a6;
-  font-family: Inter;
+  font-family: 'Cruinn',sans-serif;
+  color: #2c2c2c;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -28,12 +28,12 @@
 
 .footer__link {
   text-decoration: none;
-  color: #9093a6;
+  color: #2c2c2c;
 }
 
 .footer__hover:hover {
   font-weight: 500;
-  color: #4c4c4c;
+  color: #969696;
 }
 
 @media screen and (min-width: 320px) {

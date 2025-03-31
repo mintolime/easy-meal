@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import "./NotFound.css";
+import { Link, useNavigate } from 'react-router-dom';
+import './NotFound.css';
 
 const NotFound = ({ isLoggedIn }) => {
   const navigate = useNavigate();
@@ -13,8 +13,7 @@ const NotFound = ({ isLoggedIn }) => {
             className="page_404__link_404"
             onClick={() => {
               isLoggedIn ? navigate(-1) : navigate(-2);
-            }}
-          >
+            }}>
             Назад
           </Link>
         </div>

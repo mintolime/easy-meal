@@ -16,4 +16,4 @@ export const footerRoutes = [
   '/new-recipe'
 ];
 
-export const API_BACKEND = 'https://api.easymeal.click';
+export const API_BACKEND = 'http:///82.202.138.107';

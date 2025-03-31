@@ -1,12 +1,10 @@
 /*======================
     404 page
 =======================*/
-
-
 .page_404 {
   padding: 40px 0;
   background: #fff;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   text-align: center;
 }
 
@@ -22,8 +20,8 @@
   background-repeat: no-repeat;
 }
 
-
 .page_404__heading {
+  font-family: 'MakiSans-Regular';
   font-size: 60px;
   font-weight: 700;
   white-space: pre-line;
@@ -35,6 +33,7 @@
 }
 
 .page_404__description {
+  font-family: 'Cruinn',sans-serif;
   font-weight: 300;
   white-space: pre-line;
   line-height: 110.345%;
@@ -45,12 +44,14 @@
 }
 
 .page_404__link_404 {
+  font-family: 'Cruinn',sans-serif;
   color: #fff;
   padding: 10px 20px;
   background: #39ac31;
   margin: 20px 0;
   text-decoration: none;
   border-radius: 5px;
+  padding: 20px 40px;
 }
 
 /* .page_404__contant_box_404 {} */

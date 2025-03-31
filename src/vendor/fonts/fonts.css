@@ -1,25 +1,24 @@
 @font-face {
-  src:
-    url('../fonts/Inter-Regular.woff2') format("woff2"),
-    url('../fonts/Inter-Regular.woff') format("woff"),
-    url('../fonts/Inter-Regular.ttf') format("truetype");
-  font-family: 'Inter';
-  font-weight: 400;
+  src: url('../fonts/MakiSans-Regular.otf') format('opentype'),
+    url('./MakiSans-Regular.woff') format('woff');
+  font-family: 'MakiSans-Regular';
+  font-style: normal;
+  font-display: block;
 }
 
 @font-face {
-  font-family: 'Inter';
+  src: url('../fonts/CruinnLight.ttf') format('opentype'), url('./CruinnLight.woff') format('woff');
+  font-family: 'Cruinn';
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+}
+
+@font-face {
+  src: url('../fonts/CruinnMedium.ttf') format('opentype'),
+    url('./CruinnMedium.woff') format('woff');
+  font-family: 'Cruinn';
+  font-style: normal;
   font-weight: 500;
-  src:
-    url('../fonts/Inter-Medium.woff2') format("woff2"),
-    url('../fonts/Inter-MediumItalic.woff') format("woff");
-}
-
-@font-face {
-  src:
-    url('../fonts/Inter-Black.woff2') format("woff2"),
-    url('../fonts/Inter-Black.woff') format("woff"),
-    url('../fonts/Inter-Black.ttf') format("truetype");
-  font-family: "Inter";
-  font-weight: 900;
+  font-display: block;
 }

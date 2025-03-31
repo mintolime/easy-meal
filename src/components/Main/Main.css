@@ -9,11 +9,12 @@
 }
 
 .main__title {
+  font-family: 'MakiSans-Regular';
   color: #3f4255;
   /* Title/banners_or_infographic */
   font-size: 28px;
-  font-style: normal;
-  font-weight: 400;
+  /* font-style: normal; */
+  font-weight: 300;
   white-space: pre-line;
   line-height: 110.345%;
   letter-spacing: 2.9px;
@@ -21,12 +22,15 @@
 }
 
 .main__subtitle {
+  font-family: 'Cruinn';
   font-size: 14px;
+  font-weight: 500;
   white-space: pre-line;
   margin: 0;
   padding: 0;
   line-height: 140%;
 }
+
 .main__content {
   max-width: 540px;
   display: flex;
@@ -35,6 +39,14 @@
   text-align: center;
   gap: 45px 0;
   padding-top: 10%;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 1s, transform 2s;
+}
+
+.main__content_visible {
+  opacity: 1;
+  transform: translateX(0%);
 }
 
 .main__photo-plate {
@@ -63,7 +75,7 @@
   .main {
     flex-direction: row;
     padding: 12px 45px 60px;
-    align-items: start;
+    /* align-items: start; */
     justify-content: space-between;
     padding: 12px 95px 105px;
   }
