@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Modal } from 'antd';
+import { Modal, Tooltip } from 'antd';
 import DOMPurify from 'dompurify';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -97,12 +97,14 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
           <Button
             btnClass="recipe__heart-btn"
             btnText={
-              <img
-                className="recipe__icon-heart"
-                src={isLiked ? heartLiked : heart}
-                alt="heart icon"
-                onClick={handleHeartClick}
-              />
+              <Tooltip title="Добавить в избранное" color="rgb(161, 119, 228)">
+                <img
+                  className="recipe__icon-heart"
+                  src={isLiked ? heartLiked : heart}
+                  alt="heart icon"
+                  onClick={handleHeartClick}
+                />
+              </Tooltip>
             }
           />
         </motion.div>
@@ -119,7 +121,11 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
           onAnimationComplete={() => setIsDiceRotating(false)}>
           <Button
             btnClass="recipe__dice-btn"
-            btnText={<img className="recipe__icon-dice" src={dice} alt="dice icon" />}
+            btnText={
+              <Tooltip title="Получить новый рецепт" color="rgb(161, 119, 228)">
+                <img className="recipe__icon-dice" src={dice} alt="dice icon" />
+              </Tooltip>
+            }
             onClick={handleDiceClick}
           />
         </motion.div>
