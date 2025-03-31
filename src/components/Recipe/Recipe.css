@@ -1,11 +1,16 @@
 .recipe {
+  width: 100%;
+}
+
+.recipe__box {
+  width: 100%;
   padding: 30px 18px;
-  max-width: 440px;
+  gap: 50px;
   display: grid;
   grid-template-columns: 300px;
   grid-template-rows: 300px 30px 300px 1fr;
   grid-row-gap: 40px;
-  margin: 0 auto;
+  justify-content: center;
   grid-template-areas:
     "image"
     "buttons"
@@ -170,7 +175,8 @@
   margin: 0;
   letter-spacing: 1.5px;
   max-width: 200px;
-  white-space: nowrap; /* предотвращает перенос строк */
+  white-space: nowrap;
+  /* предотвращает перенос строк */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -181,19 +187,20 @@
   color: #7c8491;
   letter-spacing: 0.5px;
 }
+
 .recipe__author-link:hover {
   color: rgb(233, 169, 86);
   transform: scale(1.1);
 }
 
 @media screen and (min-width: 600px) {
-  .recipe {
+  .recipe__box {
     grid-template-columns: 400px;
   }
 }
 
 @media screen and (min-width: 700px) {
-  .recipe {
+  .recipe__box {
     max-width: 100%;
     grid-template-columns: 300px 300px;
     grid-template-rows: 300px 30px 300px 1fr;
@@ -224,8 +231,8 @@
 }
 
 @media screen and (min-width: 850px) {
-  .recipe {
-    grid-template-columns: 300px 1fr;
+  .recipe__box {
+    grid-template-columns: 300px 40%;
     grid-column-gap: 70px;
   }
 }
