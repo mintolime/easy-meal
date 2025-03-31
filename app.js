@@ -8,7 +8,7 @@ const centralizedErrorController = require('./middlewares/centralizedErrorContro
 
 const router = require('./routes');
 const connectDB = require('./db');
-// const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { NotFound } = require('./errors');
 
 const { PORT = 3003 } = process.env;
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 
-// app.use(requestLogger);
+app.use(requestLogger);
 app.use(cors);
 
 // app.use(limiter);
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
   next(new NotFound('Запрошен несуществующий роут'));
 });
 
-// app.use(errorLogger);
+app.use(errorLogger);
 app.use(errors());
 
 app.use(centralizedErrorController);
