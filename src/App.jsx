@@ -7,8 +7,6 @@ import './App.css';
 import Loader from './components/Loader/Loader';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import Main from './components/Main/Main';
-import Recipe from './components/Recipe/Recipe';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import RecipesList from './components/RecipesList/RecipesList';
@@ -23,6 +21,7 @@ import AdminPanel from './components/AdminPanel/AdminPanel';
 import { MainPageAsync } from './components/Main/Main.async';
 import { RecipePageAsync } from './components/Recipe/Recipe.async';
 import { Suspense } from 'react';
+import useNotification from './utils/hooks/useNotification';
 
 function App() {
   const location = useLocation();
@@ -42,11 +41,7 @@ function App() {
   const [recipe, setRecipe] = useState([]);
   const [likedRecipes, setLikedRecipes] = useState([]);
 
-  const [messageApi, contextHolder] = message.useMessage();
-
-  const showNotificationAnt = (type, message) => {
-    messageApi[type](`${message}`);
-  };
+  const { showNotificationAnt, notificationHolder } = useNotification();
 
   const handleSetRecipe = (newRecipe) => {
     setRecipe(newRecipe);
@@ -244,29 +239,39 @@ function App() {
     }
   };
 
-  const handleLikeRecipe = (recipe, isLiked) => {
-    // console.log(recipe);
-    if (isLoggedIn) {
-      if (!isLiked) {
-        mainApi.likeRecipe(recipe._id).then((newRecipe) => {
-          setLikedRecipes([...likedRecipes, newRecipe]);
-        });
-      } else {
-        handleDislikeRecipe(recipe);
-      }
-    } else {
+  const handleLikeRecipe = async (recipe, isLiked) => {
+    if (!isLoggedIn) {
       showNotificationAnt(
         'warning',
         'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное',
       );
+      return;
+    }
+
+    try {
+      if (!isLiked) {
+        const newRecipe = await mainApi.likeRecipe(recipe._id);
+        setLikedRecipes((prev) => [...prev, newRecipe]);
+        showNotificationAnt(
+          'success',
+          'Рецепт успешно добавлен в избранное! Нажмите на сердечко 🧡, чтобы его удалить',
+        );
+      } else {
+        await handleDislikeRecipe(recipe);
+      }
+    } catch (error) {
+      showNotificationAnt('error', error.errorText || 'Произошла ошибка');
     }
   };
 
-  const handleDislikeRecipe = (recipe) => {
-    mainApi.dislikeRecipe(recipe._id).then((res) => {
-      const updatedLikedRecipes = likedRecipes.filter((r) => r._id !== res._id);
-      setLikedRecipes(updatedLikedRecipes);
-    });
+  const handleDislikeRecipe = async (recipe) => {
+    try {
+      const res = await mainApi.dislikeRecipe(recipe._id);
+      setLikedRecipes((prev) => prev.filter((r) => r._id !== res._id));
+      showNotificationAnt('success', 'Рецепт удалён из избранного');
+    } catch (error) {
+      showNotificationAnt('error', error.errorText || 'Не удалось удалить рецепт');
+    }
   };
 
   return (
@@ -279,7 +284,7 @@ function App() {
           onLogout={handleLogout}
         />
       )}
-      {contextHolder}
+      {notificationHolder}
 
       <Suspense fallback={<Loader />}>
         <Routes>
