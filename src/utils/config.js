@@ -16,4 +16,4 @@ export const footerRoutes = [
   '/new-recipe'
 ];
 
-export const API_BACKEND = 'https://api-my-easy-meal.ru/';
+export const API_BACKEND = 'https://api-my-easy-meal.ru';
