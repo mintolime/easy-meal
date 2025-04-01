@@ -1,5 +1,7 @@
 .main {
   display: flex;
+  height: 100%;
+  width: 100%;
   flex-direction: column-reverse;
   /* align-items: center; */
   padding: 32px 10px 55px;
