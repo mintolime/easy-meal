@@ -8,7 +8,7 @@
   /* align-items: center; */
   /* Это, чтобы футер был внизу */
   grid-template-rows: min-content auto min-content;
-  height: 100vh;
+  /* height: 100vh; */
   font-family: 'Cruinn', sans-serif;
   /* font-family: 'Inter', sans-serif; */
   text-rendering: optimizeLegibility;
