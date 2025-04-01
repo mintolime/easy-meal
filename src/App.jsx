@@ -243,7 +243,7 @@ function App() {
     if (!isLoggedIn) {
       showNotificationAnt(
         'warning',
-        'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное',
+        'Войдите или зарегистрируйтесь, чтобы сохранять рецепты в избранное!',
       );
       return;
     }
@@ -254,13 +254,13 @@ function App() {
         setLikedRecipes((prev) => [...prev, newRecipe]);
         showNotificationAnt(
           'success',
-          'Рецепт успешно добавлен в избранное! Нажмите на сердечко 🧡, чтобы его удалить',
+          'Рецепт успешно добавлен в избранное! 🧡',
         );
       } else {
         await handleDislikeRecipe(recipe);
       }
     } catch (error) {
-      showNotificationAnt('error', error.errorText || 'Произошла ошибка');
+      showNotificationAnt('error', error.errorText || 'Произошла ошибка!');
     }
   };
 
@@ -268,9 +268,9 @@ function App() {
     try {
       const res = await mainApi.dislikeRecipe(recipe._id);
       setLikedRecipes((prev) => prev.filter((r) => r._id !== res._id));
-      showNotificationAnt('success', 'Рецепт удалён из избранного');
+      showNotificationAnt('success', 'Рецепт удалён из избранного!');
     } catch (error) {
-      showNotificationAnt('error', error.errorText || 'Не удалось удалить рецепт');
+      showNotificationAnt('error', error.errorText || 'Не удалось удалить рецепт!');
     }
   };
 
