@@ -1,5 +1,6 @@
 .recipe {
   width: 100%;
+  overflow-y: scroll;
 }
 
 .recipe__box {
