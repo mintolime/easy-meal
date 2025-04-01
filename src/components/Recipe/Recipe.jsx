@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Modal, Tooltip } from 'antd';
-import DOMPurify from 'dompurify';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import './Recipe.css';
 import Button from '../Button/Button';
@@ -17,6 +18,14 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   const [isHeartScaling, setIsHeartScaling] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showMoreIngredients, setShowMoreIngredients] = useState(false);
+
+  // Конфигурация Quill редактора
+  const modules = {
+    toolbar: false, // Отключаем панель инструментов (только просмотр)
+    clipboard: {
+      matchVisual: false,
+    },
+  };
 
   const toggleShowMore = () => {
     setShowMoreIngredients(!showMoreIngredients);
@@ -47,7 +56,6 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   };
 
   const isLiked = likedRecipes.some((r) => r._id === recipe._id);
-  const cleanInstructions = DOMPurify.sanitize(recipe.instructions);
 
   const showInfo = () => {
     Modal.info({
@@ -63,7 +71,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
             источнику нажмите на "Полный рецепт"
           </p>
           <p>Для генерации рецепта нажмите кубик 🎲</p>
-          <p>Чтобы добавить понравившийся рецепт, нажмите на сердечко 🧡 </p>
+          <p>Чтобы добавить понравившийся рецепт, нажмите на сердечко 🧡</p>
           <p>Приятного пользования!</p>
         </div>
       ),
@@ -226,10 +234,14 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}>
-                <div
-                  className="recipe__instructions recipe__box-shabow"
-                  dangerouslySetInnerHTML={{ __html: cleanInstructions }}
+                transition={{ duration: 0.3 }}
+                className="recipe__instructions recipe__box-shabow">
+                <ReactQuill
+                  value={recipe.instructions}
+                  readOnly={true}
+                  modules={modules}
+                  theme="snow"
+                  className="ql-editor"
                 />
               </motion.div>
             ) : (
