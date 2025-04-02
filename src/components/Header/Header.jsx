@@ -8,9 +8,6 @@ import { Link } from 'react-router-dom';
 function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
   const [open, setOpen] = useState(false);
 
-  const showDrawer = () => {
-    setOpen(true);
-  };
   const onClose = () => {
     setOpen(false);
   };
@@ -56,7 +53,12 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
       </div>
 
       <div className="header__nav_tablet">
-        <Button btnClass={'button_type_menu-open'} onClick={showDrawer} />
+        <Button
+          btnClass={'button_type_menu-open'}
+          onClick={() => {
+            setOpen(!open);
+          }}
+        />
 
         <Drawer
           className="header__drawer"

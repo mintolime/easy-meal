@@ -7,9 +7,11 @@
   box-sizing: border-box;
   border-bottom: #d4d7e5 1px solid;
 }
-.header__drawer{
-  font-family: 'Cruinn',sans-serif;
+
+.header__drawer {
+  font-family: 'Cruinn', sans-serif;
 }
+
 .header__nav_tablet {
   display: none;
 }
@@ -20,7 +22,7 @@
 
 .header__profile {
   display: inline;
-  margin:0 14px;
+  margin: 0 35px;
   font-size: 13px;
   font-weight: 500;
 }
