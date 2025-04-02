@@ -36,6 +36,7 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
         {isLoggedIn && (
           <>
             <nav className="header__nav header__nav-authorized">
+              <p className="header__profile">{isCurrentUser.isEmailUser}</p>
               <Link className="header__link" to="/saved-recipes">
                 Избранное
               </Link>
@@ -47,7 +48,7 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
                   Админка
                 </Link>
               )}
-              <p className="header__profile">{isCurrentUser.isEmailUser}</p>
+
               <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
             </nav>
           </>
