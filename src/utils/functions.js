@@ -3,15 +3,15 @@ export const checkPath = (el, location) => el.includes(location.pathname);
 
 // for API
 export const handleResponce = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return res.text().then((text) => {
-    return Promise.reject({
-      status: res.status,
-      errorText: JSON.parse(text).message,
+    if (res.ok) {
+        return res.json();
+    }
+    return res.text().then((text) => {
+        return Promise.reject({
+            status: res.status,
+            errorText: JSON.parse(text).message,
+        });
     });
-  });
 };
 
 // const getRandomRecipe = () => {
@@ -37,28 +37,28 @@ export const handleResponce = (res) => {
 // };
 
 export const modifyRecipeObject = (value) => {
-  let ingredients = [];
+    let ingredients = [];
 
-  for (let i = 1; i <= 30; i++) {
-    let ingredient = value[`strIngredient${i}`];
-    let measure = value[`strMeasure${i}`];
+    for (let i = 1; i <= 30; i++) {
+        let ingredient = value[`strIngredient${i}`];
+        let measure = value[`strMeasure${i}`];
 
-    if (ingredient !== "" && measure !== "") {
-      ingredients.push({ ingredient, measure });
-    } else {
-      break;
+        if (ingredient !== '' && measure !== '') {
+            ingredients.push({ ingredient, measure });
+        } else {
+            break;
+        }
     }
-  }
 
-  const newRecipe = {
-    mealName: value.strMeal,
-    mealId: value.idMeal,
-    mealCategory: value.strCategory,
-    youtubeLink: value.strYoutube,
-    imageLink: value.strMealThumb,
-    instructions: value.strInstructions,
-    ingredients,
-  };
+    const newRecipe = {
+        mealName: value.strMeal,
+        mealId: value.idMeal,
+        mealCategory: value.strCategory,
+        youtubeLink: value.strYoutube,
+        imageLink: value.strMealThumb,
+        instructions: value.strInstructions,
+        ingredients,
+    };
 
-  return newRecipe;
+    return newRecipe;
 };

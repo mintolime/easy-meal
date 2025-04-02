@@ -1,78 +1,78 @@
 .saved-recipes {
-  padding: 0 10px;
+    padding: 0 10px;
 }
 
 .saved-recipes__container {
-  position: relative;
-  padding: 0;
-  margin: 0 auto;
-  max-width: 500px;
-  list-style: none;
+    position: relative;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 500px;
+    list-style: none;
 }
 
 .saved-recipes__start-container {
-  display: grid;
-  grid-template-rows: min-content min-content;
-  margin-top: 35px;
-  min-height: calc(100vh - 160px);
-  text-align: center;
-  gap: 20px;
+    display: grid;
+    grid-template-rows: min-content min-content;
+    margin-top: 35px;
+    min-height: calc(100vh - 160px);
+    text-align: center;
+    gap: 20px;
 }
 
 .saved-recipes__card {
-  display: grid;
-  grid-template-columns: max-content auto max-content;
-  grid-template-rows: 30px;
-  grid-template-areas:
-    'image title     trash'
-    'image category  trash';
-  margin-top: 20px;
+    display: grid;
+    grid-template-columns: max-content auto max-content;
+    grid-template-rows: 30px;
+    grid-template-areas:
+        'image title     trash'
+        'image category  trash';
+    margin-top: 20px;
 }
 
 .saved-recipes__card-title {
-  grid-area: title;
-  margin: 0;
-  padding: 0;
-  font-weight: 500;
-  font-size: 20px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  cursor: pointer;
+    grid-area: title;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 .saved-recipes__card-image {
-  grid-area: image;
-  width: 70px;
-  height: 70px;
-  border-radius: 5px;
-  margin-right: 20px;
-  cursor: pointer;
-  object-fit: cover;
-  object-position: center;
+    grid-area: image;
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    margin-right: 20px;
+    cursor: pointer;
+    object-fit: cover;
+    object-position: center;
 }
 
 .saved-recipes__card-trash {
-  grid-area: trash;
-  align-self: end;
+    grid-area: trash;
+    align-self: end;
 }
 
 .saved-recipes__card-category {
-  grid-area: category;
-  margin: 0;
+    grid-area: category;
+    margin: 0;
 }
 
 @media screen and (min-width: 768px) {
-  .saved-recipes {
-    padding: 0 58px;
-  }
+    .saved-recipes {
+        padding: 0 58px;
+    }
 
-  .saved-recipes__start-container {
-    display: grid;
-    place-content: center;
-    min-height: calc(100vh - 160px);
-    justify-items: center;
-    text-align: center;
-    gap: 20px;
-  }
+    .saved-recipes__start-container {
+        display: grid;
+        place-content: center;
+        min-height: calc(100vh - 160px);
+        justify-items: center;
+        text-align: center;
+        gap: 20px;
+    }
 }

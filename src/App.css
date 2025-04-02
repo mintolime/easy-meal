@@ -2,51 +2,51 @@
 @import url('../src/vendor/fonts/fonts.css');
 
 #root {
-  max-width: 1440px;
-  width: 100%;
-  display: grid;
-  /* align-items: center; */
-  /* Это, чтобы футер был внизу */
-  grid-template-rows: min-content auto min-content;
-  /* height: 100vh; */
-  font-family: 'Cruinn', sans-serif;
-  /* font-family: 'Inter', sans-serif; */
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  margin: 0 auto;
-  /* padding: 2rem; */
-  /* text-align: center; */
-  overflow: hidden;
-  overflow: clip;
+    max-width: 1440px;
+    width: 100%;
+    display: grid;
+    /* align-items: center; */
+    /* Это, чтобы футер был внизу */
+    grid-template-rows: min-content auto min-content;
+    /* height: 100vh; */
+    font-family: 'Cruinn', sans-serif;
+    /* font-family: 'Inter', sans-serif; */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0 auto;
+    /* padding: 2rem; */
+    /* text-align: center; */
+    overflow: hidden;
+    overflow: clip;
 }
 
 .temp-login {
-  position: fixed;
-  bottom: 0;
-  right: 0;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 
-  display: flex;
-  gap: 10px;
-  background: crimson;
-  padding: 2px 4px;
-  opacity: 0.5;
-  color: #fff;
-  font-size: 10px;
-  z-index: 1000000;
+    display: flex;
+    gap: 10px;
+    background: crimson;
+    padding: 2px 4px;
+    opacity: 0.5;
+    color: #fff;
+    font-size: 10px;
+    z-index: 1000000;
 }
 
 .page__flexbox-column {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
-.link-null{
-  text-decoration: none;
+.link-null {
+    text-decoration: none;
 }
