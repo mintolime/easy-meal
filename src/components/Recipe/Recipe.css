@@ -18,7 +18,7 @@
     "buttons"
     "info"
     "ingredients";
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 /* замиксовала стили, чтобы добавлять к разным блокам <3 */
@@ -244,13 +244,13 @@
 /* Списки */
 .recipe__instructions .ql-editor ul,
 .recipe__instructions .ql-editor ol {
-  padding-left: 1.5em;
   margin: 0.5em 0;
 }
 
 /* Элементы списка */
 .recipe__instructions .ql-editor li {
-  margin-bottom: 0.3em;
+  padding: 0;
+  margin-bottom: 15px;
 }
 
 /* Ссылки */
@@ -274,7 +274,9 @@
   text-decoration: underline;
 }
 
-
+.recipe__instructions .ql-editor p {
+  margin-bottom: 15px;
+}
 
 
 
