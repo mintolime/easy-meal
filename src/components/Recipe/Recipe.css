@@ -1,22 +1,24 @@
 .recipe {
-    width: 100%;
-    overflow-y: scroll;
+  width: 100%;
+
 }
 
 .recipe__box {
-    width: 100%;
-    padding: 30px 18px;
-    gap: 50px;
-    display: grid;
-    grid-template-columns: 300px;
-    grid-template-rows: 30px 300px 300px 1fr;
-    grid-row-gap: 40px;
-    justify-content: center;
-    grid-template-areas:
-        'image'
-        'buttons'
-        'info'
-        'ingredients';
+  width: 100%;
+  height: 100%;
+  padding: 30px 18px;
+  gap: 50px;
+  display: grid;
+  grid-template-columns: 300px;
+  grid-template-rows: 30px 300px 300px 1fr;
+  grid-row-gap: 40px;
+  justify-content: center;
+  grid-template-areas:
+    "image"
+    "buttons"
+    "info"
+    "ingredients";
+  overflow-y: auto;
 }
 
 /* замиксовала стили, чтобы добавлять к разным блокам <3 */
@@ -59,10 +61,10 @@
 }
 
 .recipe__ingredients {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    grid-area: ingredients;
+  padding: 20px;
+  margin: 0;
+  list-style: none;
+  grid-area: ingredients;
 }
 
 .recipe__ingredients-quantity {
@@ -163,12 +165,13 @@
 }
 
 .recipe__instructions {
-    max-width: 650px;
-    text-align: start;
-    line-height: 1.4;
-    font-size: 16px;
-    min-height: min-content;
-    margin: 0;
+  height: fit-content;
+  max-width: 650px;
+  text-align: start;
+  line-height: 1.4;
+  font-size: 16px;
+  min-height: min-content;
+  margin: 0;
 }
 
 .recipe__author {
@@ -183,12 +186,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .recipe__not-found-container {
-    padding: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .recipe__author-link {
@@ -203,11 +207,78 @@
     transform: scale(1.1);
 }
 
-@media screen and (min-width: 600px) {
-    .recipe__box {
-        grid-template-columns: 400px;
-    }
+.recipe__instructions .ql-editor {
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
+
+
+/* Основные стили контейнера редактора */
+.recipe__instructions .ql-container.ql-snow {
+  border: none;
+  font-family: inherit;
+}
+
+/* Стили редактора в режиме чтения */
+.recipe__instructions .ql-editor {
+  padding: 0;
+  text-align: start;
+  line-height: 1.4;
+  font-size: 16px;
+  color: inherit;
+  white-space: normal;
+  margin: 0;
+}
+
+/* Стили для заголовков в редакторе */
+.recipe__instructions .ql-editor h1,
+.recipe__instructions .ql-editor h2,
+.recipe__instructions .ql-editor h3 {
+  text-align: center;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.3;
+}
+
+/* Списки */
+.recipe__instructions .ql-editor ul,
+.recipe__instructions .ql-editor ol {
+  margin: 0.5em 0;
+}
+
+/* Элементы списка */
+.recipe__instructions .ql-editor li {
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+/* Ссылки */
+.recipe__instructions .ql-editor a {
+  color: #1890ff;
+  text-decoration: underline;
+}
+
+/* Выделенный текст */
+.recipe__instructions .ql-editor strong {
+  font-weight: bold;
+}
+
+/* Курсив */
+.recipe__instructions .ql-editor em {
+  font-style: italic;
+}
+
+/* Подчеркнутый текст */
+.recipe__instructions .ql-editor u {
+  text-decoration: underline;
+}
+
+.recipe__instructions .ql-editor p {
+  margin-bottom: 15px;
+}
+
+
 
 @media screen and (min-width: 700px) {
     .recipe__box {

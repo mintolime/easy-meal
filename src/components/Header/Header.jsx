@@ -8,12 +8,9 @@ import './Header.css';
 function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
     const [open, setOpen] = useState(false);
 
-    const showDrawer = () => {
-        setOpen(true);
-    };
-    const onClose = () => {
-        setOpen(false);
-    };
+  const onClose = () => {
+    setOpen(false);
+  };
 
     return (
         <header className="header">
@@ -33,29 +30,35 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
                     </nav>
                 ) : null}
 
-                {isLoggedIn && (
-                    <>
-                        <nav className="header__nav header__nav-authorized">
-                            <Link className="header__link" to="/saved-recipes">
-                                Избранное
-                            </Link>
-                            {/* <Link className="header__link" to="/shopping-list">
+        {isLoggedIn && (
+          <>
+            <nav className="header__nav header__nav-authorized">
+              <p className="header__profile">{isCurrentUser.isEmailUser}</p>
+              <Link className="header__link" to="/saved-recipes">
+                Избранное
+              </Link>
+              {/* <Link className="header__link" to="/shopping-list">
                 Список покупок
               </Link> */}
-                            {isCurrentUser.isAdminUser && (
-                                <Link className="header__link" to="/admin">
-                                    Админка
-                                </Link>
-                            )}
-                            <p className="header__profile">{isCurrentUser.isEmailUser}</p>
-                            <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
-                        </nav>
-                    </>
-                )}
-            </div>
+              {isCurrentUser.isAdminUser && (
+                <Link className="header__link" to="/admin">
+                  Админка
+                </Link>
+              )}
 
-            <div className="header__nav_tablet">
-                <Button btnClass={'button_type_menu-open'} onClick={showDrawer} />
+              <Button btnClass={'button_type_signout'} btnText={'Выйти'} onClick={onLogout} />
+            </nav>
+          </>
+        )}
+      </div>
+
+      <div className="header__nav_tablet">
+        <Button
+          btnClass={'button_type_menu-open'}
+          onClick={() => {
+            setOpen(!open);
+          }}
+        />
 
                 <Drawer className="header__drawer" title="Easy Meal" placement="right" onClose={onClose} open={open}>
                     {!isLoggedIn && (

@@ -7,9 +7,11 @@
     box-sizing: border-box;
     border-bottom: #d4d7e5 1px solid;
 }
+
 .header__drawer {
-    font-family: 'Cruinn', sans-serif;
+  font-family: 'Cruinn', sans-serif;
 }
+
 .header__nav_tablet {
     display: none;
 }
@@ -19,10 +21,10 @@
 }
 
 .header__profile {
-    display: inline;
-    margin: 0 14px;
-    font-size: 13px;
-    font-weight: 500;
+  display: inline;
+  margin: 0 35px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 /* это класс из Drawer */
@@ -72,7 +74,7 @@
 }
 
 @media screen and (min-width: 768px) {
-    .header {
-        padding: 12px 58px;
-    }
+  .header {
+    padding: 12px 58px;
+  }
 }
