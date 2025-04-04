@@ -61,7 +61,7 @@
 }
 
 .recipe__ingredients {
-  padding: 0;
+  padding: 20px;
   margin: 0;
   list-style: none;
   grid-area: ingredients;
