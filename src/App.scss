@@ -1,21 +1,21 @@
 
 #root {
-  max-width: 1440px;
-  width: 100%;
   display: grid;
+  width: 100%;
+  margin: 0;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1440px;
   grid-template-rows: min-content auto min-content;
   min-height: 100vh;
-  font-family: 'Cruinn', sans-serif;
-  text-rendering: optimizeLegibility;
+  font-family: Cruinn, sans-serif;
+  text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  margin: 0;
-  padding: 0;
+  text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  text-size-adjust: 100%;
   box-sizing: border-box;
-  margin: 0 auto;
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #4622bb64 #f1f1f1;
@@ -42,15 +42,15 @@
 
 .temp-login {
   position: fixed;
-  bottom: 0;
   right: 0;
+  bottom: 0;
   display: flex;
-  gap: 10px;
-  background: crimson;
   padding: 2px 4px;
-  opacity: 0.5;
   color: #fff;
+  background: crimson;
   font-size: 10px;
+  gap: 10px;
+  opacity: 0.5;
   z-index: 1000000;
 }
 

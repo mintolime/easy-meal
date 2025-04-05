@@ -1,16 +1,16 @@
 @use 'variables' as *;
 
 @mixin box-shadow-style {
-  padding: 14px 14px;
+  padding: 14px;
   border-radius: 12px;
   box-shadow: $shadow;
 }
 
 @mixin flex-center($direction: row) {
   display: flex;
+  flex-direction: $direction;
   justify-content: center;
   align-items: center;
-  flex-direction: $direction;
 }
 
 @mixin icon-style($width, $height, $opacity: 1) {

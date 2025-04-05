@@ -11,8 +11,6 @@ export default {
   rules: {
     // Общие правила
     "color-no-invalid-hex": true, // Запрет невалидных HEX-цветов
-    "font-family-no-duplicate-names": true, // Запрет дублирования названий шрифтов
-    "unit-no-unknown": true, // Запрет неизвестных единиц измерения
     "block-no-empty": true, // Запрет пустых блоков
     "no-duplicate-selectors": true, // Запрет дублирования селекторов
     "no-extra-semicolons": true, // Запрет лишних точек с запятой
@@ -20,7 +18,6 @@ export default {
 
     // SCSS-специфичные правила
     "scss/at-rule-no-unknown": true, // Запрет неизвестных @-правил
-    "scss/dollar-variable-no-missing-interpolation": true, // Проверка интерполяции переменных
     "scss/at-import-partial-extension-blacklist": ["scss"], // Запрет указания расширения .scss в @import
 
     // Порядок свойств

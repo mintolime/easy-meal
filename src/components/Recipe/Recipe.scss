@@ -2,15 +2,15 @@
   width: 100%;
 
   &__box {
+    display: grid;
+    justify-content: center;
     width: 100%;
     height: 100%;
     padding: 30px 18px;
     gap: 50px;
-    display: grid;
     grid-template-columns: 300px;
     grid-template-rows: 30px 300px 300px 1fr;
     grid-row-gap: 40px;
-    justify-content: center;
     grid-template-areas:
       'image'
       'buttons'
@@ -18,7 +18,7 @@
       'ingredients';
     overflow-y: auto;
 
-    @media screen and (min-width: 700px) {
+    @media screen and (width >= 700px) {
       max-width: 100%;
       grid-template-columns: 300px 300px;
       grid-template-rows: 300px 30px 300px 1fr;
@@ -42,7 +42,7 @@
       }
     }
 
-    @media screen and (min-width: 850px) {
+    @media screen and (width >= 850px) {
       grid-template-columns: 300px 40%;
       grid-column-gap: 70px;
     }
@@ -59,8 +59,9 @@
   }
 
   &__img-box {
-    @include flex-center(column);
     gap: 20px;
+
+    @include flex-center(column);
   }
 
   &__image {
@@ -74,29 +75,30 @@
   }
 
   &__not-found {
-    text-align: center;
     width: 60%;
+    padding: 20px 0;
     font-size: 1.2rem;
+    text-align: center;
     font-weight: 400;
     line-height: 1.2;
-    padding: 20px 0;
 
     &-container {
       padding: 50px;
+
       @include flex-center(column);
     }
   }
 
   &__ingredients {
-    padding: 20px;
     margin: 0;
+    padding: 20px;
     list-style: none;
     grid-area: ingredients;
 
     &-quantity {
-      font-size: 13px;
-      color: $gray-text;
       margin: 0;
+      color: $gray-text;
+      font-size: 13px;
       text-align: center;
       letter-spacing: 1.5px;
     }
@@ -104,10 +106,11 @@
 
   &__ingreditent {
     &-box {
-      width: 100%;
-      justify-content: inherit;
       display: flex;
+      justify-content: inherit;
+      width: 100%;
     }
+
     &-container {
       border-bottom: 1px solid #eee;
       display: flex;
@@ -123,14 +126,14 @@
     }
 
     &-name {
-      font-size: 18px;
       margin: 0;
+      font-size: 18px;
     }
 
     &-measure {
-      font-size: 14px;
-      color: $gray-text;
       margin: 0;
+      color: $gray-text;
+      font-size: 14px;
     }
   }
 
@@ -156,10 +159,11 @@
     }
 
     &-question {
-      @include icon-style(35px, 35px, 0.6);
       position: fixed;
-      bottom: 30px;
       right: 30px;
+      bottom: 30px;
+
+      @include icon-style(35px, 35px, 0.6);
     }
 
     &-dice {
@@ -172,22 +176,22 @@
   }
 
   &__meal-name {
-    font-family: 'MakiSans-Regular';
+    margin: 0;
+    padding: 20px;
     font-size: 22px;
+    font-family: MakiSans-Regular;
     font-weight: 200;
     line-height: 1.2;
     text-align: center;
-    margin: 0;
-    padding: 20px;
   }
 
   &__button-yt {
-    background-color: $pink-button;
-    padding: 10px;
-    border-radius: 7px;
     height: 36px;
-    font-size: 14px;
+    padding: 10px;
     color: white;
+    font-size: 14px;
+    background-color: $pink-button;
+    border-radius: 7px;
     text-decoration: none;
     text-align: center;
     cursor: pointer;
@@ -195,12 +199,12 @@
 
   &__instructions {
     height: fit-content;
+    margin: 0;
+    font-size: 16px;
     max-width: 650px;
     text-align: start;
     line-height: 1.4;
-    font-size: 16px;
     min-height: min-content;
-    margin: 0;
 
     .ql-editor {
       padding: 0;
@@ -212,15 +216,15 @@
       h2,
       h3 {
         text-align: center;
-        margin: 1em 0 0.5em 0;
+        margin: 1em 0 0.5em;
         line-height: 1.3;
       }
 
       ul,
       ol {
-        font-size: inherit;
         margin: 0.5em 0;
         padding: 0;
+        font-size: inherit;
       }
 
       li {
@@ -258,10 +262,10 @@
   }
 
   &__author {
-    color: $gray-text;
-    line-height: 1.4;
-    font-size: 15px;
     margin: 0;
+    color: $gray-text;
+    font-size: 15px;
+    line-height: 1.4;
     letter-spacing: 1.5px;
     max-width: 200px;
     white-space: nowrap;
@@ -269,9 +273,9 @@
     text-overflow: ellipsis;
 
     &-link {
-      text-decoration: none;
-      font-size: 15px;
       color: $gray-text;
+      font-size: 15px;
+      text-decoration: none;
       letter-spacing: 0.5px;
 
       &:hover {
