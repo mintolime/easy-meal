@@ -1,11 +1,8 @@
-@import url('../src/vendor/normalize.css');
-@import url('../src/vendor/fonts/fonts.css');
 
 #root {
   max-width: 1440px;
   width: 100%;
   display: grid;
-  /* Это, чтобы футер был внизу */
   grid-template-rows: min-content auto min-content;
   min-height: 100vh;
   font-family: 'Cruinn', sans-serif;
@@ -19,39 +16,34 @@
   padding: 0;
   box-sizing: border-box;
   margin: 0 auto;
-
   overflow-x: hidden;
   scrollbar-width: thin;
-  /* Для Firefox */
   scrollbar-color: #4622bb64 #f1f1f1;
-  /* Для Firefox */
   scroll-behavior: smooth;
   border-radius: 14px;
-}
 
-/* Кастомный скроллбар */
-#root::-webkit-scrollbar {
-  width: 8px;
-}
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
 
-#root::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
 
-#root::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
 
-#root::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }
 
 .temp-login {
   position: fixed;
   bottom: 0;
   right: 0;
-
   display: flex;
   gap: 10px;
   background: crimson;

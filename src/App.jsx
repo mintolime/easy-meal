@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { message } from 'antd';
 
-import './App.css';
+import './styles/main.scss';
+import './vendor/normalize.css';
+import './vendor/fonts/fonts.css';
 import Loader from './components/Loader/Loader';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
@@ -252,10 +253,7 @@ function App() {
       if (!isLiked) {
         const newRecipe = await mainApi.likeRecipe(recipe._id);
         setLikedRecipes((prev) => [...prev, newRecipe]);
-        showNotificationAnt(
-          'success',
-          'Рецепт успешно добавлен в избранное! 🧡',
-        );
+        showNotificationAnt('success', 'Рецепт успешно добавлен в избранное! 🧡');
       } else {
         await handleDislikeRecipe(recipe);
       }
