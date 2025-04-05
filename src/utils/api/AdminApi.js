@@ -7,12 +7,6 @@ export class AuthAdmin {
   }
 
 
-  checkToken() {
-    return fetch(`${this.url}/users/me`, {
-      method: "GET",
-      headers: this.headers,
-    }).then((res) => handleResponce(res));
-  }
 
   // Новые методы для админ-панели
   adminLogin({ login, password }) {
@@ -26,7 +20,10 @@ export class AuthAdmin {
   checkAdmin() {
     return fetch(`${this.url}/admin/check`, {
       method: "GET",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+      },
     }).then((res) => handleResponce(res));
   }
 }
