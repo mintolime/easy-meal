@@ -1,0 +1,67 @@
+@forward 'variables';
+@forward 'mixins';
+@forward 'globals';
+
+#root {
+  max-width: 1440px;
+  width: 100%;
+  display: grid;
+  grid-template-rows: min-content auto min-content;
+  min-height: 100vh;
+  font-family: 'Cruinn', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0 auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #4622bb64 #f1f1f1;
+  scroll-behavior: smooth;
+  border-radius: 14px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+.temp-login {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  gap: 10px;
+  background: crimson;
+  padding: 2px 4px;
+  opacity: 0.5;
+  color: #fff;
+  font-size: 10px;
+  z-index: 1000000;
+}
+
+.page__flexbox-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.link-null {
+  text-decoration: none;
+}
