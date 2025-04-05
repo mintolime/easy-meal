@@ -188,7 +188,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
                 </a>
               )}
               <div className="recipe__buttons-container recipe__buttons-container_flex-column ">
-                <p className="recipe__author">{recipe.mealAuthor || 'No Author'}</p>
+                <p className="recipe__author">Автор: {recipe.mealAuthor || 'Автор неизвестен'}</p>
                 <a
                   className="recipe__author-link"
                   href={recipe.mealSourceUrl}
