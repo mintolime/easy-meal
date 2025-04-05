@@ -25,9 +25,11 @@ const AdminLogin = () => {
     try {
       const data = await auth.adminLogin(formData);
       localStorage.setItem('adminToken', data.token);
-      navigate('/admin/dashboard');
+      // navigate('/admin/dashboard');
     } catch (err) {
       setError(err.message || 'Ошибка входа');
+      localStorage?.removeItem('adminToken');
+      // navigate('/admin/dashboard');
     } finally {
       setLoading(false);
     }

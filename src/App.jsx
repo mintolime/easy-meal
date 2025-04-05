@@ -184,6 +184,7 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('adminToken');
     navigate('/signin', { replace: true });
     setIsLoggedIn(false);
     setUser((prevUser) => ({
