@@ -22,6 +22,7 @@ import { MainPageAsync } from './components/Main/Main.async';
 import { RecipePageAsync } from './components/Recipe/Recipe.async';
 import { Suspense } from 'react';
 import useNotification from './utils/hooks/useNotification';
+import AdminLogin from './components/AdminLogin/AdminLogin';
 
 function App() {
   const location = useLocation();
@@ -252,10 +253,7 @@ function App() {
       if (!isLiked) {
         const newRecipe = await mainApi.likeRecipe(recipe._id);
         setLikedRecipes((prev) => [...prev, newRecipe]);
-        showNotificationAnt(
-          'success',
-          'Рецепт успешно добавлен в избранное! 🧡',
-        );
+        showNotificationAnt('success', 'Рецепт успешно добавлен в избранное! 🧡');
       } else {
         await handleDislikeRecipe(recipe);
       }
@@ -302,6 +300,16 @@ function App() {
               />
             }
           />
+
+          <Route path="/admin/login" element={<AdminLogin />} />
+          {/* <Route
+            path="/admin/dashboard"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          /> */}
           <Route
             path="/saved-recipes"
             element={
