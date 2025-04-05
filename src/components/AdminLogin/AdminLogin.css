@@ -1,8 +1,27 @@
-.admin-login{
+.admin-login-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  font-family: 'Cruinn',sans-serif;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  padding: 20px;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.admin-login-header {
+  margin-bottom: 24px;
+}
+
+.admin-login-form {
+  margin-top: 8px;
+}
+
+.site-form-item-icon {
+  color: rgba(0, 0, 0, 0.25);
 }

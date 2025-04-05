@@ -1,48 +1,79 @@
-import { useState } from 'react';
+import { Form, Input, Button, Card, Typography, Alert } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useAdminStore } from '../store/adminStore';
 import { useNavigate } from 'react-router';
+import './AdminLogin.css';
+
+const { Title } = Typography;
 
 const AdminLogin = () => {
-  const [formData, setFormData] = useState({ login: '', password: '' });
+  const [form] = Form.useForm();
   const { login, loading, error } = useAdminStore();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const success = await login(formData.login, formData.password);
+  const onFinish = async (values) => {
+    const success = await login(values.login, values.password);
     if (success) navigate('/admin/dashboard');
   };
 
   return (
-    <div className="admin-login">
-      <h2>Вход для администратора</h2>
+    <div className="admin-login-container">
+      <Card className="admin-login-card">
+        <div className="admin-login-header">
+          <Title level={3} style={{ textAlign: 'center' }}>
+            Вход для администратора
+          </Title>
+        </div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Логин:</label>
-          <input
-            type="text"
+        <Form
+          form={form}
+          name="admin_login"
+          className="admin-login-form"
+          onFinish={onFinish}
+          autoComplete="off">
+          {error && (
+            <Form.Item>
+              <Alert message={error} type="error" showIcon closable style={{ marginBottom: 24 }} />
+            </Form.Item>
+          )}
+
+          <Form.Item
             name="login"
-            value={formData.login}
-            onChange={(e) => setFormData({ ...formData, login: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label>Пароль:</label>
-          <input
-            type="password"
+            rules={[
+              {
+                required: true,
+                message: 'Пожалуйста, введите ваш логин!',
+              },
+            ]}>
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Логин"
+              size="large"
+            />
+          </Form.Item>
+
+          <Form.Item
             name="password"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            required
-          />
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Вход...' : 'Войти'}
-        </button>
-        {error && <div className="error-message">{error}</div>}
-      </form>
+            rules={[
+              {
+                required: true,
+                message: 'Пожалуйста, введите ваш пароль!',
+              },
+            ]}>
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              placeholder="Пароль"
+              size="large"
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" loading={loading} size="large" block>
+              {loading ? 'Вход...' : 'Войти'}
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   );
 };
