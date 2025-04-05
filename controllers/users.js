@@ -91,6 +91,29 @@ const getMe = (req, res, next) => {
     });
 };
 
+const adminLoginHandler = (req, res, next) => {
+  const { login: adminLogin, password } = req.body;
+
+  if (!adminLogin || !password) {
+    return next(new customError.BadRequest('Необходимо указать логин и пароль'));
+  }
+
+  if (adminLogin !== process.env.ADMIN_LOGIN || password !== process.env.ADMIN_PASSWORD) {
+    return next(new customError.Unauthorized('Неверные учетные данные администратора'));
+  }
+
+  try {
+    const token = jwt.sign(
+      { isAdmin: true },
+      config.jwtSecret,
+      { expiresIn: '1h' }
+    );
+    return res.json({ token });
+  } catch (err) {
+    return next(new customError.InternalServerError('Ошибка генерации токена'));
+  }
+};
+
 const likeRecipe = (req, res, next) => {
   const { _id } = req.user;
   const { recipeId } = req.params;
@@ -136,4 +159,5 @@ module.exports = {
   getMe,
   likeRecipe,
   dislikeRecipe,
+  adminLoginHandler,
 };

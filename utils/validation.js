@@ -76,10 +76,33 @@ const likeRecipeValidation = {
   }),
 };
 
+const adminValidation = {
+  body: Joi.object().keys({
+    login: Joi.string().required()
+      .min(3)
+      .max(30)
+      .messages({
+        'string.min': 'Логин должен содержать от 3 до 30 символов',
+        'string.email': 'Введен неккорректный логин',
+        'any.required': 'Логин не должен быть пустой',
+        'string.max': 'Логин должен содержать от 3 до 30 символов',
+      }),
+    password: Joi.string().required()
+      .min(8)
+      .max(30)
+      .messages({
+        'string.min': 'Пароль должен содержать от 8 до 30 символов',
+        'string.max': 'Пароль должен содержать от 8 до 30 символов',
+        'any.required': 'Пароль не должен быть пустым',
+      }),
+  }),
+};
+
 module.exports = {
   signinValidation,
   signupValidation,
   createRecipeValidation,
   deleteRecipeValidation,
   likeRecipeValidation,
+  adminValidation,
 };

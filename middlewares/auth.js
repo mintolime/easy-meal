@@ -2,23 +2,30 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const { Unauthorized } = require('../errors');
 
-module.exports = (req, res, next) => {
+// Основная аутентификация
+const auth = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    return next(new Unauthorized('Необходима авторизация'));
+    throw new Unauthorized('Необходима авторизация');
   }
 
   const token = authorization.replace('Bearer ', '');
-  let payload;
-
+  
   try {
-    payload = jwt.verify(token, config.jwtSecret);
+    req.user = jwt.verify(token, config.jwtSecret);
+    next();
   } catch (err) {
-    next(new Unauthorized('Необходима авторизация'));
+    next(new Unauthorized('Неверный или истекший токен'));
   }
-
-  req.user = payload;
-
-  return next();
 };
+
+// Проверка админских прав
+auth.requireAdmin = (req, res, next) => {
+  if (!req.user.isAdmin) {
+    throw new Unauthorized('Требуются права администратора');
+  }
+  next();
+};
+
+module.exports = auth;
