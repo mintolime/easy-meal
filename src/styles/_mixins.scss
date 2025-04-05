@@ -18,3 +18,37 @@
   height: $height;
   opacity: $opacity;
 }
+
+@mixin button-reset {
+  font-family: $font-family-primary;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: inherit;
+  transition: $transition-default;
+  padding: 0;
+  margin: 0;
+  color: $color-text;
+  text-align: center;
+  opacity: 1;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@mixin button-hover {
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+@mixin button-active($bg-color, $text-color: $color-white) {
+  &:active {
+    color: $text-color;
+    background-color: $bg-color;
+  }
+}

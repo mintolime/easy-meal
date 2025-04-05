@@ -1,4 +1,4 @@
-import '../Button/Button.css';
+import '../Button/Button.scss';
 
 function Button({ btnClass, btnType, btnText, onClick }) {
   return (
