@@ -5,12 +5,10 @@
   max-width: 1440px;
   width: 100%;
   display: grid;
-  /* align-items: center; */
   /* Это, чтобы футер был внизу */
   grid-template-rows: min-content auto min-content;
-  /* height: 100vh; */
+  min-height: 100vh;
   font-family: 'Cruinn', sans-serif;
-  /* font-family: 'Inter', sans-serif; */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -21,32 +19,54 @@
   padding: 0;
   box-sizing: border-box;
   margin: 0 auto;
-  /* padding: 2rem; */
-  /* text-align: center; */
-  overflow: hidden;
-  overflow: clip;
+
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  /* Для Firefox */
+  scrollbar-color: #4622bb64 #f1f1f1;
+  /* Для Firefox */
+  scroll-behavior: smooth;
+  border-radius: 14px;
+}
+
+/* Кастомный скроллбар */
+#root::-webkit-scrollbar {
+  width: 8px;
+}
+
+#root::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#root::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+#root::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .temp-login {
-  position: fixed;
-  bottom: 0;
-  right: 0;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 
-  display: flex;
-  gap: 10px;
-  background: crimson;
-  padding: 2px 4px;
-  opacity: 0.5;
-  color: #fff;
-  font-size: 10px;
-  z-index: 1000000;
+    display: flex;
+    gap: 10px;
+    background: crimson;
+    padding: 2px 4px;
+    opacity: 0.5;
+    color: #fff;
+    font-size: 10px;
+    z-index: 1000000;
 }
 
 .page__flexbox-column {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
-.link-null{
+.link-null {
   text-decoration: none;
 }

@@ -1,74 +1,76 @@
 .header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 10px;
-  box-sizing: border-box;
-  border-bottom: #d4d7e5 1px solid;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 10px;
+    box-sizing: border-box;
+    border-bottom: #d4d7e5 1px solid;
 }
-.header__drawer{
-  font-family: 'Cruinn',sans-serif;
+
+.header__drawer {
+  font-family: 'Cruinn', sans-serif;
 }
+
 .header__nav_tablet {
-  display: none;
+    display: none;
 }
 
 .header__link-drawer {
-  font-size: 25px;
+    font-size: 25px;
 }
 
 .header__profile {
   display: inline;
-  margin:0 14px;
+  margin: 0 35px;
   font-size: 13px;
   font-weight: 500;
 }
 
 /* это класс из Drawer */
 .ant-drawer-body {
-  text-align: center;
-  position: relative;
+    text-align: center;
+    position: relative;
 }
 
 .header__link {
-  text-decoration: none;
-  margin-right: 14px;
-  color: #444;
+    text-decoration: none;
+    margin-right: 14px;
+    color: #444;
 }
 
 .header__link:hover {
-  color: rgb(233, 169, 86);
+    color: rgb(233, 169, 86);
 }
 
 .header__link:hover {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
 .header__link:last-child {
-  margin: 0;
+    margin: 0;
 }
 
 @media screen and (max-width: 768px) {
-  .header__nav_desktop {
-    display: none;
-  }
+    .header__nav_desktop {
+        display: none;
+    }
 
-  .header__nav_tablet {
-    display: block;
-  }
+    .header__nav_tablet {
+        display: block;
+    }
 
-  .header__nav {
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    font-size: 18px;
-  }
+    .header__nav {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        font-size: 18px;
+    }
 
-  .header__profile {
-    font-size: 20px;
-  }
+    .header__profile {
+        font-size: 20px;
+    }
 }
 
 @media screen and (min-width: 768px) {
