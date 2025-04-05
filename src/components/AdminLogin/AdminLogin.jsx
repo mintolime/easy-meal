@@ -1,55 +1,32 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { API_BACKEND } from '../../utils/config';
-import { AuthAdmin } from '../../utils/api/AdminApi';
-import './AdminLogin.css';
-
-const auth = new AuthAdmin({
-  url: API_BACKEND,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import { useState } from 'react';
+import { useAdminStore } from '../store/adminStore';
+import { useNavigate } from 'react-router';
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ login: '', password: '' });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const { login, loading, error } = useAdminStore();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      const data = await auth.adminLogin(formData);
-      localStorage.setItem('adminToken', data.token);
-      // navigate('/admin/dashboard');
-    } catch (err) {
-      setError(err.message || 'Ошибка входа');
-      localStorage?.removeItem('adminToken');
-      // navigate('/admin/dashboard');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const success = await login(formData.login, formData.password);
+    if (success) navigate('/admin/dashboard');
   };
 
   return (
     <div className="admin-login">
       <h2>Вход для администратора</h2>
-      {error && <div className="error-message">{error}</div>}
+
       <form onSubmit={handleSubmit}>
         <div>
           <label>Логин:</label>
-          <input type="text" name="login" value={formData.login} onChange={handleChange} required />
+          <input
+            type="text"
+            name="login"
+            value={formData.login}
+            onChange={(e) => setFormData({ ...formData, login: e.target.value })}
+            required
+          />
         </div>
         <div>
           <label>Пароль:</label>
@@ -57,13 +34,14 @@ const AdminLogin = () => {
             type="password"
             name="password"
             value={formData.password}
-            onChange={handleChange}
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             required
           />
         </div>
         <button type="submit" disabled={loading}>
           {loading ? 'Вход...' : 'Войти'}
         </button>
+        {error && <div className="error-message">{error}</div>}
       </form>
     </div>
   );

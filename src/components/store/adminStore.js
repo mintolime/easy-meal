@@ -24,7 +24,7 @@ export const useAdminStore = create((set) => ({
       set({ isAdmin: true, loading: false });
       return true;
     } catch (error) {
-      set({ error: error.message, loading: false });
+      set({ error: error.errorText, loading: false });
       return false;
     }
   },
