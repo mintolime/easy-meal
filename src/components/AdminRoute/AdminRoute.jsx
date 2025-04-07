@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useAdminStore } from '../stores/adminStore';
 import { Navigate } from 'react-router-dom';
+import { useAdminStore } from '../store/adminStore';
 
 const AdminRoute = ({ children }) => {
   const { isAdmin, loading, checkAuth } = useAdminStore();

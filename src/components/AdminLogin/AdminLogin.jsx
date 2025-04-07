@@ -75,10 +75,6 @@ const AdminLogin = () => {
                 min: 8,
                 message: 'Пароль должен содержать минимум 8 символов!',
               },
-              {
-                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-                message: 'Пароль должен содержать заглавные, строчные буквы, цифры и спецсимволы!',
-              },
             ]}>
             <Input.Password
               prefix={<LockOutlined className="site-form-item-icon" />}

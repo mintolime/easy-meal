@@ -23,6 +23,8 @@ import { RecipePageAsync } from './components/Recipe/Recipe.async';
 import { Suspense } from 'react';
 import useNotification from './utils/hooks/useNotification';
 import AdminLogin from './components/AdminLogin/AdminLogin';
+import AdminRoute from './components/AdminRoute/AdminRoute';
+import { AdminDashboard } from './components/AdminPanel/AdminDashboard';
 
 function App() {
   const location = useLocation();
@@ -301,16 +303,17 @@ function App() {
               />
             }
           />
-
-          <Route path="/admin/login" element={<AdminLogin />} />
-          {/* <Route
+          <Route
             path="/admin/dashboard"
             element={
               <AdminRoute>
                 <AdminDashboard />
               </AdminRoute>
             }
-          /> */}
+          />
+
+          <Route path="/admin/login" element={<AdminLogin />} />
+
           <Route
             path="/saved-recipes"
             element={
