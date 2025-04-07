@@ -28,7 +28,11 @@ const Register = ({ onRegister }) => {
           rules={[
             {
               type: 'email',
-              message: 'В почте содержатся ошибки, попробуйте снова!',
+              message: 'Неверный формат почты!',
+            },
+            {
+              min: 3,
+              message: 'Почта должна содержать минимум 3 символа!',
             },
             {
               required: true,
@@ -42,7 +46,13 @@ const Register = ({ onRegister }) => {
           className="form__box_inner"
           label="Password"
           name="password"
-          rules={[{ required: true, message: 'Введите ваш пароль!' }]}>
+          rules={[
+            { required: true, message: 'Введите ваш пароль!' },
+            {
+              min: 8,
+              message: 'Пароль должен содержать минимум 8 символов!',
+            },
+          ]}>
           <Input.Password className="form__input" />
         </Form.Item>
 

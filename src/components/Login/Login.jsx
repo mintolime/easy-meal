@@ -28,6 +28,10 @@ const Login = ({ onLogin }) => {
               message: 'Неверный формат почты!',
             },
             {
+              min: 3,
+              message: 'Почта должна содержать минимум 3 символа!',
+            },
+            {
               required: true,
               message: 'Введите вашу почту!',
             },
@@ -39,7 +43,13 @@ const Login = ({ onLogin }) => {
           className="form__box_inner"
           label="Пароль"
           name="password"
-          rules={[{ required: true, message: 'Введите ваш пароль!' }]}>
+          rules={[
+            { required: true, message: 'Введите ваш пароль!' },
+            {
+              min: 8,
+              message: 'Пароль должен содержать минимум 8 символов!',
+            },
+          ]}>
           <Input.Password className="form__input" />
         </Form.Item>
 

@@ -28,13 +28,14 @@
 .form__box_inner {
   font-family: 'Cruinn',sans-serif;
   font-weight: 300;
-  height: 80px;
+  height: 90px;
   margin: 0;
 }
 /* ограничила макс. ширину импута, чтобы не растягивался по всему контейнеру */
 .form__input {
+  width: 100%;
   font-family: 'Cruinn',sans-serif;
-  max-width: 350px;
+  /* max-width: 350px; */
 }
 
 @media screen and (min-width: 590px) {
