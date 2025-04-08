@@ -30,11 +30,13 @@ const createUser = (req, res, next) => {
         email: req.body.email,
         password: hash,
         isAdmin: req.body.isAdmin,
+        createData: Date.now(),
       })
         .then((newUser) => {
           res.status(201).send({
             email: newUser.email,
             isAdmin: newUser.isAdmin,
+            createData: newUser.createData,
           });
         })
         .catch((error) => {
