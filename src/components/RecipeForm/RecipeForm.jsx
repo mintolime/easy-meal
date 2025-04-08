@@ -1,3 +1,4 @@
+import ReactQuill from 'react-quill';
 import React from 'react';
 import { Button, Form, Input, Select, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -26,6 +27,26 @@ const RecipeForm = ({ onCreateRecipe, updatingRecipe, onUpdateRecipe, onSetUpdat
     console.log(values);
   };
 
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, false] }], 
+      ['bold', 'italic', 'underline'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['link'],
+      ['clean'],
+    ],
+    clipboard: {
+      matchVisual: false,
+    },
+  };
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline',
+    'list', 'bullet',
+    'link'
+  ];
+  
   return (
     <Form
       form={form}
@@ -98,7 +119,15 @@ const RecipeForm = ({ onCreateRecipe, updatingRecipe, onUpdateRecipe, onSetUpdat
             message: 'Это поле пропущено',
           },
         ]}>
-        <Input.TextArea />
+        {/* <Input.TextArea /> */}
+        <ReactQuill
+          // value={recipe.instructions}
+          // onChange={(value) => handleChange('instructions', value)}
+          modules={modules}
+          formats={formats}
+          theme="snow"
+          className="recipe-instructions-editor"
+        />
       </Form.Item>
 
       <Form.Item name="ingredients" label="Ингредиенты" rules={[{ required: true }]}>

@@ -1,24 +1,28 @@
 @font-face {
-  src: url('../fonts/MakiSans-Regular.otf') format('opentype'),
-    url('./MakiSans-Regular.woff') format('woff');
-  font-family: 'MakiSans-Regular';
-  font-style: normal;
-  font-display: block;
+    src:
+        url('../fonts/MakiSans-Regular.otf') format('opentype'),
+        url('./MakiSans-Regular.woff') format('woff');
+    font-family: 'MakiSans-Regular';
+    font-style: normal;
+    font-display: block;
 }
 
 @font-face {
-  src: url('../fonts/CruinnLight.ttf') format('opentype'), url('./CruinnLight.woff') format('woff');
-  font-family: 'Cruinn';
-  font-style: normal;
-  font-weight: 300;
-  font-display: block;
+    src:
+        url('../fonts/CruinnLight.ttf') format('opentype'),
+        url('./CruinnLight.woff') format('woff');
+    font-family: 'Cruinn';
+    font-style: normal;
+    font-weight: 300;
+    font-display: block;
 }
 
 @font-face {
-  src: url('../fonts/CruinnMedium.ttf') format('opentype'),
-    url('./CruinnMedium.woff') format('woff');
-  font-family: 'Cruinn';
-  font-style: normal;
-  font-weight: 500;
-  font-display: block;
+    src:
+        url('../fonts/CruinnMedium.ttf') format('opentype'),
+        url('./CruinnMedium.woff') format('woff');
+    font-family: 'Cruinn';
+    font-style: normal;
+    font-weight: 500;
+    font-display: block;
 }
