@@ -13,7 +13,7 @@ const AdminLogin = () => {
 
   const onFinish = async (values) => {
     const success = await login(values.login, values.password);
-    if (success) navigate('/admin/dashboard');
+    if (success) navigate('/admin');
   };
 
   return (

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { message } from 'antd';
 
 import './App.css';
 import Loader from './components/Loader/Loader';
@@ -24,7 +23,6 @@ import { Suspense } from 'react';
 import useNotification from './utils/hooks/useNotification';
 import AdminLogin from './components/AdminLogin/AdminLogin';
 import AdminRoute from './components/AdminRoute/AdminRoute';
-import { AdminDashboard } from './components/AdminPanel/AdminDashboard';
 
 function App() {
   const location = useLocation();
@@ -304,10 +302,16 @@ function App() {
             }
           />
           <Route
-            path="/admin/dashboard"
+            path="/admin"
             element={
               <AdminRoute>
-                <AdminDashboard />
+                <AdminPanel
+                  recipes={allRecipes}
+                  onSetRecipe={handleSetRecipe}
+                  onDeleteRecipe={handleDeleteRecipe}
+                  onCreateRecipe={handleCreateRecipe}
+                  onUpdateRecipe={handleUpdateRecipe}
+                />
               </AdminRoute>
             }
           />
@@ -338,7 +342,7 @@ function App() {
             }
           />
 
-          {user.isAdminUser && (
+          {/* {user.isAdminUser && (
             <Route
               path="/admin"
               element={
@@ -353,7 +357,7 @@ function App() {
                 />
               }
             />
-          )}
+          )} */}
           {/* <Route path="/shopping-list" element={<ShoppingList />} /> */}
           <Route path="*" element={<NotFound isLoggedIn={isLoggedIn} />} />
         </Routes>
