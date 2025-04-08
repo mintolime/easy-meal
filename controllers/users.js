@@ -14,6 +14,14 @@ const customError = require('../errors');
 //   return res.send(user);
 // };
 
+const allUsers = (req, res, next) => {
+  User.find({})
+    .then((users) => {
+      res.send(users);
+    })
+    .catch(next);
+};
+
 const createUser = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
@@ -136,4 +144,5 @@ module.exports = {
   getMe,
   likeRecipe,
   dislikeRecipe,
+  allUsers
 };
