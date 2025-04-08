@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema(
     isAdmin: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
 
     password: {
@@ -24,7 +24,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       select: false,
     },
-
+    
+    createData: {
+      type: Date,
+      default: Date.now,
+    },
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
