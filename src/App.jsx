@@ -9,7 +9,6 @@ import './vendor/fonts/fonts.css';
 import Loader from './components/Loader/Loader';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import Loader from './components/Loader/Loader';
 import Login from './components/Login/Login';
 import { MainPageAsync } from './components/Main/Main.async';
 import NotFound from './components/NotFound/NotFound';
