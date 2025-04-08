@@ -2,8 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { Suspense } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import './App.css';
-import AdminPanel from './components/AdminPanel/AdminPanel';
+
+import './styles/main.scss';
+import './vendor/normalize.css';
+import './vendor/fonts/fonts.css';
+import Loader from './components/Loader/Loader';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Loader from './components/Loader/Loader';

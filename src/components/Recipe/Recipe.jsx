@@ -4,13 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import './Recipe.css';
+import './Recipe.scss';
 import Button from '../Button/Button';
 import heart from '../../images/icon__heart.svg';
 import heartLiked from '../../images/icon__heart_liked.svg';
 import question from '../../images/question-help.svg';
 import dice from '../../images/dice_icon.svg';
-import AddToCart from '../../images/cart.svg';
 import { Link } from 'react-router-dom';
 
 const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
@@ -264,7 +263,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
                           duration: 0.3,
                           delay: index * 0.05,
                         }}>
-                        <div className="recipe__ingreditent">
+                        <div className="recipe__ingreditent-box">
                           <p className="recipe__ingreditent-name">{item.ingredient}</p>
                           <p className="recipe__ingreditent-measure">{item.measure}</p>
                         </div>
