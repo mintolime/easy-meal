@@ -10,6 +10,7 @@ const router = require('./routes');
 const connectDB = require('./db');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { NotFound } = require('./errors');
+const ERROR = require('./utils/errorMessages');
 
 const { PORT = 3003 } = process.env;
 const app = express();
@@ -27,7 +28,7 @@ app.use(cors);
 app.use(router);
 
 app.use((req, res, next) => {
-  next(new NotFound('Запрошен несуществующий роут'));
+  next(new NotFound(ERROR.SERVER.NO_ROUTE));
 });
 
 app.use(errorLogger);
@@ -35,6 +36,6 @@ app.use(errors());
 
 app.use(centralizedErrorController);
 
-app.listen(PORT,'0.0.0.0', () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server started on port ${PORT}`);
 });
