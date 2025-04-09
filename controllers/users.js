@@ -6,6 +6,7 @@ const User = require('../models/user');
 const Recipe = require('../models/recipe');
 
 const customError = require('../errors');
+const ERROR = require('../utils/errorMessages');
 
 // const checkUser = (user, res) => {
 //   if (!user) {
@@ -41,17 +42,9 @@ const createUser = (req, res, next) => {
         })
         .catch((error) => {
           if (error.code === 11000) {
-            next(
-              new customError.Conflict(
-                'Пользователь с такой почтой уже зарегистрирован'
-              )
-            );
+            next(new customError.Conflict(ERROR.USER.EMAIL_EXISTS));
           } else if (error.name === 'ValidationError') {
-            next(
-              new customError.BadRequest(
-                'Некорректные данные при создании нового пользователя'
-              )
-            );
+            next(new customError.BadRequest(ERROR.USER.INVALID_DATA));
           } else {
             next(error);
           }
@@ -67,12 +60,12 @@ const login = (req, res, next) => {
     .select('+password')
     .then((user) => {
       if (!user) {
-        throw new customError.Unauthorized('Неверные почта или пароль');
+        throw new customError.Unauthorized(ERROR.USER.WRONG_CREDENTIALS);
       }
       return bcrypt.compare(password, user.password).then((matched) => {
         if (!matched) {
           return next(
-            new customError.Unauthorized('Неверные почта или пароль')
+            new customError.Unauthorized(ERROR.USER.WRONG_CREDENTIALS)
           );
         }
         const token = jwt.sign({ _id: user._id }, config.jwtSecret, {
@@ -90,11 +83,7 @@ const getMe = (req, res, next) => {
     .then((user) => res.send(user))
     .catch((error) => {
       if (error.name === 'ValidationError') {
-        next(
-          new customError.BadRequest(
-            'Некорректные данные при создании нового пользователя'
-          )
-        );
+        next(new customError.BadRequest(ERROR.USER.INVALID_DATA));
       } else {
         next(error);
       }
