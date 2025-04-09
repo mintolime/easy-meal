@@ -1,5 +1,6 @@
 const Recipe = require('../models/recipe');
 const customError = require('../errors');
+const ERROR = require('../utils/errorMessages');
 
 const getRecipes = (req, res, next) => {
   Recipe.find({})
@@ -27,7 +28,7 @@ const createRecipe = (req, res, next) => {
     .catch((error) => {
       if (error.name === 'ValidationError') {
         console.log(error);
-        next(new customError.BadRequest('Переданы некорректные данные.'));
+        next(new customError.BadRequest(ERROR.USER.INVALID_DATA));
       } else {
         next(error);
       }
@@ -48,7 +49,7 @@ const updateRecipe = (req, res, next) => {
     .catch((error) => {
       if (error.name === 'ValidationError') {
         console.log(error);
-        next(new customError.BadRequest('Переданы некорректные данные.'));
+        next(new customError.BadRequest(ERROR.USER.INVALID_DATA));
       } else {
         next(error);
       }
@@ -61,9 +62,9 @@ const deleteRecipe = (req, res, next) => {
   Recipe.deleteOne({ _id: recipeId })
     .then((recipe) => {
       if (recipe.deletedCount === 0) {
-        throw new customError.NotFound('Рецепт с указанным id не найден.');
+        throw new customError.NotFound((ERROR.RECIPE.NOT_FOUND));
       }
-      return res.send({ message: 'Рецепт удален :(' });
+      return res.send({ message: (ERROR.RECIPE.DELETED) });
     })
     .catch(next);
 };

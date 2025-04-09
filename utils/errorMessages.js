@@ -8,8 +8,10 @@ module.exports = {
   RECIPE: {
     NOT_FOUND: 'Рецепт не найден',
     INVALID_DATA: 'Некорректные данные рецепта',
+    DELETED: 'Рецепт удален',
   },
   AUTH: {
     UNAUTHORIZED: 'Требуется авторизация',
   },
+
 };

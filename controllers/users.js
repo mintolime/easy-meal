@@ -146,5 +146,5 @@ module.exports = {
   getMe,
   likeRecipe,
   dislikeRecipe,
-  allUsers
+  allUsers,
 };
