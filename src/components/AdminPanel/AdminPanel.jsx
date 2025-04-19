@@ -2,7 +2,7 @@ import { Tabs } from 'antd';
 import React, { useState } from 'react';
 import RecipeForm from '../RecipeForm/RecipeForm';
 import RecipesList from '../RecipesList/RecipesList';
-import './AdminPanel.css';
+import './AdminPanel.scss';
 
 const AdminPanel = ({ recipes, onCreateRecipe, onUpdateRecipe, onSetRecipe, onDeleteRecipe }) => {
     const [activeTab, setActiveTab] = useState('1');
