@@ -10,7 +10,7 @@ import Loader from './components/Loader/Loader';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
-import {AdminPanel} from './components/AdminPanel/AdminPanel';
+import AdminPanel from './components/AdminPanel/AdminPanel';
 import { MainPageAsync } from './components/Main/Main.async';
 import NotFound from './components/NotFound/NotFound';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
