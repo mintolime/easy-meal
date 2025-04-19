@@ -11,10 +11,11 @@
     "lint:css:fix": "stylelint \"src/**/*.scss\" --fix",
     "fix": "eslint --fix --ext .js,.jsx .",
     "preview": "vite preview",
-     "format": "prettier . --write"
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.5",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "antd": "^5.8.2",
     "dompurify": "^3.0.5",
     "framer-motion": "^12.6.2",
