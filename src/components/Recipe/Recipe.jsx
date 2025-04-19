@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Modal, Tooltip } from 'antd';
-import DOMPurify from 'dompurify';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-import './Recipe.css';
+import './Recipe.scss';
 import Button from '../Button/Button';
 import heart from '../../images/icon__heart.svg';
 import heartLiked from '../../images/icon__heart_liked.svg';
 import question from '../../images/question-help.svg';
 import dice from '../../images/dice_icon.svg';
-import AddToCart from '../../images/cart.svg';
 import { Link } from 'react-router-dom';
 
 const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
@@ -17,6 +17,14 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   const [isHeartScaling, setIsHeartScaling] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showMoreIngredients, setShowMoreIngredients] = useState(false);
+
+  // Конфигурация Quill редактора
+  const modules = {
+    toolbar: false, // Отключаем панель инструментов (только просмотр)
+    clipboard: {
+      matchVisual: false,
+    },
+  };
 
   const toggleShowMore = () => {
     setShowMoreIngredients(!showMoreIngredients);
@@ -47,7 +55,6 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
   };
 
   const isLiked = likedRecipes.some((r) => r._id === recipe._id);
-  const cleanInstructions = DOMPurify.sanitize(recipe.instructions);
 
   const showInfo = () => {
     Modal.info({
@@ -63,7 +70,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
             источнику нажмите на "Полный рецепт"
           </p>
           <p>Для генерации рецепта нажмите кубик 🎲</p>
-          <p>Чтобы добавить понравившийся рецепт, нажмите на сердечко 🧡 </p>
+          <p>Чтобы добавить понравившийся рецепт, нажмите на сердечко 🧡</p>
           <p>Приятного пользования!</p>
         </div>
       ),
@@ -180,7 +187,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
                 </a>
               )}
               <div className="recipe__buttons-container recipe__buttons-container_flex-column ">
-                <p className="recipe__author">{recipe.mealAuthor || 'No Author'}</p>
+                <p className="recipe__author">Автор: {recipe.mealAuthor || 'Автор неизвестен'}</p>
                 <a
                   className="recipe__author-link"
                   href={recipe.mealSourceUrl}
@@ -226,10 +233,14 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}>
-                <div
-                  className="recipe__instructions recipe__box-shabow"
-                  dangerouslySetInnerHTML={{ __html: cleanInstructions }}
+                transition={{ duration: 0.3 }}
+                className="recipe__instructions recipe__box-shabow">
+                <ReactQuill
+                  value={recipe.instructions}
+                  readOnly={true}
+                  modules={modules}
+                  theme="snow"
+                  className="ql-editor"
                 />
               </motion.div>
             ) : (
@@ -252,7 +263,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
                           duration: 0.3,
                           delay: index * 0.05,
                         }}>
-                        <div className="recipe__ingreditent">
+                        <div className="recipe__ingreditent-box">
                           <p className="recipe__ingreditent-name">{item.ingredient}</p>
                           <p className="recipe__ingreditent-measure">{item.measure}</p>
                         </div>
