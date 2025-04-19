@@ -1,0 +1,103 @@
+.button {
+  @include button-reset;
+  @include button-hover;
+
+  &_type {
+    &_menu-open {
+      width: 48px;
+      height: 48px;
+      background: url('../../images/menu-open.svg') center no-repeat;
+      border-radius: $border-radius-small;
+    }
+
+    &_start {
+      width: 100%;
+      height: 67px;
+      padding: 16px 24px;
+      border-radius: $border-radius-large;
+      border: 2px solid $color-button-primary;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 150%;
+      letter-spacing: 0.5px;
+
+      @include button-active($color-button-primary);
+
+      @media screen and (min-width: 720px) {
+        width: 216px;
+        font-size: 17px;
+      }
+    }
+
+    &_back {
+      border-radius: $border-radius-large;
+      border: 2px solid $color-button-primary;
+      font-size: 17px;
+      font-weight: 500;
+      padding: 20px 24px;
+
+      @include button-active($color-button-primary);
+    }
+
+    &_signout {
+      background-color: $color-black;
+      padding: 8px 16px;
+      border-radius: $border-radius-medium;
+      font-size: 14px;
+      color: $color-white;
+      margin-left: 14px;
+
+      @media screen and (max-width: 768px) {
+        position: absolute;
+        right: 50%;
+        bottom: 30px;
+        transform: translateX(50%);
+        width: calc(100% - 70px);
+        padding: 14px 0;
+      }
+    }
+
+    &_login {
+      background-color: $color-button-gray;
+      height: 40px;
+      min-width: 140px;
+      padding: 10px 24px;
+      margin: 15px 0 60px;
+      border-radius: $border-radius-small;
+      color: $color-white;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 125%;
+      letter-spacing: 0.5px;
+      align-self: center;
+    }
+
+    &-addtocart {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+// Recipe Specific Buttons
+.recipe {
+  &__button {
+    background-color: $color-button-blue;
+    padding: 10px;
+    border-radius: $border-radius-medium;
+    width: 154px;
+    font-size: 14px;
+    color: $color-white;
+
+    @include button-active($color-button-blue-active);
+  }
+
+  &__dice-btn {
+    height: 30px;
+  }
+
+  &__heart-btn {
+    height: 30px;
+    transition: all 0.2s ease-in-out;
+  }
+}
