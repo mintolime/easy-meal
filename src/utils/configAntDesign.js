@@ -7,7 +7,6 @@ export const layout = {
     },
 };
 
-/* eslint-disable no-template-curly-in-string */
 export const validateMessages = {
     required: '${label} обязательно к заполнению!',
     // types: {
