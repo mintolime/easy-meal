@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import React, { useEffect, useState } from 'react';
 import { Suspense } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -153,7 +153,7 @@ function App() {
     const handleRegistration = (data) => {
         return apiAuth
             .register(data)
-            .then((res) => {
+            .then(() => {
                 showNotificationAnt('success', 'Успешно!');
                 navigate('/signin', { replace: true });
             })
@@ -226,7 +226,7 @@ function App() {
         if (isLoggedIn) {
             mainApi
                 .deleteRecipe(recipe._id)
-                .then((res) => {
+                .then(() => {
                     const updatedAllRecipes = allRecipes.filter((r) => r._id !== recipe._id);
                     setAllRecipes(updatedAllRecipes);
                 })
