@@ -13,7 +13,7 @@ const RecipeForm = ({ onCreateRecipe, updatingRecipe, onUpdateRecipe, onSetUpdat
     } else {
       form.setFieldsValue(updatingRecipe);
     }
-  }, [updatingRecipe]);
+  }, [form, updatingRecipe]);
 
   const onFinish = (values) => {
     if (updatingRecipe._id !== undefined) {

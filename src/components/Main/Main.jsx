@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import React from 'react';
 import plate from '../../images/plate.jpg';
 import Button from '../Button/Button';
 import './Main.css';
@@ -54,7 +53,7 @@ function Main({ getRecipe }) {
                 <p className="main__subtitle">
                     Добро пожаловать на наш сайт случайного поиска блюд! Функция случайного поиска поможет вам открыть
                     для себя новые и интересные блюда, которые вы можете приготовить дома или заказать в ресторане.
-                    Просто нажмите кнопку "Начать" и наслаждайтесь удивительными результатами!
+                    Просто нажмите кнопку &ldquo;Начать&ldquo; и наслаждайтесь удивительными результатами!
                 </p>
 
                 <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
