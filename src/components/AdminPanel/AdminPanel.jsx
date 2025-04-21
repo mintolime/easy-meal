@@ -1,5 +1,5 @@
 import { Tabs } from 'antd';
-import  { useState } from 'react';
+import { useState } from 'react';
 import RecipeForm from '../RecipeForm/RecipeForm';
 import RecipesList from '../RecipesList/RecipesList';
 import './AdminPanel.scss';
