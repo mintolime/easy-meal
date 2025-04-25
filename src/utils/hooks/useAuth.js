@@ -25,32 +25,38 @@ export const useAuth = () => {
     },
   }), []);
 
-  const checkToken = useCallback(async (jwt) => {
-    try {
-      const res = await apiAuth.checkToken(jwt);
-      setIsLoggedIn(true);
-      setIsLoading(false);
-      setUser({
-        isEmailUser: res.email,
-        isAdminUser: res.isAdmin,
-      });
-      navigate(location.pathname, { replace: true });
-      return true;
-    } catch (err) {
-      // Обработка ошибок
-      return false;
-    }
-  }, [apiAuth, navigate, location.pathname]);
-
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      setIsLoading(false);
-      return;
-    }
-    
-    checkToken(jwt);
-  }, [checkToken]);
+        const jwt = localStorage.getItem('jwt');
+        //обертка функция
+        const delayedCheckToken = () => {
+            apiAuth
+                .checkToken(jwt)
+                .then(() => {
+                    setIsLoggedIn(true);
+                    setIsLoading(false);
+                 
+                    navigate(location.pathname, { replace: true });
+                })
+                .catch((err) => {
+                    if (err.status === 401 || err.status === undefined) {
+                        setIsLoading(false);
+                        localStorage.removeItem('jwt');
+                        navigate('/', { replace: true });
+                    }
+                    console.log(
+                        `Что-то пошло не так: ошибка запроса статус ${err.status},
+            сообщение ${err.errorText} 😔`,
+                    );
+                });
+        };
+
+        //тут проверяем, если токен корректный то вызываем запрос с задержкой 2 секунды
+        if (jwt) {
+            setTimeout(delayedCheckToken, 200);
+        } else {
+            setIsLoading(false);
+        }
+    }, []);
 
   const handleRegistration = useCallback(async (data) => {
     try {
@@ -78,23 +84,24 @@ export const useAuth = () => {
             });
     };
 
-  const handleLogout = useCallback(() => {
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
-    setUser({
-      isEmailUser: '',
-      isAdminUser: false,
-    });
-    navigate('/signin', { replace: true });
-  }, [navigate]);
+    const handleLogout = () => {
+        localStorage.removeItem('jwt');
+        navigate('/signin', { replace: true });
+        setIsLoggedIn(false);
+        setUser((prevUser) => ({
+            ...prevUser,
+            isEmailUser: '',
+            isAdminUser: false,
+        }));
+    };
 
   return {
     isLoggedIn,
     isLoading,
     user,
+    setUser,
     handleRegistration,
     handleAuthorization,
     handleLogout,
-    checkToken,
   };
 };
