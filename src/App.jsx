@@ -1,18 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Suspense } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import AdminPanel from './components/AdminPanel/AdminPanel';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import Loader from './components/Loader/Loader';
-import Login from './components/Login/Login';
-import { MainPageAsync } from './components/Main/Main.async';
-import NotFound from './components/NotFound/NotFound';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { RecipePageAsync } from './components/Recipe/Recipe.async';
-import NewRecipe from './components/RecipeForm/RecipeForm';
-import RecipesList from './components/RecipesList/RecipesList';
-import Register from './components/Register/Register';
+import AppRoutes from './components/routes/AppRoutes';
 import './styles/main.scss';
 import { Auth } from './utils/api/AuthApi';
 import { MainApi } from './utils/api/MainApi';
@@ -270,66 +260,24 @@ function App() {
             )}
             {notificationHolder}
 
-            <Suspense fallback={<Loader />}>
-                <Routes>
-                    <Route path="/" element={<MainPageAsync getRecipe={getRecipe} />} />
-                    <Route path="/signup" element={<Register onRegister={handleRegistration} />} />
-                    <Route path="/signin" element={<Login onLogin={handleAuthorization} />} />
-                    <Route
-                        path="/recipe"
-                        element={
-                            <RecipePageAsync
-                                recipe={recipe}
-                                likedRecipes={likedRecipes}
-                                getRandomRecipe={getRandomRecipe}
-                                onLikeRecipe={handleLikeRecipe}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/saved-recipes"
-                        element={
-                            <ProtectedRoute
-                                isLoggedIn={isLoggedIn}
-                                component={RecipesList}
-                                recipes={likedRecipes}
-                                onDeleteRecipe={handleDislikeRecipe}
-                                onSetRecipe={handleSetRecipe}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/new-recipe"
-                        element={
-                            <ProtectedRoute
-                                isLoggedIn={isLoggedIn}
-                                component={NewRecipe}
-                                onCreateRecipe={handleCreateRecipe}
-                                onUpdateRecipe={handleUpdateRecipe}
-                            />
-                        }
-                    />
+            <AppRoutes
+                isLoggedIn={isLoggedIn}
+                user={user}
+                recipe={recipe}
+                likedRecipes={likedRecipes}
+                allRecipes={allRecipes}
+                handleSetRecipe={handleSetRecipe}
+                handleCreateRecipe={handleCreateRecipe}
+                handleUpdateRecipe={handleUpdateRecipe}
+                handleDeleteRecipe={handleDeleteRecipe}
+                handleLikeRecipe={handleLikeRecipe}
+                handleDislikeRecipe={handleDislikeRecipe}
+                getRecipe={getRecipe}
+                getRandomRecipe={getRandomRecipe}
+                handleRegistration={handleRegistration}
+                handleAuthorization={handleAuthorization}
+            />
 
-                    {user.isAdminUser && (
-                        <Route
-                            path="/admin"
-                            element={
-                                <ProtectedRoute
-                                    isLoggedIn={isLoggedIn}
-                                    component={AdminPanel}
-                                    recipes={allRecipes}
-                                    onSetRecipe={handleSetRecipe}
-                                    onDeleteRecipe={handleDeleteRecipe}
-                                    onCreateRecipe={handleCreateRecipe}
-                                    onUpdateRecipe={handleUpdateRecipe}
-                                />
-                            }
-                        />
-                    )}
-                    {/* <Route path="/shopping-list" element={<ShoppingList />} /> */}
-                    <Route path="*" element={<NotFound isLoggedIn={isLoggedIn} />} />
-                </Routes>
-            </Suspense>
             {footerView && <Footer />}
         </>
     );
