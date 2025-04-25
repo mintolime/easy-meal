@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Suspense } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AdminPanel from './components/AdminPanel/AdminPanel';
@@ -33,8 +33,8 @@ function App() {
         isAdminUser: false,
     });
     // проверка для отображения
-    const headerView = checkPath(headerRoutes, location);
-    const footerView = checkPath(footerRoutes, location);
+    const headerView = useMemo(() => checkPath(headerRoutes, location), [location]);
+    const footerView = useMemo(() => checkPath(footerRoutes, location), [location]);
 
     const [allRecipes, setAllRecipes] = useState([]);
     const [recipe, setRecipe] = useState([]);
@@ -121,7 +121,7 @@ function App() {
         const delayedCheckToken = () => {
             apiAuth
                 .checkToken(jwt)
-                .then((res) => {
+                .then(() => {
                     setIsLoggedIn(true);
                     setIsLoading(false);
                     navigate(location.pathname, { replace: true });
