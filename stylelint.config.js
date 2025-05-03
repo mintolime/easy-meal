@@ -21,7 +21,15 @@ export default {
     ],
 
     // Другие важные правила
-    'selector-class-pattern': '^[a-z][a-z0-9]*(-[a-z0-9]+)*$', // kebab-case
+    'selector-class-pattern': [
+      // Разрешает:
+      // - Обычные kebab-case (my-class)
+      // - БЭМ (block__element, block_modifier)
+      '^([a-z][a-z0-9]*)(-[a-z0-9]+)*(__[a-z0-9]+)*(-[a-z0-9]+)*$',
+      {
+        message: 'Expected class name to be kebab-case or BEM (block__element)',
+      },
+    ],
     'declaration-block-no-duplicate-properties': true,
     'order/properties-order': [
       'position',
