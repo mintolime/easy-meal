@@ -1,16 +1,11 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Suspense } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-
-import './styles/main.scss';
-import './vendor/normalize.css';
-import './vendor/fonts/fonts.css';
-import Loader from './components/Loader/Loader';
+import AdminPanel from './components/AdminPanel/AdminPanel';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import Loader from './components/Loader/Loader';
 import Login from './components/Login/Login';
-import AdminPanel from './components/AdminPanel/AdminPanel';
 import { MainPageAsync } from './components/Main/Main.async';
 import NotFound from './components/NotFound/NotFound';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
@@ -18,11 +13,14 @@ import { RecipePageAsync } from './components/Recipe/Recipe.async';
 import NewRecipe from './components/RecipeForm/RecipeForm';
 import RecipesList from './components/RecipesList/RecipesList';
 import Register from './components/Register/Register';
+import './styles/main.scss';
 import { Auth } from './utils/api/AuthApi';
 import { MainApi } from './utils/api/MainApi';
 import { API_BACKEND, footerRoutes, headerRoutes } from './utils/config';
 import { checkPath } from './utils/functions';
 import useNotification from './utils/hooks/useNotification';
+import './vendor/fonts/fonts.css';
+import './vendor/normalize.css';
 
 
 function App() {
@@ -153,7 +151,7 @@ function App() {
     const handleRegistration = (data) => {
         return apiAuth
             .register(data)
-            .then((res) => {
+            .then(() => {
                 showNotificationAnt('success', 'Успешно!');
                 navigate('/signin', { replace: true });
             })
@@ -226,7 +224,7 @@ function App() {
         if (isLoggedIn) {
             mainApi
                 .deleteRecipe(recipe._id)
-                .then((res) => {
+                .then(() => {
                     const updatedAllRecipes = allRecipes.filter((r) => r._id !== recipe._id);
                     setAllRecipes(updatedAllRecipes);
                 })

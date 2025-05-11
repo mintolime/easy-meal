@@ -9,7 +9,7 @@
 }
 
 .header__drawer {
-  font-family: 'Cruinn', sans-serif;
+    font-family: 'Cruinn', sans-serif;
 }
 
 .header__nav_tablet {
@@ -21,10 +21,10 @@
 }
 
 .header__profile {
-  display: inline;
-  margin: 0 35px;
-  font-size: 13px;
-  font-weight: 500;
+    display: inline;
+    margin: 0 35px;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 /* это класс из Drawer */
@@ -74,7 +74,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .header {
-    padding: 12px 58px;
-  }
+    .header {
+        padding: 12px 58px;
+    }
 }
