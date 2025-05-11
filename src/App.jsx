@@ -16,12 +16,12 @@ import Register from './components/Register/Register';
 import './styles/main.scss';
 import { Auth } from './utils/api/AuthApi';
 import { MainApi } from './utils/api/MainApi';
+import { UsersApi } from './utils/api/UsersApi';
 import { API_BACKEND, footerRoutes, headerRoutes } from './utils/config';
 import { checkPath } from './utils/functions';
 import useNotification from './utils/hooks/useNotification';
 import './vendor/fonts/fonts.css';
 import './vendor/normalize.css';
-
 
 function App() {
     const location = useLocation();
@@ -41,7 +41,7 @@ function App() {
     const [recipe, setRecipe] = useState([]);
     const [usersAll, setAllUsers] = useState([]);
     const [likedRecipes, setLikedRecipes] = useState([]);
-
+    console.log('usersAll', usersAll);
     const { showNotificationAnt, notificationHolder } = useNotification();
 
     const handleSetRecipe = (newRecipe) => {
@@ -92,14 +92,27 @@ function App() {
         },
     });
 
+    const usersApi = new UsersApi({
+        url: API_BACKEND,
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        },
+    });
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 if (isLoggedIn) {
-                    const [savedRecipes, recipes, auth] = await Promise.all([
+                    const [savedRecipes, recipes, auth, users] = await Promise.all([
                         mainApi.getSavedRecipes(),
                         mainApi.getRecipes(),
+
                         apiAuth.checkToken(),
+                        usersApi.getUsers().catch((err) => {
+                          console.error('Error fetching users:', err);
+                          return []; // возвращаем пустой массив в случае ошибки
+                      }),
                     ]);
                     setLikedRecipes(savedRecipes.likes);
                     setAllRecipes(recipes);
@@ -108,6 +121,7 @@ function App() {
                         isAdminUser: auth.isAdmin,
                         isEmailUser: auth.email,
                     }));
+                    setAllUsers(users);
                 }
             } catch (err) {
                 console.log(err);
