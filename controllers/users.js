@@ -53,6 +53,19 @@ const createUser = (req, res, next) => {
     .catch(next);
 };
 
+const deleteUser = (req, res, next) => {
+  const { userId } = req.params;
+
+  User.findByIdAndDelete(userId)
+    .then((user) => {
+      if (!user) {
+        throw new customError.NotFound(ERROR.USER.NOT_FOUND);
+      }
+      res.send({ message: 'Пользователь успешно удален' });
+    })
+    .catch(next);
+};
+
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -132,6 +145,7 @@ const dislikeRecipe = (req, res, next) => {
 module.exports = {
   login,
   createUser,
+  deleteUser,
   getMe,
   likeRecipe,
   dislikeRecipe,

@@ -3,7 +3,9 @@ const { celebrate } = require('celebrate');
 
 const { likeRecipeValidation } = require('../utils/validation');
 
-const { getMe, likeRecipe, dislikeRecipe, allUsers } = require('../controllers/users');
+const { getMe, likeRecipe, dislikeRecipe, allUsers, deleteUser } = require('../controllers/users');
+const adminCheck = require('../middlewares/adminCheck');
+const auth = require('../middlewares/auth');
 
 usersRouter.get('/me', getMe);
 usersRouter.get('/usersAll', allUsers);
@@ -12,7 +14,7 @@ usersRouter.post(
   celebrate(likeRecipeValidation),
   likeRecipe
 );
-
+usersRouter.delete('/:userId', auth, adminCheck, deleteUser);
 usersRouter.delete(
   '/dislike/:recipeId',
   celebrate(likeRecipeValidation),
