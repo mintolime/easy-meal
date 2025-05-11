@@ -22,6 +22,7 @@ import useNotification from './utils/hooks/useNotification';
 import './vendor/fonts/fonts.css';
 import './vendor/normalize.css';
 
+
 function App() {
     const location = useLocation();
     const navigate = useNavigate();

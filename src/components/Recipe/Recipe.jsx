@@ -248,7 +248,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 transition={{ duration: 0.2 }}
-                                 className="recipe__instructions_box"
+                                className="recipe__instructions_box"
                             >
                                 <ul className="recipe__ingredients">
                                     {recipe.ingredients
