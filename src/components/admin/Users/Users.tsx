@@ -6,14 +6,26 @@ import './Users.scss';
 
 type Props = React.HTMLAttributes<HTMLElement> & {
     className?: string;
+    users: Array<{
+        _id: string;
+        createData: string;
+        email: string;
+        isAdmin: boolean;
+    }>;
 };
-const Users = ({ ...props }: Props) => {
+const Users = ({ users, ...props }: Props) => {
+  
     return (
         <div className={classNames('users', props.className)}>
-            <Descriptions className="users__description" title="test@example.com">
-                <Descriptions.Item label="email">test@example.com</Descriptions.Item>
-                <Descriptions.Item label="createData">{formatDate('2025-04-08T17:11:34.302Z')}</Descriptions.Item>
-            </Descriptions>
+            <h2 className="users__title">Пользователи</h2>
+
+            {users.map((user, index) => (
+                <Descriptions key={index} className="users__description" title={user.email}>
+                    <Descriptions.Item label="id">{user._id}</Descriptions.Item>
+                    <Descriptions.Item label="email">{user.email}</Descriptions.Item>
+                    <Descriptions.Item label="createData">{formatDate(user.createData)}</Descriptions.Item>
+                </Descriptions>
+            ))}
         </div>
     );
 };

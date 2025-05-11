@@ -5,7 +5,7 @@ import RecipesList from '../RecipesList/RecipesList';
 import Users from '../admin/Users/Users';
 import './AdminPanel.scss';
 
-const AdminPanel = ({ recipes, onCreateRecipe, onUpdateRecipe, onSetRecipe, onDeleteRecipe }) => {
+const AdminPanel = ({ recipes, usersAll, onCreateRecipe, onUpdateRecipe, onSetRecipe, onDeleteRecipe }) => {
     const [activeTab, setActiveTab] = useState('1');
     const [updatingRecipe, setUpdatingRecipe] = useState({});
 
@@ -42,7 +42,7 @@ const AdminPanel = ({ recipes, onCreateRecipe, onUpdateRecipe, onSetRecipe, onDe
         {
             key: '3',
             label: `Пользователи`,
-            children: <Users />,
+            children: <Users users={usersAll} />,
         },
     ];
 

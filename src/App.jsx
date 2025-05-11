@@ -41,7 +41,7 @@ function App() {
     const [recipe, setRecipe] = useState([]);
     const [usersAll, setAllUsers] = useState([]);
     const [likedRecipes, setLikedRecipes] = useState([]);
-    console.log('usersAll', usersAll);
+
     const { showNotificationAnt, notificationHolder } = useNotification();
 
     const handleSetRecipe = (newRecipe) => {
@@ -110,9 +110,9 @@ function App() {
 
                         apiAuth.checkToken(),
                         usersApi.getUsers().catch((err) => {
-                          console.error('Error fetching users:', err);
-                          return []; // возвращаем пустой массив в случае ошибки
-                      }),
+                            console.error('Error fetching users:', err);
+                            return []; // возвращаем пустой массив в случае ошибки
+                        }),
                     ]);
                     setLikedRecipes(savedRecipes.likes);
                     setAllRecipes(recipes);
@@ -334,6 +334,7 @@ function App() {
                                     isLoggedIn={isLoggedIn}
                                     component={AdminPanel}
                                     recipes={allRecipes}
+                                    usersAll={usersAll}
                                     onSetRecipe={handleSetRecipe}
                                     onDeleteRecipe={handleDeleteRecipe}
                                     onCreateRecipe={handleCreateRecipe}
