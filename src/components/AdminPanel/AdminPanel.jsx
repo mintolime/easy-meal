@@ -2,6 +2,7 @@ import { Tabs } from 'antd';
 import { useState } from 'react';
 import RecipeForm from '../RecipeForm/RecipeForm';
 import RecipesList from '../RecipesList/RecipesList';
+import Users from '../admin/Users/Users';
 import './AdminPanel.scss';
 
 const AdminPanel = ({ recipes, onCreateRecipe, onUpdateRecipe, onSetRecipe, onDeleteRecipe }) => {
@@ -37,6 +38,11 @@ const AdminPanel = ({ recipes, onCreateRecipe, onUpdateRecipe, onSetRecipe, onDe
                     onSetUpdatingRecipe={setUpdatingRecipe}
                 />
             ),
+        },
+        {
+            key: '3',
+            label: `Пользователи`,
+            children: <Users />,
         },
     ];
 

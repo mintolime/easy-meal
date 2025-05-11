@@ -39,6 +39,7 @@ function App() {
 
     const [allRecipes, setAllRecipes] = useState([]);
     const [recipe, setRecipe] = useState([]);
+    const [usersAll, setAllUsers] = useState([]);
     const [likedRecipes, setLikedRecipes] = useState([]);
 
     const { showNotificationAnt, notificationHolder } = useNotification();
