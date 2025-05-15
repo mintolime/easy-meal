@@ -40,7 +40,7 @@ const RecipeForm = ({ onCreateRecipe, updatingRecipe, onUpdateRecipe, onSetUpdat
         },
     };
 
-    const formats = ['header', 'bold', 'italic', 'underline', 'list',  'link'];
+    const formats = ['header', 'bold', 'italic', 'underline', 'list', 'link'];
 
     return (
         <Form

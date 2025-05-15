@@ -30,19 +30,19 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
     };
 
     const pulse = {
-      rest: { scale: 1 },
-      hover: { scale: 1.1, transition: { duration: 0.3 } },
-      tap: { scale: 0.9, transition: { duration: 0.1 } },
-      animate: {
-          scale: [1.25, 1.1, 1.25, 1.1], 
-          transition: {
-              duration: 1.25, 
-              ease: 'easeInOut',
-              repeat: Infinity,
-              repeatType: 'reverse',
-          },
-      },
-  };
+        rest: { scale: 1 },
+        hover: { scale: 1.1, transition: { duration: 0.3 } },
+        tap: { scale: 0.9, transition: { duration: 0.1 } },
+        animate: {
+            scale: [1.25, 1.1, 1.25, 1.1],
+            transition: {
+                duration: 1.25,
+                ease: 'easeInOut',
+                repeat: Infinity,
+                repeatType: 'reverse',
+            },
+        },
+    };
 
     const imageVariants = {
         hidden: { scale: 0.9, opacity: 0 },
