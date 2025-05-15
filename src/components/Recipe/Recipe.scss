@@ -59,6 +59,11 @@
     }
 
     &__question {
+        background-color: transparent;
+        border: none;
+        position: fixed;
+        right: 30px;
+        bottom: 10%;
         cursor: pointer;
     }
 
@@ -166,10 +171,6 @@
         }
 
         &-question {
-            position: fixed;
-            right: 30px;
-            bottom: 10%;
-
             @include icon-style(35px, 35px, 0.6);
         }
 
