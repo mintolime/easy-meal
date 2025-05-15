@@ -58,6 +58,10 @@
         grid-area: info;
     }
 
+    &__question {
+        cursor: pointer;
+    }
+
     &__img-box {
         gap: 20px;
 
