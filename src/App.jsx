@@ -280,6 +280,7 @@ function App() {
                         element={
                             <RecipePageAsync
                                 recipe={recipe}
+                                isLoading={isLoading}
                                 likedRecipes={likedRecipes}
                                 getRandomRecipe={getRandomRecipe}
                                 onLikeRecipe={handleLikeRecipe}

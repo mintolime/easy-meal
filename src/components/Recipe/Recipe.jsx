@@ -7,11 +7,10 @@ import { Link } from 'react-router-dom';
 import dice from '../../images/dice_icon.svg';
 import heart from '../../images/icon__heart.svg';
 import heartLiked from '../../images/icon__heart_liked.svg';
-import question from '../../images/question-help.svg';
 import Button from '../Button/Button';
 import './Recipe.scss';
 
-const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
+const Recipe = ({ recipe,isLoading, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
     const [isDiceRotating, setIsDiceRotating] = useState(false);
     const [isHeartScaling, setIsHeartScaling] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
@@ -99,7 +98,7 @@ const Recipe = ({ recipe, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
 
     return (
         <section className="recipe">
-            {recipe.length === 0 ? (
+            {recipe.length === 0 && !isLoading? (
                 <div className="recipe__not-found-container">
                     <p className="recipe__not-found">
                         Рецепты не найдены... На сегодня готовка отменяется, вы можете заказать себе любимых крылышек 🍗
