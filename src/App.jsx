@@ -121,7 +121,7 @@ function App() {
         const delayedCheckToken = () => {
             apiAuth
                 .checkToken(jwt)
-                .then((res) => {
+                .then(() => {
                     setIsLoggedIn(true);
                     setIsLoading(false);
                     navigate(location.pathname, { replace: true });
