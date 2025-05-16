@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import './NotFound.css';
+import './NotFound.scss';
 
 const NotFound = ({ isLoggedIn }) => {
     const navigate = useNavigate();
