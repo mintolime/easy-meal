@@ -10,15 +10,28 @@ const getRecipes = (req, res, next) => {
     .catch(next);
 };
 
-const getRandomRecipe = (req, res, next) => {
-  Recipe.find({})
-    .then((recipes) => {
-      const index = Math.floor(Math.random() * recipes.length);
-      const randomRecipe = recipes[index];
-      res.send(randomRecipe);
+const getRandomRecipe = (res, next) => {
+  Recipe.aggregate([
+    { $sample: { size: 1 } }, // MongoDB сам выберет случайный документ
+  ])
+    .then((randomRecipe) => {
+      if (!randomRecipe.length) {
+        throw new customError.NotFound(ERROR.RECIPE.NOT_FOUND);
+      }
+      res.send(randomRecipe[0]);
     })
     .catch(next);
 };
+
+// const getRandomRecipe = (req, res, next) => {
+//   Recipe.find({})
+//     .then((recipes) => {
+//       const index = Math.floor(Math.random() * recipes.length);
+//       const randomRecipe = recipes[index];
+//       res.send(randomRecipe);
+//     })
+//     .catch(next);
+// };
 
 const createRecipe = (req, res, next) => {
   Recipe.create({ ...req.body })
@@ -62,9 +75,9 @@ const deleteRecipe = (req, res, next) => {
   Recipe.deleteOne({ _id: recipeId })
     .then((recipe) => {
       if (recipe.deletedCount === 0) {
-        throw new customError.NotFound((ERROR.RECIPE.NOT_FOUND));
+        throw new customError.NotFound(ERROR.RECIPE.NOT_FOUND);
       }
-      return res.send({ message: (ERROR.RECIPE.DELETED) });
+      return res.send({ message: ERROR.RECIPE.DELETED });
     })
     .catch(next);
 };
