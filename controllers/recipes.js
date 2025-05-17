@@ -10,17 +10,28 @@ const getRecipes = (req, res, next) => {
     .catch(next);
 };
 
-const getRandomRecipe = (res, next) => {
-  Recipe.aggregate([
-    { $sample: { size: 1 } }, // MongoDB сам выберет случайный документ
-  ])
-    .then((randomRecipe) => {
-      if (!randomRecipe.length) {
-        throw new customError.NotFound(ERROR.RECIPE.NOT_FOUND);
-      }
-      res.send(randomRecipe[0]);
-    })
-    .catch(next);
+const getRandomRecipe = async (req, res, next) => {
+  try {
+    const count = await Recipe.countDocuments();
+
+    if (count === 0) {
+      return res.status(404).json({ error: 'No recipes available' });
+    }
+
+    // Для маленьких коллекций - загружаем все
+    if (count <= 100) {
+      const recipes = await Recipe.find({}).lean();
+      return res.json(recipes[Math.floor(Math.random() * recipes.length)]);
+    }
+
+    // Для больших коллекций - используем случайный skip
+    const randomSkip = Math.floor(Math.random() * count);
+    const randomRecipe = await Recipe.findOne().skip(randomSkip).lean();
+
+    return res.json(randomRecipe);
+  } catch (err) {
+    return next(err);
+  }
 };
 
 // const getRandomRecipe = (req, res, next) => {
