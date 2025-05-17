@@ -10,7 +10,7 @@ import heartLiked from '../../images/icon__heart_liked.svg';
 import Button from '../Button/Button';
 import './Recipe.scss';
 
-const Recipe = ({ recipe,isLoading, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
+const Recipe = ({ recipe, isLoading, likedRecipes, getRandomRecipe, onLikeRecipe }) => {
     const [isDiceRotating, setIsDiceRotating] = useState(false);
     const [isHeartScaling, setIsHeartScaling] = useState(false);
     const [showInstructions, setShowInstructions] = useState(false);
@@ -98,7 +98,7 @@ const Recipe = ({ recipe,isLoading, likedRecipes, getRandomRecipe, onLikeRecipe 
 
     return (
         <section className="recipe">
-            {recipe.length === 0 && !isLoading? (
+            {recipe.length === 0 && !isLoading ? (
                 <div className="recipe__not-found-container">
                     <p className="recipe__not-found">
                         Рецепты не найдены... На сегодня готовка отменяется, вы можете заказать себе любимых крылышек 🍗
@@ -110,25 +110,28 @@ const Recipe = ({ recipe,isLoading, likedRecipes, getRandomRecipe, onLikeRecipe 
             ) : (
                 <div className="recipe__box">
                     <div className="recipe__buttons-container">
-                        <motion.div
-                            animate={{ scale: isHeartScaling ? [1, 1.2, 1] : 1 }}
-                            transition={{ duration: 0.6 }}
-                            onAnimationComplete={() => setIsHeartScaling(false)}
-                        >
-                            <Button
-                                btnClass="recipe__heart-btn"
-                                btnText={
-                                    <Tooltip title="Добавить в избранное" color="rgb(161, 119, 228)">
-                                        <img
-                                            className="recipe__icon-heart"
-                                            src={isLiked ? heartLiked : heart}
-                                            alt="heart icon"
-                                            onClick={handleHeartClick}
-                                        />
-                                    </Tooltip>
-                                }
-                            />
-                        </motion.div>
+                        <div className="recipe__btn-inner">
+                            <motion.div
+                                animate={{ scale: isHeartScaling ? [1, 1.2, 1] : 1 }}
+                                transition={{ duration: 0.6 }}
+                                onAnimationComplete={() => setIsHeartScaling(false)}
+                            >
+                                <Button
+                                    btnClass="recipe__heart-btn"
+                                    btnText={
+                                        <Tooltip title="Добавить в избранное" color="rgb(161, 119, 228)">
+                                            <img
+                                                className="recipe__icon-heart"
+                                                src={isLiked ? heartLiked : heart}
+                                                alt="heart icon"
+                                                onClick={handleHeartClick}
+                                            />
+                                        </Tooltip>
+                                    }
+                                />
+                            </motion.div>
+                            <span>В самое сердечко</span>
+                        </div>
 
                         <motion.button
                             className="recipe__question"
@@ -150,21 +153,28 @@ const Recipe = ({ recipe,isLoading, likedRecipes, getRandomRecipe, onLikeRecipe 
                             </motion.svg>
                         </motion.button>
 
-                        <motion.div
-                            animate={{ rotate: isDiceRotating ? 360 : 0 }}
-                            transition={{ duration: 0.5, ease: 'easeInOut' }}
-                            onAnimationComplete={() => setIsDiceRotating(false)}
-                        >
-                            <Button
-                                btnClass="recipe__dice-btn"
-                                btnText={
-                                    <Tooltip title="Получить новый рецепт" color="rgb(161, 119, 228)">
-                                        <img className="recipe__icon-dice" src={dice} alt="dice icon" />
-                                    </Tooltip>
-                                }
-                                onClick={handleDiceClick}
-                            />
-                        </motion.div>
+                        <div className="recipe__btn-inner">
+                            <motion.div
+                                animate={{ rotate: isDiceRotating ? 360 : 0 }}
+                                transition={{ duration: 0.5, ease: 'easeInOut' }}
+                                onAnimationComplete={() => setIsDiceRotating(false)}
+                            >
+                                <Button
+                                    btnClass="recipe__dice-btn"
+                                    btnText={
+                                        <Tooltip
+                                            title="Получить новый рецепт"
+                                            color="rgb(161, 119, 228)"
+                                            className="recipe__tooltip"
+                                        >
+                                            <img className="recipe__icon-dice" src={dice} alt="dice icon" />
+                                        </Tooltip>
+                                    }
+                                    onClick={handleDiceClick}
+                                />
+                            </motion.div>
+                            <span>Ещё рецепт</span>
+                        </div>
                     </div>
 
                     <motion.div variants={imageVariants}>

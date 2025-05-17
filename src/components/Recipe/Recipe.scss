@@ -115,7 +115,10 @@
             letter-spacing: 1.5px;
         }
     }
-
+    &__btn-inner {
+        @include flex-center(column);
+        gap: 5px;
+    }
     &__ingreditent {
         &-box {
             display: flex;
