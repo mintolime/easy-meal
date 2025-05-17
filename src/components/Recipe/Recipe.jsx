@@ -130,7 +130,7 @@ const Recipe = ({ recipe, isLoading, likedRecipes, getRandomRecipe, onLikeRecipe
                                     }
                                 />
                             </motion.div>
-                            <span>В самое сердечко</span>
+                            <span>В самое сердечко !</span>
                         </div>
 
                         <motion.button
@@ -173,7 +173,7 @@ const Recipe = ({ recipe, isLoading, likedRecipes, getRandomRecipe, onLikeRecipe
                                     onClick={handleDiceClick}
                                 />
                             </motion.div>
-                            <span>Ещё рецепт</span>
+                            <span>Ещё рецепт ?</span>
                         </div>
                     </div>
 
