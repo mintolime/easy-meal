@@ -1,14 +1,14 @@
 .header {
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     padding: 12px 10px;
     box-sizing: border-box;
     border-bottom: 1px solid #d4d7e5;
 
     &__drawer {
-        font-family: 'Cruinn', sans-serif;
+        font-family: Cruinn, sans-serif;
     }
 
     &__nav {
@@ -29,7 +29,7 @@
         color: #444;
 
         &:hover {
-            color: rgb(233, 169, 86);
+            color: rgb(233 169 86);
             opacity: 0.8;
         }
 

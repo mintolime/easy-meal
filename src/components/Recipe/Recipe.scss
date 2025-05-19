@@ -59,11 +59,11 @@
     }
 
     &__question {
-        background-color: transparent;
-        border: none;
         position: fixed;
         right: 30px;
         bottom: 10%;
+        border: none;
+        background-color: transparent;
         cursor: pointer;
     }
 
@@ -115,10 +115,13 @@
             letter-spacing: 1.5px;
         }
     }
+
     &__btn-inner {
         @include flex-center(column);
+
         gap: 5px;
     }
+
     &__ingreditent {
         &-box {
             display: flex;
