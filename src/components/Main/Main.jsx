@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import plate from '../../images/plate.jpg';
 import Button from '../Button/Button';
-import './Main.css';
+import './Main.scss';
 
 function Main({ getRecipe }) {
     // Анимация для контента

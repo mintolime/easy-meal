@@ -1,47 +1,56 @@
 /** @type {import('stylelint').Config} */
 export default {
-    extends: [
-        'stylelint-config-standard-scss', // Базовая конфигурация для SCSS
-        'stylelint-config-recess-order', // Порядок свойств
+  extends: [
+    'stylelint-config-standard-scss',
+    'stylelint-config-recess-order',
+  ],
+  plugins: [
+    'stylelint-order',
+    'stylelint-scss',
+  ],
+  rules: {
+    // Отключаем стандартное правило для медиазапросов
+    'media-feature-range-notation': null, // или 'context', если хотим явно разрешить такой синтаксис
+    
+    // Разрешаем @include (отключаем проверку неизвестных at-правил для SCSS)
+    'scss/at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: ['include', 'mixin', 'content', 'use', 'forward', 'if', 'else', 'each', 'for', 'while'],
+      },
     ],
-    plugins: [
-        'stylelint-order', // Плагин для порядка свойств
-        'stylelint-scss', // Плагин для SCSS
+
+    // Другие важные правила
+    'selector-class-pattern': [
+      // Разрешает:
+      // - Обычные kebab-case (my-class)
+      // - БЭМ (block__element, block_modifier)
+      '^([a-z][a-z0-9]*)(-[a-z0-9]+)*(__[a-z0-9]+)*(-[a-z0-9]+)*$',
+      {
+        message: 'Expected class name to be kebab-case or BEM (block__element)',
+      },
     ],
-    rules: {
-        // Общие правила
-        'color-no-invalid-hex': true, // Запрет невалидных HEX-цветов
-        'block-no-empty': true, // Запрет пустых блоков
-        'no-duplicate-selectors': true, // Запрет дублирования селекторов
-        'no-extra-semicolons': true, // Запрет лишних точек с запятой
-        'no-invalid-double-slash-comments': true, // Запрет невалидных комментариев //
-
-        // SCSS-специфичные правила
-        'scss/at-rule-no-unknown': true, // Запрет неизвестных @-правил
-        'scss/at-import-partial-extension-blacklist': ['scss'], // Запрет указания расширения .scss в @import
-
-        // Порядок свойств
-        'order/order': ['custom-properties', 'dollar-variables', 'declarations', 'rules', 'at-rules'],
-        'order/properties-order': [
-            'position',
-            'top',
-            'right',
-            'bottom',
-            'left',
-            'display',
-            'flex-direction',
-            'justify-content',
-            'align-items',
-            'width',
-            'height',
-            'margin',
-            'padding',
-            'color',
-            'background',
-            'border',
-            'box-shadow',
-            'font-size',
-        ],
-    },
-    ignoreFiles: ['**/node_modules/**', '**/dist/**', '**/vendor/**'], // Игнорируемые файлы
+    'declaration-block-no-duplicate-properties': true,
+    'order/properties-order': [
+      'position',
+      'top',
+      'right',
+      'bottom',
+      'left',
+      'display',
+      'flex-direction',
+      'justify-content',
+      'align-items',
+      'width',
+      'height',
+      'margin',
+      'padding',
+      'color',
+      'background',
+      'border',
+      'box-shadow',
+      'font-size',
+    ],
+  },
+  ignoreFiles: ['**/node_modules/**', '**/dist/**'],
 };

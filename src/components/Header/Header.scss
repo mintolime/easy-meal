@@ -1,0 +1,79 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #d4d7e5;
+
+  &__drawer {
+    font-family: 'Cruinn', sans-serif;
+  }
+
+  &__nav {
+    &_tablet {
+      display: none;
+    }
+
+    &_desktop {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    margin-right: 14px;
+    color: #444;
+
+    &:hover {
+      color: rgb(233, 169, 86);
+      opacity: 0.8;
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+
+    &-drawer {
+      font-size: 25px;
+    }
+  }
+
+  &__profile {
+    display: inline;
+    margin: 0 35px;
+    font-size: 13px;
+    font-weight: 500;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: 12px 58px;
+  }
+}
+
+// Класс из Drawer (оставлен отдельно, так как не относится к BEM-структуре header)
+.ant-drawer-body {
+  text-align: center;
+  position: relative;
+
+  .header__nav {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header__nav_tablet {
+    display: block;
+  }
+}

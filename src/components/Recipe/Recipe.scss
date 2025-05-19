@@ -9,8 +9,8 @@
         padding: 30px 18px;
         gap: 50px;
         grid-template-columns: 300px;
-        grid-template-rows: 30px 300px 300px 1fr;
-        grid-row-gap: 40px;
+        grid-template-rows: 60px 300px 300px 1fr;
+        grid-row-gap: 35px;
         grid-template-areas:
             'image'
             'buttons'
@@ -21,8 +21,9 @@
         @media screen and (width >= 700px) {
             max-width: 100%;
             grid-template-columns: 300px 300px;
-            grid-template-rows: 300px 30px 300px 1fr;
+            grid-template-rows: 300px 60px 300px 1fr;
             grid-column-gap: 30px;
+
 
             .recipe__info {
                 grid-area: 3 / 1 / 4 / 2;
@@ -56,6 +57,15 @@
         display: grid;
         gap: 15px;
         grid-area: info;
+    }
+
+    &__question {
+        background-color: transparent;
+        border: none;
+        position: fixed;
+        right: 30px;
+        bottom: 10%;
+        cursor: pointer;
     }
 
     &__img-box {
@@ -93,6 +103,7 @@
         margin: 0;
         padding: 0;
         padding-bottom: 15px;
+
         // padding: 20px;
         list-style: none;
         grid-area: ingredients;
@@ -105,7 +116,10 @@
             letter-spacing: 1.5px;
         }
     }
-
+    &__btn-inner {
+        @include flex-center(column);
+        gap: 5px;
+    }
     &__ingreditent {
         &-box {
             display: flex;
@@ -161,10 +175,6 @@
         }
 
         &-question {
-            position: fixed;
-            right: 30px;
-            bottom: 30px;
-
             @include icon-style(35px, 35px, 0.6);
         }
 
