@@ -1,12 +1,12 @@
 .footer {
-    width: 100%;
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    padding: 20px;
     justify-items: center;
     flex-wrap: wrap;
-    font-family: 'Cruinn', sans-serif;
+    font-family: Cruinn, sans-serif;
     gap: 20px;
-    padding: 20px;
     border-top: 1px solid #d4d7e5;
     box-sizing: border-box;
     background-color: #fff;
@@ -18,13 +18,13 @@
 }
 
 .footer__creator_text {
-    font-family: 'Cruinn', sans-serif;
+    margin: 0;
+    padding: 0;
     color: #2c2c2c;
     font-size: 12px;
+    font-family: Cruinn, sans-serif;
     font-style: normal;
     font-weight: 400;
-    padding: 0;
-    margin: 0;
 }
 
 .footer__link {
@@ -45,7 +45,7 @@
 
 @media screen and (min-width: 768px) {
     .footer {
-        padding: 30px 58px;
         justify-content: space-between;
+        padding: 30px 58px;
     }
 }

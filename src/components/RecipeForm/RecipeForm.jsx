@@ -1,7 +1,7 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Select, Space } from 'antd';
 import React from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill from 'react-quill-new';
 import { layout, validateMessages } from '../../utils/configAntDesign';
 
 const RecipeForm = ({ onCreateRecipe, updatingRecipe, onUpdateRecipe, onSetUpdatingRecipe }) => {
@@ -40,7 +40,7 @@ const RecipeForm = ({ onCreateRecipe, updatingRecipe, onUpdateRecipe, onSetUpdat
         },
     };
 
-    const formats = ['header', 'bold', 'italic', 'underline', 'list', 'bullet', 'link'];
+    const formats = ['header', 'bold', 'italic', 'underline', 'list', 'link'];
 
     return (
         <Form

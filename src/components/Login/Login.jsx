@@ -1,7 +1,7 @@
 // import React from 'react';
 import { Form, Input } from 'antd';
 import Button from '../Button/Button';
-import './Login.css';
+import './Login.scss';
 
 const Login = ({ onLogin }) => {
     const onFinish = (values) => {

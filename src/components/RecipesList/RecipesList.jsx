@@ -2,7 +2,7 @@ import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 import { Popconfirm, message } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
-import './RecipesList.css';
+import './RecipesList.scss';
 
 const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetUpdatingRecipe }) => {
     // console.log(recipes);

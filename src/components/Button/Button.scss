@@ -30,21 +30,21 @@
         }
 
         &_back {
-            border-radius: $border-radius-large;
+            padding: 20px 24px;
             border: 2px solid $color-button-primary;
             font-size: 17px;
+            border-radius: $border-radius-large;
             font-weight: 500;
-            padding: 20px 24px;
 
             @include button-active($color-button-primary);
         }
 
         &_signout {
-            background-color: $color-black;
             padding: 8px 16px;
-            border-radius: $border-radius-medium;
-            font-size: 14px;
             color: $color-white;
+            font-size: 14px;
+            background-color: $color-black;
+            border-radius: $border-radius-medium;
             margin-left: 14px;
 
             @media screen and (max-width: 768px) {
@@ -58,14 +58,14 @@
         }
 
         &_login {
-            background-color: $color-button-gray;
             height: 40px;
-            min-width: 140px;
-            padding: 10px 24px;
             margin: 15px 0 60px;
-            border-radius: $border-radius-small;
+            padding: 10px 24px;
             color: $color-white;
             font-size: 16px;
+            background-color: $color-button-gray;
+            min-width: 140px;
+            border-radius: $border-radius-small;
             font-weight: 300;
             line-height: 125%;
             letter-spacing: 0.5px;
@@ -82,12 +82,12 @@
 // Recipe Specific Buttons
 .recipe {
     &__button {
-        background-color: $color-button-blue;
-        padding: 10px;
-        border-radius: $border-radius-medium;
         width: 154px;
-        font-size: 14px;
+        padding: 10px;
         color: $color-white;
+        font-size: 14px;
+        background-color: $color-button-blue;
+        border-radius: $border-radius-medium;
 
         @include button-active($color-button-blue-active);
     }

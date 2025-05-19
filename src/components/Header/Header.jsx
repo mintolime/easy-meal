@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/header-logo.svg';
 import Button from '../Button/Button';
-import './Header.css';
+import './Header.scss';
 
 function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
     const [open, setOpen] = useState(false);

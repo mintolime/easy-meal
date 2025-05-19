@@ -7,8 +7,8 @@
     "dev": "vite --port 3000 --host",
     "build": "vite build --base=./",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "lint:css": "stylelint \"src/**/*.scss\"",
-    "lint:css:fix": "stylelint \"src/**/*.scss\" --fix",
+    "lint:scss": "stylelint \"src/**/*.scss\"",
+    "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix",
     "lint:fix": "eslint --fix --ext .js,.jsx .",
     "preview": "vite preview",
     "format": "prettier . --write"
@@ -22,6 +22,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
+    "react-quill-new": "^3.4.6",
     "react-router": "^6.14.2",
     "react-router-dom": "^6.14.2"
   },

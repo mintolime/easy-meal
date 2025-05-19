@@ -22,7 +22,6 @@ import useNotification from './utils/hooks/useNotification';
 import './vendor/fonts/fonts.css';
 import './vendor/normalize.css';
 
-
 function App() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -122,7 +121,7 @@ function App() {
         const delayedCheckToken = () => {
             apiAuth
                 .checkToken(jwt)
-                .then((res) => {
+                .then(() => {
                     setIsLoggedIn(true);
                     setIsLoading(false);
                     navigate(location.pathname, { replace: true });
@@ -281,6 +280,7 @@ function App() {
                         element={
                             <RecipePageAsync
                                 recipe={recipe}
+                                isLoading={isLoading}
                                 likedRecipes={likedRecipes}
                                 getRandomRecipe={getRandomRecipe}
                                 onLikeRecipe={handleLikeRecipe}
