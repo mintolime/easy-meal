@@ -1,72 +1,72 @@
 .saved-recipes {
-  padding: 0 10px;
-
-  @media (min-width: 768px) {
-    padding: 0 58px;
-  }
-
-  &__container {
-    position: relative;
-    margin: 0 auto;
-    padding: 0;
-    max-width: 500px;
-    list-style: none;
-  }
-
-  &__start-container {
-    margin-top: 35px;
-    min-height: calc(100vh - 160px);
-    display: grid;
-    grid-template-rows: min-content min-content;
-    gap: 20px;
-    text-align: center;
+    padding: 0 10px;
 
     @media (min-width: 768px) {
-      place-content: center;
-      justify-items: center;
+        padding: 0 58px;
     }
-  }
 
-  &__card {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: max-content auto max-content;
-    grid-template-rows: 30px;
-    grid-template-areas:
-      'image title     trash'
-      'image category  trash';
-  }
+    &__container {
+        position: relative;
+        margin: 0 auto;
+        padding: 0;
+        max-width: 500px;
+        list-style: none;
+    }
 
-  &__card-title {
-    grid-area: title;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-  }
+    &__start-container {
+        margin-top: 35px;
+        min-height: calc(100vh - 160px);
+        display: grid;
+        grid-template-rows: min-content min-content;
+        gap: 20px;
+        text-align: center;
 
-  &__card-image {
-    grid-area: image;
-    width: 70px;
-    height: 70px;
-    margin-right: 20px;
-    border-radius: 5px;
-    object-fit: cover;
-    object-position: center;
-    cursor: pointer;
-  }
+        @media (min-width: 768px) {
+            place-content: center;
+            justify-items: center;
+        }
+    }
 
-  &__card-trash {
-    grid-area: trash;
-    align-self: end;
-  }
+    &__card {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: max-content auto max-content;
+        grid-template-rows: 30px;
+        grid-template-areas:
+            'image title     trash'
+            'image category  trash';
+    }
 
-  &__card-category {
-    grid-area: category;
-    margin: 0;
-  }
+    &__card-title {
+        grid-area: title;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+    }
+
+    &__card-image {
+        grid-area: image;
+        width: 70px;
+        height: 70px;
+        margin-right: 20px;
+        border-radius: 5px;
+        object-fit: cover;
+        object-position: center;
+        cursor: pointer;
+    }
+
+    &__card-trash {
+        grid-area: trash;
+        align-self: end;
+    }
+
+    &__card-category {
+        grid-area: category;
+        margin: 0;
+    }
 }
