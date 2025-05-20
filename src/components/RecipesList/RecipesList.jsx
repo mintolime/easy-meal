@@ -1,11 +1,11 @@
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
-import { Popconfirm, message } from 'antd';
+import { Pagination, Popconfirm, message } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
 import './RecipesList.scss';
 
 const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetUpdatingRecipe }) => {
-    // console.log(recipes);
+    
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -81,6 +81,7 @@ const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetU
                     );
                 })}
             </ul>
+       <Pagination defaultCurrent={1} total={50} />
         </div>
     );
 };
