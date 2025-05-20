@@ -24,7 +24,6 @@
             grid-template-rows: 300px 60px 300px 1fr;
             grid-column-gap: 30px;
 
-
             .recipe__info {
                 grid-area: 3 / 1 / 4 / 2;
             }
@@ -60,11 +59,11 @@
     }
 
     &__question {
-        background-color: transparent;
-        border: none;
         position: fixed;
         right: 30px;
         bottom: 10%;
+        border: none;
+        background-color: transparent;
         cursor: pointer;
     }
 
@@ -116,10 +115,13 @@
             letter-spacing: 1.5px;
         }
     }
+
     &__btn-inner {
         @include flex-center(column);
+
         gap: 5px;
     }
+
     &__ingreditent {
         &-box {
             display: flex;
@@ -150,6 +152,7 @@
             margin: 0;
             color: $gray-text;
             font-size: 14px;
+            text-align: center;
         }
     }
 
