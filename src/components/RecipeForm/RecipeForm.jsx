@@ -65,7 +65,7 @@ const RecipeForm = ({ onCreateRecipe, updatingRecipe, onUpdateRecipe, onSetUpdat
             <Form.Item name="mealCategory" label="Категория">
                 {/* <Input /> */}
                 <Select>
-                    <Select.Option value="Салат">Салат</Select.Option>
+                    <Select.Option value="Салат">Салаты</Select.Option>
                     <Select.Option value="Выпечка">Выпечка</Select.Option>
                     <Select.Option value="Закуски">Закуски</Select.Option>
                     <Select.Option value="Паста и крупы">Паста и крупы</Select.Option>
