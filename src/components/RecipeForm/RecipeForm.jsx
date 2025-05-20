@@ -74,6 +74,7 @@ const RecipeForm = ({ onCreateRecipe, updatingRecipe, onUpdateRecipe, onSetUpdat
                     <Select.Option value="Мясо и птица">Мясо и птица</Select.Option>
                     <Select.Option value="Супы">Супы</Select.Option>
                     <Select.Option value="Напитки">Напитки</Select.Option>
+                    <Select.Option value="Напитки">Запеканки</Select.Option>
                 </Select>
             </Form.Item>
 
