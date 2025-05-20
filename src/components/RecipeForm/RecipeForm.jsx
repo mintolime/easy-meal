@@ -56,14 +56,12 @@ const RecipeForm = ({ onCreateRecipe, updatingRecipe, onUpdateRecipe, onSetUpdat
         >
             <h2 className="form__title">{updatingRecipe._id ? 'Редактировать рецепт' : 'Создать рецепт'}</h2>
 
-            <Form.Item name="mealAuthor" label="Автор">
-                <Input />
-            </Form.Item>
-
             <Form.Item name="mealName" label="Блюдо" rules={[{ required: true }]}>
                 <Input />
             </Form.Item>
-
+            <Form.Item name="mealAuthor" label="Автор">
+                <Input />
+            </Form.Item>
             <Form.Item name="mealCategory" label="Категория">
                 {/* <Input /> */}
                 <Select>
