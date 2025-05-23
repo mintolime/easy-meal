@@ -5,7 +5,6 @@ import Button from '../Button/Button';
 import './RecipesList.scss';
 
 const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetUpdatingRecipe }) => {
-    
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -81,7 +80,7 @@ const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetU
                     );
                 })}
             </ul>
-       <Pagination defaultCurrent={1} total={50} />
+            <Pagination defaultCurrent={1} total={50} />
         </div>
     );
 };
