@@ -69,4 +69,10 @@
         grid-area: category;
         margin: 0;
     }
+
+    &__pagination { 
+        display: flex;  
+        justify-content: center;
+        padding: 20px;
+    }
 }

@@ -39,8 +39,7 @@ const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetU
                 ''
             )}
             <ul className="saved-recipes__container">
-                {recipes.slice(startIndex, endIndex)
-                .map((recipe) => {
+                {recipes.slice(startIndex, endIndex).map((recipe) => {
                     return (
                         <li key={recipe._id} className="saved-recipes__card recipe__box-shabow">
                             <img
@@ -91,18 +90,19 @@ const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetU
                     );
                 })}
             </ul>
-
-            {recipes.length > pageSize && (
-                <Pagination
-                    current={currentPage}
-                    pageSize={pageSize}
-                    total={recipes.length}
-                    onChange={handlePageChange}
-                    onShowSizeChange={handlePageChange}
-                    showSizeChanger
-                    pageSizeOptions={['6', '12', '24', '48']}
-                />
-            )}
+            <div className="saved-recipes__pagination">
+                {recipes.length > pageSize && (
+                    <Pagination
+                        current={currentPage}
+                        pageSize={pageSize}
+                        total={recipes.length}
+                        onChange={handlePageChange}
+                        onShowSizeChange={handlePageChange}
+                        showSizeChanger
+                        pageSizeOptions={['6', '12', '24', '48']}
+                    />
+                )}
+            </div>
         </div>
     );
 };
