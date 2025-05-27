@@ -1,5 +1,6 @@
 import { DeleteTwoTone, EditOutlined } from '@ant-design/icons';
 import { Pagination, Popconfirm, message } from 'antd';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
 import './RecipesList.scss';
@@ -7,7 +8,16 @@ import './RecipesList.scss';
 const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetUpdatingRecipe }) => {
     const navigate = useNavigate();
     const location = useLocation();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(6);
 
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const handlePageChange = (page, size) => {
+        setCurrentPage(page);
+        setPageSize(size);
+    };
     const confirm = (recipe) => {
         onDeleteRecipe(recipe);
         message.success('На одну вкусняшку стало меньше');
@@ -29,7 +39,8 @@ const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetU
                 ''
             )}
             <ul className="saved-recipes__container">
-                {recipes.map((recipe) => {
+                {recipes.slice(startIndex, endIndex)
+                .map((recipe) => {
                     return (
                         <li key={recipe._id} className="saved-recipes__card recipe__box-shabow">
                             <img
@@ -80,7 +91,18 @@ const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetU
                     );
                 })}
             </ul>
-            <Pagination defaultCurrent={1} total={50} />
+
+            {recipes.length > pageSize && (
+                <Pagination
+                    current={currentPage}
+                    pageSize={pageSize}
+                    total={recipes.length}
+                    onChange={handlePageChange}
+                    onShowSizeChange={handlePageChange}
+                    showSizeChanger
+                    pageSizeOptions={['6', '12', '24', '48']}
+                />
+            )}
         </div>
     );
 };
