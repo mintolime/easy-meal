@@ -98,8 +98,7 @@ const RecipesList = ({ recipes, onDeleteRecipe, onSetRecipe, onChangeTab, onSetU
                         total={recipes.length}
                         onChange={handlePageChange}
                         onShowSizeChange={handlePageChange}
-                        showSizeChanger
-                        pageSizeOptions={['6', '12', '24', '48']}
+                      showQuickJumper
                     />
                 )}
             </div>
