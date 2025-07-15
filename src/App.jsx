@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Suspense } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { create } from 'zustand';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
@@ -22,10 +21,7 @@ import { checkPath } from './utils/functions';
 import useNotification from './utils/hooks/useNotification';
 import './vendor/fonts/fonts.css';
 import './vendor/normalize.css';
-const useStore = create((set) => ({
-  count: 1,
-  inc: () => set((state) => ({ count: state.count + 1 })),
-}));
+import { useBearStore } from './store/store';
 
 function App() {
     const location = useLocation();
@@ -47,8 +43,8 @@ function App() {
 
     const { showNotificationAnt, notificationHolder } = useNotification();
 
-
-    const { count, inc } = useStore();
+    const { bears, increase } = useBearStore();
+    console.log('Hello', {bears});
     const handleSetRecipe = (newRecipe) => {
         setRecipe(newRecipe);
         navigate('/recipe');
@@ -277,8 +273,8 @@ function App() {
             )}
             {notificationHolder}
             <div>
-                <span>{count}</span>
-                <button onClick={inc}>one up</button>
+                <span>{bears}</span>
+                <button onClick={increase}>one up</button>
             </div>
             <Suspense fallback={<Loader />}>
                 <Routes>
