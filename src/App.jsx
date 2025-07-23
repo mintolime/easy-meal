@@ -27,25 +27,30 @@ function App() {
     const location = useLocation();
     const navigate = useNavigate();
     const {
-        // user,
-        // isLoggedIn,
+        user,
+        isLoggedIn,
         isLoading,
         // recipes,
-        // login,
-        // logout,
-        // setRecipes,
+        login,
+        logout,
+        // setAllRecipes,
         // setCurrentRecipe,
         // addLikedRecipe,
         // removeLikedRecipe,
         setLoading,
+        setIsLoggedIn,
     } = useAppStore();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    console.log({
+        user,
+        isLoggedIn,
+        isLoading,});
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     // единый стейт для пользователя
-    const [user, setUser] = useState({
-        isEmailUser: '',
-        isAdminUser: false,
-    });
+    // const [user, setUser] = useState({
+    //     isEmailUser: '',
+    //     isAdminUser: false,
+    // });
     // проверка для отображения
     const headerView = checkPath(headerRoutes, location);
     const footerView = checkPath(footerRoutes, location);
@@ -115,11 +120,7 @@ function App() {
                     ]);
                     setLikedRecipes(savedRecipes.likes);
                     setAllRecipes(recipes);
-                    setUser((prevUser) => ({
-                        ...prevUser,
-                        isAdminUser: auth.isAdmin,
-                        isEmailUser: auth.email,
-                    }));
+                    login({ email: auth.email, isAdmin: auth.isAdmin });
                 }
             } catch (err) {
                 console.log(err);
@@ -194,11 +195,7 @@ function App() {
         localStorage.removeItem('jwt');
         navigate('/signin', { replace: true });
         setIsLoggedIn(false);
-        setUser((prevUser) => ({
-            ...prevUser,
-            isEmailUser: '',
-            isAdminUser: false,
-        }));
+        logout();
     };
 
     // --- Recipes API methods ---

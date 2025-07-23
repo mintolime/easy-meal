@@ -31,7 +31,7 @@ export const useAppStore = create((set) => ({
     isLoggedIn: false 
   }),
 
-  setRecipes: (recipes) => set({ 
+  setAllRecipes: (recipes) => set({ 
     recipes: { ...useAppStore.getState().recipes, allRecipes: recipes } 
   }),
 
@@ -54,4 +54,5 @@ export const useAppStore = create((set) => ({
   }),
 
   setLoading: (loading) => set({ isLoading: loading }),
+  setIsLoggedIn: (isLoggedIn) => set({ isLoggedIn: isLoggedIn }),
 }));
