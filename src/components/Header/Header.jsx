@@ -33,7 +33,7 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
                 {isLoggedIn && (
                     <>
                         <nav className="header__nav header__nav-authorized">
-                            <p className="header__profile">{isCurrentUser.isEmailUser}</p>
+                            <p className="header__profile"> {isCurrentUser.email}</p>
                             <Link className="header__link" to="/saved-recipes">
                                 Избранное
                             </Link>
