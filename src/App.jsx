@@ -13,6 +13,7 @@ import { RecipePageAsync } from './components/Recipe/Recipe.async';
 import NewRecipe from './components/RecipeForm/RecipeForm';
 import RecipesList from './components/RecipesList/RecipesList';
 import Register from './components/Register/Register';
+import { useAppStore } from './store/store';
 import './styles/main.scss';
 import { Auth } from './utils/api/AuthApi';
 import { MainApi } from './utils/api/MainApi';
@@ -21,13 +22,25 @@ import { checkPath } from './utils/functions';
 import useNotification from './utils/hooks/useNotification';
 import './vendor/fonts/fonts.css';
 import './vendor/normalize.css';
-import { useBearStore } from './store/store';
 
 function App() {
     const location = useLocation();
     const navigate = useNavigate();
+    const {
+        // user,
+        // isLoggedIn,
+        isLoading,
+        // recipes,
+        // login,
+        // logout,
+        // setRecipes,
+        // setCurrentRecipe,
+        // addLikedRecipe,
+        // removeLikedRecipe,
+        setLoading,
+    } = useAppStore();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+
     // единый стейт для пользователя
     const [user, setUser] = useState({
         isEmailUser: '',
@@ -43,8 +56,6 @@ function App() {
 
     const { showNotificationAnt, notificationHolder } = useNotification();
 
-    const { bears, increase } = useBearStore();
-    console.log('Hello', {bears});
     const handleSetRecipe = (newRecipe) => {
         setRecipe(newRecipe);
         navigate('/recipe');
@@ -126,12 +137,12 @@ function App() {
                 .checkToken(jwt)
                 .then(() => {
                     setIsLoggedIn(true);
-                    setIsLoading(false);
+                    setLoading(false);
                     navigate(location.pathname, { replace: true });
                 })
                 .catch((err) => {
                     if (err.status === 401 || err.status === undefined) {
-                        setIsLoading(false);
+                        setLoading(false);
                         localStorage.removeItem('jwt');
                         navigate('/', { replace: true });
                     }
@@ -146,7 +157,7 @@ function App() {
         if (jwt) {
             setTimeout(delayedCheckToken, 200);
         } else {
-            setIsLoading(false);
+            setLoading(false);
         }
     }, []);
 
@@ -272,10 +283,7 @@ function App() {
                 <Header isLoggedIn={isLoggedIn} isLoading={isLoading} isCurrentUser={user} onLogout={handleLogout} />
             )}
             {notificationHolder}
-            <div>
-                <span>{bears}</span>
-                <button onClick={increase}>one up</button>
-            </div>
+
             <Suspense fallback={<Loader />}>
                 <Routes>
                     <Route path="/" element={<MainPageAsync getRecipe={getRecipe} />} />
