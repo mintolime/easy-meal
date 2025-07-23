@@ -43,7 +43,8 @@ function App() {
     console.log({
         user,
         isLoggedIn,
-        isLoading,});
+        isLoading,
+    });
     // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     // единый стейт для пользователя
@@ -322,7 +323,7 @@ function App() {
                         }
                     />
 
-                    {user.isAdminUser && (
+                    {user.isAdmin && (
                         <Route
                             path="/admin"
                             element={
