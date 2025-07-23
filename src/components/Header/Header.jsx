@@ -40,7 +40,7 @@ function Header({ isLoggedIn, onLogout, isLoading, isCurrentUser }) {
                             {/* <Link className="header__link" to="/shopping-list">
                 Список покупок
               </Link> */}
-                            {isCurrentUser.isAdminUser && (
+                            {isCurrentUser.isAdmin && (
                                 <Link className="header__link" to="/admin">
                                     Админка
                                 </Link>
