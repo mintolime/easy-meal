@@ -45,13 +45,7 @@ function App() {
         isLoggedIn,
         isLoading,
     });
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // единый стейт для пользователя
-    // const [user, setUser] = useState({
-    //     isEmailUser: '',
-    //     isAdminUser: false,
-    // });
     // проверка для отображения
     const headerView = checkPath(headerRoutes, location);
     const footerView = checkPath(footerRoutes, location);
